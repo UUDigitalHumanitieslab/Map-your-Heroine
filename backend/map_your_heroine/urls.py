@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from backend import factual
 from django.conf import settings
 from django.urls import path, re_path, include
 from django.contrib import admin
@@ -24,9 +25,11 @@ from .index import index
 from .proxy_frontend import proxy_frontend
 
 from example.views import hooray as ExampleView # DELETEME, see below
+from factual import views as factual_views
 
 api_router = routers.DefaultRouter()  # register viewsets with this router
-
+api_router.register('heroes', factual_views.HeroViewSet)
+api_router.register('works', factual_views.WorkViewSet)
 
 if settings.PROXY_FRONTEND:
     spa_url = re_path(r'^(?P<path>.*)$', proxy_frontend)
