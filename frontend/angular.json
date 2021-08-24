@@ -4,6 +4,14 @@
     "newProjectRoot": "projects",
     "projects": {
         "map-your-heroine": {
+      "i18n": {
+        "locales": {
+          "en": {
+            "translation": "locale/messages.en.xlf",
+            "baseHref": ""
+          }
+        }
+      },
             "projectType": "application",
             "schematics": {
                 "@schematics/angular:component": {
@@ -22,7 +30,7 @@
                         "main": "src/main.ts",
                         "polyfills": "src/polyfills.ts",
                         "tsConfig": "tsconfig.app.json",
-                        "aot": false,
+                        "aot": true,
                         "assets": [
                             "src/favicon.ico",
                             "src/assets"
@@ -46,7 +54,6 @@
                             "sourceMap": false,
                             "extractCss": true,
                             "namedChunks": false,
-                            "aot": true,
                             "extractLicenses": true,
                             "vendorChunk": false,
                             "buildOptimizer": true,
@@ -71,12 +78,14 @@
                                     "with": "src/environments/environment.prod.ts"
                                 }
                             ],
+            "localize": [
+              "en"
+            ],
                             "optimization": true,
                             "outputHashing": "all",
                             "sourceMap": false,
                             "extractCss": true,
                             "namedChunks": false,
-                            "aot": true,
                             "extractLicenses": true,
                             "vendorChunk": false,
                             "buildOptimizer": true,
@@ -92,10 +101,7 @@
                                     "maximumError": "10kb"
                                 }
                             ],
-                            "outputPath": "dist/en",
-                            "i18nFile": "locale/messages.en.xlf",
-                            "i18nFormat": "xlf",
-                            "i18nLocale": "en",
+                            "outputPath": "dist",
                             "i18nMissingTranslation": "error"
                         }
                     }
