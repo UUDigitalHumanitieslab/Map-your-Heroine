@@ -4,6 +4,14 @@
     "newProjectRoot": "projects",
     "projects": {
         "map-your-heroine": {
+      "i18n": {
+        "locales": {
+          "en": {
+            "translation": "locale/messages.en.xlf",
+            "baseHref": ""
+          }
+        }
+      },
             "projectType": "application",
             "schematics": {
                 "@schematics/angular:component": {
@@ -22,7 +30,6 @@
                         "main": "src/main.ts",
                         "polyfills": "src/polyfills.ts",
                         "tsConfig": "tsconfig.app.json",
-                        "aot": false,
                         "assets": [
                             "src/favicon.ico",
                             "src/assets"
@@ -31,7 +38,13 @@
                             "src/styles.scss"
                         ],
                         "scripts": [],
-                        "deployUrl": "/static/"
+                        "deployUrl": "/static/",
+                        "vendorChunk": true,
+                        "extractLicenses": false,
+                        "buildOptimizer": false,
+                        "sourceMap": true,
+                        "optimization": false,
+                        "namedChunks": true
                     },
                     "configurations": {
                         "production": {
@@ -44,9 +57,7 @@
                             "optimization": true,
                             "outputHashing": "all",
                             "sourceMap": false,
-                            "extractCss": true,
                             "namedChunks": false,
-                            "aot": true,
                             "extractLicenses": true,
                             "vendorChunk": false,
                             "buildOptimizer": true,
@@ -71,12 +82,13 @@
                                     "with": "src/environments/environment.prod.ts"
                                 }
                             ],
+                            "localize": [
+                                "en"
+                            ],
                             "optimization": true,
                             "outputHashing": "all",
                             "sourceMap": false,
-                            "extractCss": true,
                             "namedChunks": false,
-                            "aot": true,
                             "extractLicenses": true,
                             "vendorChunk": false,
                             "buildOptimizer": true,
@@ -92,13 +104,11 @@
                                     "maximumError": "10kb"
                                 }
                             ],
-                            "outputPath": "dist/en",
-                            "i18nFile": "locale/messages.en.xlf",
-                            "i18nFormat": "xlf",
-                            "i18nLocale": "en",
+                            "outputPath": "dist",
                             "i18nMissingTranslation": "error"
                         }
-                    }
+                    },
+                    "defaultConfiguration": ""
                 },
                 "serve": {
                     "builder": "@angular-devkit/build-angular:dev-server",
