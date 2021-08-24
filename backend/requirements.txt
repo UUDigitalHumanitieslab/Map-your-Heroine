@@ -12,7 +12,7 @@ attrs==21.2.0
     # via pytest
 beautifulsoup4==4.9.3
     # via django-livereload-server
-django==3.2.6
+django==3.1.13
     # via
     #   -r requirements.in
     #   django-livereload-server
@@ -20,7 +20,7 @@ django==3.2.6
     #   djangorestframework
 django-livereload-server==0.3.2
     # via -r requirements.in
-git+git://github.com/TracyWebTech/django-revproxy@master#egg=django-revproxy>=0.9.16
+django-revproxy==0.10.0
     # via -r requirements.in
 djangorestframework==3.12.4
     # via -r requirements.in
