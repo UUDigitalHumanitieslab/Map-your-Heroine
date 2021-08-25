@@ -20,13 +20,13 @@
     "directive-selector": [
       true,
       "attribute",
-      "mg",
+      "mh",
       "camelCase"
     ],
     "component-selector": [
       true,
       "element",
-      "mg",
+      "mh",
       "kebab-case"
     ],
     "eofline": true,
