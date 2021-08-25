@@ -1,20 +1,20 @@
-<form [formGroup]="workForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="workForm" (ngSubmit)="onSubmit()" novalidate>
   <div class="field">
-    <label class="label" for="title">Title</label>
+    <label class="label" for="title">Title*</label>
     <div class="control">
       <input class="input" id="title" type="text" formControlName="title" placeholder="Title of the work">
     </div>
   </div>
 
   <div class="field">
-    <label class="label" for="author">Author</label>
+    <label class="label" for="author">Author*</label>
     <div class="control">
       <input class="input" id="author" type="text" formControlName="author" placeholder="Author of the work">
     </div>
   </div>
 
   <div class="field">
-    <label class="label" for="medium-dropdown">Medium</label>
+    <label class="label" for="medium-dropdown">Medium*</label>
     <div class="control">
       <p-dropdown id="medium-dropdown" [options]="mediumOptions" editable="true" formControlName="medium"
         placeholder="Pick one or type" showClear="true">
@@ -23,28 +23,28 @@
   </div>
 
   <div class="field">
-    <label class="label" for="pubyear">Year of publication</label>
+    <label class="label" for="pubyear">Year of publication*</label>
     <div class="control">
       <input class="input" id="pubyear" type="number" formControlName="pub_year" placeholder="1990">
     </div>
   </div>
 
   <div class="field">
-    <label class="label" for="pubcountry">Country of publication</label>
+    <label class="label" for="pubcountry">Country of publication*</label>
     <div class="control">
       <input class="input" id="pubcountry" type="text" formControlName="pub_country" placeholder="The Netherlands">
     </div>
   </div>
 
   <div class="field">
-    <label class="label" for="pubcountry">Is this a source text or an adaptation?</label>
+    <label class="label" for="pubcountry">Is this a source text or an adaptation?*</label>
     <div class="control">
       <label class="radio">
-        <input type="radio" name="sourceoradaptation" formControlName="source_or_adaptation" value="source">
+        <input type="radio" formControlName="source_or_adaptation" value="source">
         Source text
       </label>
       <label class="radio">
-        <input type="radio" name="sourceoradaptation" formControlName="source_or_adaptation" value="adaptation">
+        <input type="radio" formControlName="source_or_adaptation" value="adaptation">
         Adaptation
       </label>
     </div>
@@ -54,13 +54,13 @@
     <label class="label" for="adaptionof-dropdown">Of which work is this an adaptation?</label>
     <div class="control">
       <p-dropdown id="adaptationof-dropdown" [options]="existingWorksOptions" formControlName="adaptation_of"
-        showClear="true">
+        showClear="true" optionValue="value.id" optionLabel="label" placeholder="pick a work">
       </p-dropdown>
     </div>
   </div>
 
   <div class="field">
-    <label class="label" for="environment-dropdown">In what environment does the most of the action take place?</label>
+    <label class="label" for="environment-dropdown">In what environment does the most of the action take place?*</label>
     <div class="control">
       <p-dropdown id="environment-dropdown" [options]="environmentOptions" editable="true" formControlName="environment"
         placeholder="Pick one or type" showClear="true">
@@ -70,79 +70,7 @@
 
   <div class="field">
     <div class="control">
-      <button class="button is-link" type="submit">Submit</button>
+      <button class="button is-link" type="submit" [disabled]="!workForm.valid">Submit</button>
     </div>
   </div>
-
-
-
 </form>
-
-
-<!-- <div class="content">
-  <ul>
-    <li *ngFor="let work of works">{{work.title}}</li>
-  </ul>
-</div>
-<form (ngSubmit)="onSubmit()" #workForm="ngForm">
-
-  <div class="field">
-    <label class="label">Title</label>
-    <div class="control">
-      <input class="input" type="text" placeholder="Title of the work" name="title" [(ngModel)]="newWork.title">
-    </div>
-    <p *ngIf="workExists()" class=" help is-danger">This work is already defined. Go directly to the next step.</p>
-  </div>
-
-  <div class="field">
-    <label class="label">Medium</label>
-    <div class="control">
-      <p-dropdown [options]="mediumOptions" [(ngModel)]="newWork.medium" name="medium-dropdown" editable="true">
-      </p-dropdown>
-    </div>
-  </div>
-
-  <div class="field">
-    <label class="label">Author</label>
-    <div class="control">
-      <input class="input" type="text" name="author" [(ngModel)]="newWork.author">
-    </div>
-  </div>
-
-  <div class="field">
-    <label class="label">Publication year</label>
-    <div class="control">
-      <input class="input" type="number" min="0" step="1" name="pubYear" [(ngModel)]="newWork.pub_year">
-    </div>
-  </div>
-
-  <div class="field">
-    <label class="label">Publication country</label>
-    <div class="control">
-      <input class="input" type="text" name="pubCountry" [(ngModel)]="newWork.pub_country">
-    </div>
-  </div>
-
-  <div class="field">
-    <div class="control">
-      <label class="checkbox">
-        <input type="checkbox" [(ngModel)]="newWork.is_source" name="isSource">
-        This is a primary source (not an adaptation)
-      </label>
-    </div>
-  </div>
-
-  <div class="field">
-    <label class="label">Environment</label>
-    <div class="control">
-      <p-dropdown [options]="environmentOptions" [(ngModel)]="newWork.environment" name="environment-dropdown">
-      </p-dropdown>
-    </div>
-  </div>
-
-  <div class="field">
-    <div class="control">
-      <button class="button is-link" [disabled]="workExists()">Submit</button>
-    </div>
-  </div>
-</form> -->

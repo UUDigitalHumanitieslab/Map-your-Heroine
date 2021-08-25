@@ -3,7 +3,7 @@ import { Restangular } from 'ngx-restangular';
 import { Observable, Subscription } from 'rxjs';
 import { Work, MEDIUM_OPTIONS, ENVIRONMENT_OPTIONS } from '../models/work';
 import * as _ from 'lodash';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'mh-work',
@@ -25,14 +25,14 @@ export class WorkComponent implements OnInit, OnDestroy {
   showAdaptationOf = false;
 
   workForm = new FormGroup({
-    title: new FormControl(),
-    author: new FormControl(),
-    medium: new FormControl(),
-    pub_year: new FormControl(),
-    pub_country: new FormControl(),
-    source_or_adaptation: new FormControl(),
-    adaptation_of: new FormControl(),
-    environment: new FormControl(),
+    title: new FormControl('', [Validators.required]),
+    author: new FormControl('', [Validators.required]),
+    medium: new FormControl('', [Validators.required]),
+    pub_year: new FormControl('', [Validators.required]),
+    pub_country: new FormControl('', [Validators.required]),
+    source_or_adaptation: new FormControl('', [Validators.required]),
+    adaptation_of: new FormControl(''),
+    environment: new FormControl('', [Validators.required]),
   });
 
   constructor(private restangular: Restangular) { }
@@ -44,12 +44,16 @@ export class WorkComponent implements OnInit, OnDestroy {
           this.works = works;
           this.existingWorksOptions = works.map(w => ({
             label: `${w.title} - ${w.medium} (${w.pub_year})`,
-            value: w.id
+            value: w
           }));
         }
       )
     );
-    this.workForm.controls.source_or_adaptation.valueChanges.subscribe(change => this.onAdaptationChange(change));
+    this.subscriptions$.push(
+      this.workForm.controls.source_or_adaptation.valueChanges
+        .subscribe(change => this.onAdaptationChange(change))
+    );
+
 
   }
 
@@ -58,7 +62,7 @@ export class WorkComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    alert(JSON.stringify(this.workForm.value));
+    alert(JSON.stringify(this.workForm.value, null, 2));
   }
 
   onAdaptationChange(change) {
