@@ -14,14 +14,14 @@ class Hero(models.Model):
 
     name = models.CharField(max_length=200)
     work = models.ForeignKey('Work', on_delete=models.CASCADE)
-    role = models.CharField(
-        max_length=11, choices=ROLE_CHOICES, default='PROTAGONIST')
-
+    # role = models.CharField(
+    #     max_length=11, choices=ROLE_CHOICES, default='PROTAGONIST')
+    role = models.CharField(max_length=11)
     country_origin = models.CharField(max_length=100, default='unknown')
     country_live = models.CharField(max_length=100, default='unknown')
     country_growup = models.CharField(max_length=100, default='unknown')
 
-    education = models.CharField(max_length=4, choices=EDUCATION_CHOICES)
+    education = models.CharField(max_length=4)
     profession = models.CharField(max_length=200)
 
     class Meta:
@@ -53,8 +53,9 @@ class Work(models.Model):
         ('UNKNOWN', 'unknown'),
     )
 
-    medium = models.CharField(
-        max_length=20, choices=MEDIUM_CHOICES, default='NOVEL')
+    # medium = models.CharField(
+    #     max_length=20, choices=MEDIUM_CHOICES, default='NOVEL')
+    medium = models.CharField(max_length=20)
     title = models.CharField(max_length=200)
     author = models.CharField(max_length=200)
     pub_year = models.IntegerField()
@@ -62,8 +63,9 @@ class Work(models.Model):
     is_source = models.BooleanField(default=True)
     adaptation_of = models.ForeignKey(
         'self', null=True, blank=True, on_delete=models.CASCADE)
-    environment = models.CharField(
-        max_length=20, choices=ENVIRONMENT_CHOICES, default='UNKNOWN')
+    # environment = models.CharField(
+    #     max_length=20, choices=ENVIRONMENT_CHOICES, default='UNKNOWN')
+    environment = models.CharField(max_length=20)
 
     def __str__(self):
         return f'{self.title} ({self.medium} - {self.pub_year})'

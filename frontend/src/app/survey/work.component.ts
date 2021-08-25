@@ -1,9 +1,9 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Restangular } from 'ngx-restangular';
-import { Observable, Subscription } from 'rxjs';
-import { Work, MEDIUM_OPTIONS, ENVIRONMENT_OPTIONS } from '../models/work';
-import * as _ from 'lodash';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Restangular } from 'ngx-restangular';
+import { Subscription } from 'rxjs';
+import { ENVIRONMENT_OPTIONS, IWork, MEDIUM_OPTIONS } from '../models/work';
 
 @Component({
   selector: 'mh-work',
@@ -11,14 +11,12 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./work.component.scss']
 })
 export class WorkComponent implements OnInit, OnDestroy {
-
   subscriptions$: Subscription[] = [];
+  httpError: HttpErrorResponse = undefined;
 
-  works: Work[];
-  newWork: Work = { title: '', medium: 'novel', author: '', pub_year: 2021, pub_country: '', is_source: true, environment: 'unknown' };
+  works: IWork[];
 
   existingWorksOptions = [];
-
   mediumOptions = MEDIUM_OPTIONS.map(m => ({ label: m, value: m }));
   environmentOptions = ENVIRONMENT_OPTIONS.map(m => ({ label: m, value: m }));
 
@@ -30,7 +28,7 @@ export class WorkComponent implements OnInit, OnDestroy {
     medium: new FormControl('', [Validators.required]),
     pub_year: new FormControl('', [Validators.required]),
     pub_country: new FormControl('', [Validators.required]),
-    source_or_adaptation: new FormControl('', [Validators.required]),
+    is_source: new FormControl(true, [Validators.required]),
     adaptation_of: new FormControl(''),
     environment: new FormControl('', [Validators.required]),
   });
@@ -50,11 +48,9 @@ export class WorkComponent implements OnInit, OnDestroy {
       )
     );
     this.subscriptions$.push(
-      this.workForm.controls.source_or_adaptation.valueChanges
+      this.workForm.controls.is_source.valueChanges
         .subscribe(change => this.onAdaptationChange(change))
     );
-
-
   }
 
   ngOnDestroy() {
@@ -62,17 +58,18 @@ export class WorkComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
+    this.httpError = undefined;
     alert(JSON.stringify(this.workForm.value, null, 2));
+    const workFormData = this.workForm.value as IWork;
+    this.restangular.all('works')
+      .post(workFormData).subscribe(
+        newWork => console.log(newWork),
+        errorResponse => this.httpError = errorResponse
+      );
   }
 
-  onAdaptationChange(change) {
-    this.showAdaptationOf = change === 'adaptation'
-  }
-
-  workExists() {
-    return this.newWork.title &&
-      _.some(this.works, w => w.title.toLowerCase() === this.newWork.title.toLowerCase());
-
+  onAdaptationChange(change: boolean) {
+    this.showAdaptationOf = !change;
   }
 
 }

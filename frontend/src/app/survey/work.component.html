@@ -40,11 +40,11 @@
     <label class="label" for="pubcountry">Is this a source text or an adaptation?*</label>
     <div class="control">
       <label class="radio">
-        <input type="radio" formControlName="source_or_adaptation" value="source">
+        <input type="radio" formControlName="is_source" [value]="true">
         Source text
       </label>
       <label class="radio">
-        <input type="radio" formControlName="source_or_adaptation" value="adaptation">
+        <input type="radio" formControlName="is_source" [value]="false">
         Adaptation
       </label>
     </div>
@@ -73,4 +73,9 @@
       <button class="button is-link" type="submit" [disabled]="!workForm.valid">Submit</button>
     </div>
   </div>
+<div class="field" *ngIf="httpError">
+  <div class="notification is-error">
+    {{httpError.message}}
+  </div>
+</div>
 </form>
