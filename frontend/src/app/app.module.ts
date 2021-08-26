@@ -16,6 +16,8 @@ import { RestangularModule } from 'ngx-restangular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { DropdownModule } from 'primeng/dropdown';
+import { DialogModule } from 'primeng/dialog';
+import { OverviewComponent } from './survey/overview.component';
 
 export function RestangularConfigFactory(RestangularProvider) {
     RestangularProvider.setBaseUrl('/api');
@@ -37,7 +39,8 @@ export function RestangularConfigFactory(RestangularProvider) {
         FooterComponent,
         MenuComponent,
         HomeComponent,
-        WorkComponent
+        WorkComponent,
+        OverviewComponent
     ],
     imports: [
         AppRoutingModule,
@@ -52,6 +55,7 @@ export function RestangularConfigFactory(RestangularProvider) {
         }),
         RestangularModule.forRoot(RestangularConfigFactory),
         DropdownModule,
+        DialogModule,
         ReactiveFormsModule,
     ],
     providers: [],

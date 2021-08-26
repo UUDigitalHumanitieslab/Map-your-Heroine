@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Restangular } from 'ngx-restangular';
 import { Subscription } from 'rxjs';
@@ -33,12 +33,15 @@ export class WorkComponent implements OnInit, OnDestroy {
     environment: new FormControl('', [Validators.required]),
   });
 
+  @Output()
+  addWork = new EventEmitter<IWork>();
+
   constructor(private restangular: Restangular) { }
 
   ngOnInit() {
     this.subscriptions$.push(
       this.restangular.all('works').getList().subscribe(
-        works => {
+        (works: IWork[]) => {
           this.works = works;
           this.existingWorksOptions = works.map(w => ({
             label: `${w.title} - ${w.medium} (${w.pub_year})`,
@@ -63,7 +66,7 @@ export class WorkComponent implements OnInit, OnDestroy {
     const workFormData = this.workForm.value as IWork;
     this.restangular.all('works')
       .post(workFormData).subscribe(
-        newWork => console.log(newWork),
+        newWork => this.addWork.emit(newWork),
         errorResponse => this.httpError = errorResponse
       );
   }

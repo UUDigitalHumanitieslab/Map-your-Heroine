@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
+import { OverviewComponent } from './survey/overview.component';
 import { WorkComponent } from './survey/work.component';
 
 const routes: Routes = [
@@ -9,8 +10,8 @@ const routes: Routes = [
         component: HomeComponent,
     },
     {
-        path: 'submit-work',
-        component: WorkComponent,
+        path: 'submit',
+        component: OverviewComponent,
     },
     {
         path: '',
