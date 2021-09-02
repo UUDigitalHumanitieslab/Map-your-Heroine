@@ -1,0 +1,67 @@
+<form [formGroup]="heroForm" (ngSubmit)="onSubmit()" novalidate>
+    <div class="field">
+      <label class="label" for="name">What is the hero/heroine's name?*</label>
+      <div class="control">
+        <input class="input" id="name" type="text" formControlName="name" placeholder="Name of the hero(ine)">
+      </div>
+    </div>
+
+    <div class="field">
+        <label class="label" for="role-dropdown">Is the hero/heroine a protagonist or minor character in the story?*</label>
+        <div class="control">
+          <p-dropdown id="role-dropdown" [options]="roleOptions" formControlName="role"
+            placeholder="Pick one" showClear="true">
+          </p-dropdown>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label" for="countryorigin">In what country was your hero/heroine born? You can also choose unkown or imaginary.</label>
+        <div class="control">
+          <input class="input" id="countryorigin" type="text" formControlName="country_origin" placeholder="The Netherlands">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label" for="countrylive">In which country does this hero/heroine live? If more than one, choose the country in which most of the action takes place.</label>
+        <div class="control">
+          <input class="input" id="countrylive" type="text" formControlName="country_live" placeholder="The Netherlands">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label" for="countrygrowup">In which country did this hero/heroine grow up?</label>
+        <div class="control">
+          <input class="input" id="countrygrowup" type="text" formControlName="country_growup" placeholder="The Netherlands">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label" for="education-dropdown">What is the level of education of this hero/heroine?</label>
+        <div class="control">
+          <p-dropdown id="education-dropdown" [options]="educationOptions" formControlName="education"
+            placeholder="Pick one" showClear="true">
+          </p-dropdown>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label" for="profession">What is the profession or main occupation of the hero/heroine?</label>
+        <div class="control">
+          <input class="input" id="profession" type="text" formControlName="profession" placeholder="Wizard">
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="control">
+          <button class="button is-link" type="submit" [disabled]="!heroForm.valid">Submit</button>
+        </div>
+      </div>
+
+    <div class="field" *ngIf="httpError">
+      <div class="notification is-error">
+        {{httpError.message}}
+      </div>
+    </div>
+
+</form>

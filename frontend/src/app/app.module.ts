@@ -18,6 +18,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
 import { DialogModule } from 'primeng/dialog';
 import { OverviewComponent } from './survey/overview.component';
+import { HeroComponent } from './survey/hero.component';
 
 export function RestangularConfigFactory(RestangularProvider) {
     RestangularProvider.setBaseUrl('/api');
@@ -40,7 +41,8 @@ export function RestangularConfigFactory(RestangularProvider) {
         MenuComponent,
         HomeComponent,
         WorkComponent,
-        OverviewComponent
+        OverviewComponent,
+        HeroComponent
     ],
     imports: [
         AppRoutingModule,

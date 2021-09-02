@@ -1,4 +1,5 @@
 export interface IWork {
+    id?: number;
     title: string;
     // medium: 'novel' | 'film' | 'tv-series' | 'vlog' | 'comic' | 'fan fiction' | 'music' | 'ballet' | 'game' | 'other';
     medium: string;
