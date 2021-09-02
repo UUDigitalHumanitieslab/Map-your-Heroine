@@ -13,7 +13,8 @@ class Hero(models.Model):
     )
 
     name = models.CharField(max_length=200)
-    work = models.ForeignKey('Work', on_delete=models.CASCADE)
+    work = models.ForeignKey(
+        'Work', on_delete=models.CASCADE, related_name='heroes')
     # role = models.CharField(
     #     max_length=11, choices=ROLE_CHOICES, default='PROTAGONIST')
     role = models.CharField(max_length=11)

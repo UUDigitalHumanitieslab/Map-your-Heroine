@@ -17,8 +17,6 @@ export class OverviewComponent implements OnInit {
   existingWork: IWork;
   displayCreateWork = false;
 
-  heroes: any[];
-
   constructor(private restangular: Restangular) { }
 
   ngOnInit() {

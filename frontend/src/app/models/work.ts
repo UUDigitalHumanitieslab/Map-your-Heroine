@@ -9,6 +9,7 @@ export interface IWork {
     adaptation_of?: number;
     // environment: 'countryside' | 'village' | 'city' | 'extra-terrestrial' | 'unknown';
     environment: string;
+    heroes: any[];
 
 }
 
@@ -22,6 +23,7 @@ export class Work implements IWork {
         public is_source = true,
         public environment = '',
         public is_adaptation_of?,
+        public heroes = [],
     ) { }
 }
 
