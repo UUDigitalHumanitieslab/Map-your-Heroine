@@ -14,8 +14,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class HeroComponent implements OnInit {
   httpError: HttpErrorResponse = undefined;
 
-  roleOptions = ROLE_OPTIONS.map(m => ({ label: m, value: m }));
-  educationOptions = EDUCATION_OPTIONS.map(m => ({ label: m, value: m }));
+  roleOptions = ROLE_OPTIONS;
+  educationOptions = EDUCATION_OPTIONS;
 
   heroForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
@@ -40,7 +40,6 @@ export class HeroComponent implements OnInit {
   
   onSubmit(){
     this.httpError = undefined;
-    //alert(JSON.stringify({ ...this.heroForm.value, work: this.work.id }, null, 2));
     const heroFormData = { ...this.heroForm.value, work: this.work.id } as IHero;
     this.restangular.all('heroes')
       .post(heroFormData).subscribe(

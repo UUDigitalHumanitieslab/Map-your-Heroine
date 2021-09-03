@@ -1,7 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Restangular } from 'ngx-restangular';
-import { Dropdown } from 'primeng/dropdown';
 import { Subject } from 'rxjs';
 import { IHero } from '../models/hero';
 import { IWork } from '../models/work';
@@ -36,26 +35,31 @@ export class OverviewComponent implements OnInit {
     this.heroes$ = this.restangular.all('heroes').getList();
   }
 
-  showCreateWork() {
-    this.displayCreateWork = true;
-  }
-
   onWorkAdded(work: IWork) {
-    // Todo set this in the dropdown
     this.fetchWorks();
-    setTimeout(() => this.existingWork = undefined, 0);
+    this.works$.subscribe(
+      works => {
+        this.existingWork = works.find(w => w.id === work.id);
+      }
+    );
     this.displayCreateWork = false;
-
-  }
-
-  showCreateHero() {
-    this.displayCreateHero = true;
   }
 
   onHeroAdded(hero: IHero) {
-    this.fetchHeroes();
-    setTimeout(() => this.existingHero = undefined, 0);
+    // Refresh works, reset existingWork and set hero
+    // Slightly hacky but it works
+    this.works$.subscribe(
+      works => {
+        this.existingWork = works.find(w => w.id === this.existingWork.id);
+        this.existingHero = this.existingWork.heroes.find(h => h.id === hero.id);
+      }
+    );
     this.displayCreateHero = false;
+  }
+
+  onWorkChange() {
+    // Unset hero when changing work
+    this.existingHero = undefined;
   }
 
 }

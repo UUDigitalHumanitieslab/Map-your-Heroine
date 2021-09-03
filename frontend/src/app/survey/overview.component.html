@@ -2,7 +2,8 @@
 <div class="field is-grouped">
   <div class="control">
     <ng-container *ngIf="works$ | async as works">
-      <p-dropdown #workdropdown [options]="works" [(ngModel)]="existingWork" showClear="true"
+      <p-dropdown #workDropdown [options]="works" [(ngModel)]="existingWork" (onChange)="onWorkChange()"
+        showClear="true"
         placeholder="pick a work" filter="true" filterBy="title,pub_year,author,medium">
         <ng-template let-work pTemplate="item">{{work.title}} - {{work.medium}} ({{work.pub_year}})</ng-template>
         <ng-template let-work pTemplate="selectedItem">{{work.title}} - {{work.medium}} ({{work.pub_year}})
@@ -12,7 +13,7 @@
   </div>
   <div class="divider is-vertical">or</div>
   <div class="control">
-    <button class="button is-success" (click)="showCreateWork()" [disabled]="existingWork">
+    <button class="button is-success" (click)="displayCreateWork=true" [disabled]="existingWork">
       <span class="icon is-small">
         <fa-icon [icon]="faPlus"></fa-icon>
       </span>
@@ -36,7 +37,7 @@
     </div>
     <div class="divider is-vertical">or</div>
     <div class="control">
-      <button class="button is-success" (click)="showCreateHero()" [disabled]="existingHero">
+      <button class="button is-success" (click)="displayCreateHero=true" [disabled]="existingHero">
         <span class="icon is-small">
           <fa-icon [icon]="faPlus"></fa-icon>
         </span>
@@ -47,9 +48,9 @@
 </div>
 
 <p-dialog header="Create a new work" [(visible)]="displayCreateWork">
-  <mh-work (addWork)=onWorkAdded($event)></mh-work>
+  <mh-work *ngIf="displayCreateWork" (addWork)=onWorkAdded($event)></mh-work>
 </p-dialog>
 
 <p-dialog header="Create a new hero" [(visible)]="displayCreateHero">
-  <mh-hero [work]="existingWork" (addHero)="onHeroAdded($event)"></mh-hero>
+  <mh-hero *ngIf="displayCreateHero" [work]="existingWork" (addHero)="onHeroAdded($event)"></mh-hero>
 </p-dialog>

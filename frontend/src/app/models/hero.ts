@@ -1,4 +1,5 @@
 export interface IHero {
+    id?: number; // id exists only when retrieving from backend, so make it optional
     name: string;
     work: any;
 
@@ -13,5 +14,5 @@ export interface IHero {
     profession: string;
 }
 
-export const ROLE_OPTIONS = ['protagonist', 'main character', 'minor character'];
-export const EDUCATION_OPTIONS = ['high (university, university of applied sciences)', 'low (primary or secondary school, vocational training)'];
+export const ROLE_OPTIONS = [{ label: 'protagonist', value: 'protagonist' }, { label: 'main character', value: 'main' }, { label: 'minor character', value: 'minor' }];
+export const EDUCATION_OPTIONS = [{ label: 'high (university, university of applied sciences)', value: 'high' }, { label: 'low (primary or secondary school, vocational training)', value: 'low' }];
