@@ -48,6 +48,7 @@ export class OverviewComponent implements OnInit {
   onHeroAdded(hero: IHero) {
     // Refresh works, reset existingWork and set hero
     // Slightly hacky but it works
+    this.fetchWorks();
     this.works$.subscribe(
       works => {
         this.existingWork = works.find(w => w.id === this.existingWork.id);
