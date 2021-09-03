@@ -28,7 +28,7 @@
     <div class="control">
       <ng-container *ngIf="existingWork.heroes">
         <p-dropdown #herodropdown [options]="existingWork.heroes" [(ngModel)]="existingHero" showClear="true"
-          placeholder="pick a hero">
+          placeholder="pick a hero" [disabled]="existingWork?.heroes.length<1">
           <ng-template let-hero pTemplate="item">{{hero.name}}</ng-template>
           <ng-template let-hero pTemplate="selectedItem">{{hero.name}}
           </ng-template>
