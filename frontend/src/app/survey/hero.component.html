@@ -7,13 +7,53 @@
     </div>
 
     <div class="field">
-        <label class="label" for="role-dropdown">Is the hero/heroine a protagonist or minor character in the story?*</label>
+        <label class="label" for="role">Is this hero/heroine a protagonist or minor character in the story?*</label>
         <div class="control">
-          <p-dropdown id="role-dropdown" [options]="roleOptions" formControlName="role"
-            placeholder="Pick one" showClear="true">
-          </p-dropdown>
+          <div *ngFor="let role of roleOptions" class="p-field-checkbox">
+            <p-radioButton [inputId]="role.value" name="role" [value]="role" formControlName="role"></p-radioButton>
+            <label class="p-field-radiobutton" [for]="role.value">{{role.label}}</label>
         </div>
+        </div>
+    </div>
+
+    <div class="field">
+      <label class="label" for="narrator">Is this hero(ine) the narrator for the story?</label>
+      <div class="control">
+        <div *ngFor="let narrator of yesnoOptions" class="p-field-checkbox">
+          <p-radioButton [inputId]="narrator.value" name="narrator" [value]="narrator" formControlName="narrator"></p-radioButton>
+          <label class="p-field-radiobutton" [for]="narrator.value">{{narrator.label}}</label>
       </div>
+      </div>
+     </div>
+
+     <div class="field">
+      <label class="label" for="focaliser">Is this hero(ine) the focaliser?</label>
+      <div class="control">
+        <div *ngFor="let focaliser of yesnoOptions" class="p-field-checkbox">
+          <p-radioButton [inputId]="focaliser.value" name="focaliser" [value]="focaliser" formControlName="focaliser"></p-radioButton>
+          <label class="p-field-radiobutton" [for]="focaliser.value">{{focaliser.label}}</label>
+      </div>
+      </div>
+     </div>
+
+     <div class="field">
+      <label class="label" for="gender">What is the gender identity of this hero(ine)?</label>
+      <div class="control">
+        <div *ngFor="let gender of genderOptions" class="p-field-checkbox">
+          <p-radioButton [inputId]="gender" name="gender" [value]="gender" formControlName="gender"></p-radioButton>
+          <label class="p-field-radiobutton" [for]="gender">{{gender}}</label>
+      </div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label" for="age-dropdown">What is the age of this hero(ine) for most of the story?</label>
+      <div class="control">
+        <p-dropdown id="age-dropdown" [options]="ageOptions" formControlName="age"
+          placeholder="Pick an option" showClear="true">
+        </p-dropdown>
+      </div>
+    </div>
 
       <div class="field">
         <label class="label" for="countryorigin">In what country was your hero/heroine born? You can also choose unkown or imaginary.</label>
@@ -37,18 +77,90 @@
       </div>
 
       <div class="field">
-        <label class="label" for="education-dropdown">What is the level of education of this hero/heroine?</label>
+        <label class="label" for="education">What is the level of education of this hero/heroine?</label>
         <div class="control">
-          <p-dropdown id="education-dropdown" [options]="educationOptions" formControlName="education"
-            placeholder="Pick one" showClear="true">
+          <div *ngFor="let education of educationOptions" class="p-field-checkbox">
+            <p-radioButton [inputId]="education.value" name="education" [value]="education" formControlName="education"></p-radioButton>
+            <label class="p-field-radiobutton" [for]="education.value">{{education.label}}</label>
+        </div>
+        </div>
+       </div>
+  
+
+      <div class="field">
+        <label class="label" for="profession">What is the profession or main occupation of this hero/heroine?</label>
+        <div class="control">
+          <input class="input" id="profession" type="text" formControlName="profession" placeholder="Profession of the hero(ine)">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label" for="hobbies">What are the hobbies of this hero(ine)?</label>
+        <div class="control">
+          <p-chips id="hobbies" formControlName="hobbies" placeholder="Hobbies (comma separated)" separator=","></p-chips>
+          </div>
+      </div>
+
+      <div class="field">
+        <label class="label" for="pets">What kind of pets does this hero(ine) have?</label>
+        <div class="control">
+          <p-chips id="pets" formControlName="pets" placeholder="Pets (comma separated)" separator=","></p-chips>
+          </div>
+      </div>
+
+      <div class="field">
+        <label class="label" for="appearance">Is this hero(ine) physically attractive within the context of the work / according to the other characters?</label>
+        <div class="control">
+          <div *ngFor="let response of yesnounkOptions" class="p-field-checkbox">
+            <p-radioButton [inputId]="response.value" name="appearance" [value]="response" formControlName="appearance"></p-radioButton>
+            <label class="p-field-radiobutton" [for]="response.value">{{response.label}}</label>
+        </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label" for="role">Are the hero(ine)'s sexual relations described in the text?</label>
+        <div class="control">
+          <div *ngFor="let response of yesnoOptions" class="p-field-checkbox">
+            <p-radioButton [inputId]="response.value" name="sex" [value]="response" formControlName="sex"></p-radioButton>
+            <label class="p-field-radiobutton" [for]="response.value">{{response.label}}</label>
+        </div>
+        </div>
+    </div>
+
+      <div class="field">
+        <label class="label" for="wealth-dropdown">How wealthy is this hero(ine) in the most significant parts of the story?</label>
+        <div class="control">
+          <p-dropdown id="wealth-dropdown" [options]="wealthOptions" formControlName="wealth"
+            placeholder="Pick an option" showClear="true">
           </p-dropdown>
         </div>
       </div>
 
       <div class="field">
-        <label class="label" for="profession">What is the profession or main occupation of the hero/heroine?</label>
+        <label class="label" for="relatives-dropdown">For the most important parts of the story, does this hero(ine) have one or more relatives?</label>
         <div class="control">
-          <input class="input" id="profession" type="text" formControlName="profession" placeholder="Wizard">
+          <p-multiSelect id="relatives-dropdown" [options]="relativesOptions" formControlName="relatives"
+            placeholder="Pick an option" showClear="true">
+          </p-multiSelect>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label" for="problems-dropdown">What is the nature of the main problem this hero(ine) encounters?</label>
+        <div class="control">
+          <p-multiSelect id="problems-dropdown" [options]="problemOptions" formControlName="problems"
+            placeholder="Pick an option" showClear="true">
+          </p-multiSelect>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label" for="solutions-dropdown">How does this hero(ine) overcome problems? The most important tools for this hero(ine) are...</label>
+        <div class="control">
+          <p-multiSelect id="solutions-dropdown" [options]="solutionOptions" formControlName="solutions"
+            placeholder="Pick an option" showClear="true">
+          </p-multiSelect>
         </div>
       </div>
 
