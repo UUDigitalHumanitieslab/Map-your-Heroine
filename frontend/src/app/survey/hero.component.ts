@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Restangular } from 'ngx-restangular';
 import { IHero } from '../models/hero';
 import { IWork } from '../models/work';
@@ -27,11 +27,11 @@ export class HeroComponent implements OnInit {
 
   heroForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
-    role: new FormControl('', [Validators.required]),
-    narrator: new FormControl('', [Validators.required]),
-    focaliser: new FormControl('', [Validators.required]),
+    role: new FormControl('', ),
+    narrator: new FormControl('',),
+    focaliser: new FormControl('',),
     gender: new FormControl(''),
-    age: new FormControl(''),
+    age: new FormControl([]),
     country_origin: new FormControl(''),
     country_live: new FormControl(''),
     country_growup: new FormControl(''),
@@ -43,7 +43,9 @@ export class HeroComponent implements OnInit {
     sex: new FormControl(''),
     relatives: new FormControl(''),
     wealth: new FormControl(''),
-    problems: new FormControl(''),
+    problems: new FormArray([]),
+    problems_other_enable: new FormControl(false),
+    problems_other: new FormControl([]),
     solutions: new FormControl(''),
   });
 
@@ -57,11 +59,49 @@ export class HeroComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  onCheckboxChange(name, value, event) {
+    const checkArray: FormArray = this.heroForm.get(name) as FormArray
+    if (event.checked) {
+      checkArray.push(new FormControl(value))
+    }
+    else {
+      let i: number = 0;
+      checkArray.controls.forEach((item: FormControl) => {
+        if (item.value == value) {
+          checkArray.removeAt(i);
+          return;
+        }
+        i++;
+      });
+    }
+  }
   
   onSubmit(){
     this.httpError = undefined;
-    alert(JSON.stringify({ ...this.heroForm.value, work: this.work.id }, null, 2));
-    const heroFormData = { ...this.heroForm.value, work: this.work.id } as IHero;
+
+    var all_problems: string[];
+    if (this.heroForm.get('problems_other_enable').value) {
+      all_problems = (this.heroForm.get('problems').value).concat(this.heroForm.get('problems_other').value)
+    } else {
+      all_problems = this.heroForm.get('problems').value
+    }
+
+    const heroFormData = {
+      name: this.heroForm.get('name').value,
+      work: this.work.id,
+
+      role: this.heroForm.get('role').value,
+      narrator: this.heroForm.get('narrator').value,
+      focaliser: this.heroForm.get('focaliser').value,
+
+      gender: this.heroForm.get('gender').value,
+
+      problems: all_problems,
+    }
+
+    alert(JSON.stringify(heroFormData))
+
     this.restangular.all('heroes')
       .post(heroFormData).subscribe(
         newHero => this.addHero.emit(newHero),
