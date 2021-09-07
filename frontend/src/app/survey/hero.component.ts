@@ -3,7 +3,7 @@ import { FormControl, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Restangular } from 'ngx-restangular';
 import { IHero } from '../models/hero';
 import { IWork } from '../models/work';
-import { YESNOUNK_OPTIONS, YESNO_OPTIONS, ROLE_OPTIONS, EDUCATION_OPTIONS, AGE_OPTIONS, GENDER_OPTIONS, RELATIVES_OPTIONS, WEALTH_OPTIONS, PROBLEM_OPTIONS, SOLUTION_OPTIONS } from '../models/hero';
+import { YESNOUNK_OPTIONS, YESNO_OPTIONS, ROLE_OPTIONS, EDUCATION_OPTIONS, PETS_OPTIONS, AGE_OPTIONS, GENDER_OPTIONS, RELATIVES_OPTIONS, WEALTH_OPTIONS, PROBLEM_OPTIONS, SOLUTION_OPTIONS } from '../models/hero';
 import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
@@ -18,6 +18,7 @@ export class HeroComponent implements OnInit {
   yesnoOptions = YESNO_OPTIONS;
   roleOptions = ROLE_OPTIONS;
   educationOptions = EDUCATION_OPTIONS;
+  petsOptions = PETS_OPTIONS;
   ageOptions = AGE_OPTIONS;
   genderOptions = GENDER_OPTIONS;
   relativesOptions = RELATIVES_OPTIONS;
@@ -27,26 +28,30 @@ export class HeroComponent implements OnInit {
 
   heroForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
-    role: new FormControl('', ),
-    narrator: new FormControl('',),
-    focaliser: new FormControl('',),
-    gender: new FormControl(''),
-    age: new FormControl([]),
-    country_origin: new FormControl(''),
-    country_live: new FormControl(''),
-    country_growup: new FormControl(''),
-    education: new FormControl(''),
-    profession: new FormControl(''),
+    role: new FormControl('', [Validators.required]),
+    narrator: new FormControl('', [Validators.required]),
+    focaliser: new FormControl('', [Validators.required]),
+    gender: new FormControl('', [Validators.required]),
+    age: new FormControl('', [Validators.required]),
+    country_origin: new FormControl('', [Validators.required]),
+    country_live: new FormControl('', [Validators.required]),
+    country_growup: new FormControl('', [Validators.required]),
+    education: new FormControl('', [Validators.required]),
+    profession: new FormControl('', [Validators.required]),
     hobbies: new FormControl(''),
-    pets: new FormControl(''),
-    appearance: new FormControl(''),
-    sex: new FormControl(''),
-    relatives: new FormControl(''),
-    wealth: new FormControl(''),
+    pets: new FormArray([]),
+    pets_other_enable: new FormControl(false),
+    pets_other: new FormControl([]),
+    appearance: new FormControl('', [Validators.required]),
+    sex: new FormControl('', [Validators.required]),
+    relatives: new FormArray([], [Validators.required]),
+    wealth: new FormControl('', [Validators.required]),
     problems: new FormArray([]),
     problems_other_enable: new FormControl(false),
     problems_other: new FormControl([]),
-    solutions: new FormControl(''),
+    solutions: new FormArray([]),
+    solutions_other_enable: new FormControl(false),
+    solutions_other: new FormControl([]),
   });
 
   @Input() 
@@ -62,7 +67,7 @@ export class HeroComponent implements OnInit {
 
   onCheckboxChange(name, value, event) {
     const checkArray: FormArray = this.heroForm.get(name) as FormArray
-    if (event.checked) {
+    if (event.target.checked) {
       checkArray.push(new FormControl(value))
     }
     else {
@@ -80,11 +85,25 @@ export class HeroComponent implements OnInit {
   onSubmit(){
     this.httpError = undefined;
 
+    var all_pets: string[];
+    if (this.heroForm.get('pets_other_enable').value) {
+      all_pets = (this.heroForm.get('pets').value).concat(this.heroForm.get('pets_other').value)
+    } else {
+      all_pets = this.heroForm.get('pets').value
+    }
+
     var all_problems: string[];
     if (this.heroForm.get('problems_other_enable').value) {
       all_problems = (this.heroForm.get('problems').value).concat(this.heroForm.get('problems_other').value)
     } else {
       all_problems = this.heroForm.get('problems').value
+    }
+
+    var all_solutions: string[];
+    if (this.heroForm.get('solutions_other_enable').value) {
+      all_solutions = (this.heroForm.get('solutions').value).concat(this.heroForm.get('solutions_other').value)
+    } else {
+      all_solutions = this.heroForm.get('solutions').value
     }
 
     const heroFormData = {
@@ -96,8 +115,23 @@ export class HeroComponent implements OnInit {
       focaliser: this.heroForm.get('focaliser').value,
 
       gender: this.heroForm.get('gender').value,
+      age: this.heroForm.get('age').value,
+      country_origin: this.heroForm.get('country_origin').value,
+      country_live: this.heroForm.get('country_live').value,
+      country_growup: this.heroForm.get('country_growup').value,
+
+      education: this.heroForm.get('education').value,
+      profession: this.heroForm.get('profession').value,
+      hobbies: this.heroForm.get('hobbies').value,
+      pets: all_pets,
+
+      appearance: this.heroForm.get('appearance').value,
+      sex: this.heroForm.get('sex').value,
+      relatives: this.heroForm.get('relatives').value,
+      wealth: this.heroForm.get('wealth').value,
 
       problems: all_problems,
+      solutions: all_solutions,
     }
 
     alert(JSON.stringify(heroFormData))
