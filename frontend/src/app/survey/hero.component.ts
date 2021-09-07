@@ -134,10 +134,8 @@ export class HeroComponent implements OnInit {
       solutions: all_solutions,
     }
 
-    alert(JSON.stringify(heroFormData))
-
     this.restangular.all('heroes')
-      .post(heroFormData).subscribe(
+      .post(heroFormData as IHero).subscribe(
         newHero => this.addHero.emit(newHero),
         errorResponse => this.httpError = errorResponse
       );

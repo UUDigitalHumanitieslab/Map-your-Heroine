@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.postgres.fields import ArrayField
 
 
 class Hero(models.Model):
@@ -7,23 +8,52 @@ class Hero(models.Model):
         ('MAIN', 'main character'),
         ('MINOR', 'minor character'),
     )
+    GENDER_CHOICES =   (('MALE', 'Male'),('FEMALE', 'Female'),('OTHER','Other'),('UNKNOWN','Unknown'))
+    AGE_CHOICES = (
+        ('0-25', '0-25'), ('26-35', '26-35'), ('36-45', '36-45'), ('46-55', '46-55'), ('56-65', '56-65'), ('65+', '65+'), 
+        ('UNKNOWN', 'Unknown'))
     EDUCATION_CHOICES = (
-        ('HIGH', 'high (university, university of applied sciences)'),
-        ('LOW', 'low (primary or secondary school, vocational training)'),
+        ('HIGH', 'high'),
+        ('LOW', 'low'),
+        ('NONE', 'none'),
+        ('UNKNOWN', 'unknown'),
     )
+    RELATIVES_CHOICES = (
+        ('PARENTS_PRESENT', 'parents present'), 
+        ('PARENTS_ABSENT', 'parents absent'), 
+        ('SIBLINGS_PRESENT', 'siblings present'), 
+        ('SIBLINGS_ABSENT', 'siblings absent'), 
+        ('UNKNOWN', 'unknown'),
+    )
+    
+    WEALTH_CHOICES = (('RICH', 'Rich'), ('INBETWEEN', 'In between'), ('POOR', 'Poor'), ('UNKNOWN','Unknown'))
 
     name = models.CharField(max_length=200)
     work = models.ForeignKey(
         'Work', on_delete=models.CASCADE, related_name='heroes')
-    # role = models.CharField(
-    #     max_length=11, choices=ROLE_CHOICES, default='PROTAGONIST')
-    role = models.CharField(max_length=11)
+    
+    role = models.CharField(max_length=11, choices=ROLE_CHOICES)
+    narrator = models.BooleanField(null=True)
+    focaliser = models.BooleanField(null=True)
+    
+    gender = models.TextField(max_length=7, choices=GENDER_CHOICES, default='UNKNOWN')
+    age = models.TextField(max_length=7, choices=AGE_CHOICES, default='UNKNOWN')
     country_origin = models.CharField(max_length=100, default='unknown')
     country_live = models.CharField(max_length=100, default='unknown')
     country_growup = models.CharField(max_length=100, default='unknown')
+    hobbies = ArrayField(models.CharField(max_length=200), default=list)
+    pets = ArrayField(models.CharField(max_length=200), default=list)
 
-    education = models.CharField(max_length=4)
-    profession = models.CharField(max_length=200)
+    education = models.TextField(max_length=7, choices=EDUCATION_CHOICES, default='unknown')
+    profession = models.TextField(max_length=200, default='unknown')
+
+    appearance = models.BooleanField(null=True)
+    sex = models.BooleanField(null=True)
+    relatives =  ArrayField(models.CharField(max_length=200, choices=RELATIVES_CHOICES), default=list)
+    wealth =  models.TextField(max_length=16, choices=WEALTH_CHOICES, default='UNKNOWN')
+
+    problems = ArrayField(models.CharField(max_length=200), default=list)
+    solutions = ArrayField(models.CharField(max_length=200), default=list)
 
     class Meta:
         unique_together = ('name', 'work')

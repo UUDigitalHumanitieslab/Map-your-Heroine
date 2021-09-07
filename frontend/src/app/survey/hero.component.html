@@ -43,9 +43,9 @@
     <label class="label" for="gender">What is the gender identity of this hero(ine)?</label>
     <div class="control">
       <div *ngFor="let gender of genderOptions" class="p-field-checkbox">
-        <label class="radio" [for]="gender">
-        <input type="radio" name="gender" [value]="gender" formControlName="gender">
-        {{gender}}</label>
+        <label class="radio" [for]="gender.value">
+        <input type="radio" name="gender" [value]="gender.value" formControlName="gender">
+        {{gender.label}}</label>
       </div>
     </div>
   </div>
@@ -150,9 +150,9 @@
     <label class="label" for="wealth">How wealthy is this hero(ine) in the most significant parts of the story?</label>
     <div class="control">
       <div *ngFor="let wealth of wealthOptions" class="p-field-checkbox">
-        <label class="radio" [for]="wealth">
-        <input type="radio" name="wealth" [value]="wealth" formControlName="wealth">
-        {{wealth}}</label>
+        <label class="radio" [for]="wealth.value">
+        <input type="radio" name="wealth" [value]="wealth.value" formControlName="wealth">
+        {{wealth.label}}</label>
       </div>
     </div>
   </div>
