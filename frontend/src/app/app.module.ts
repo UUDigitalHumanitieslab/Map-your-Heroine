@@ -23,6 +23,7 @@ import {RadioButtonModule} from 'primeng/radiobutton';
 import { DialogModule } from 'primeng/dialog';
 import { OverviewComponent } from './survey/overview.component';
 import { HeroComponent } from './survey/hero.component';
+import { ResponseComponent } from './survey/response.component';
 
 export function RestangularConfigFactory(RestangularProvider) {
     RestangularProvider.setBaseUrl('/api');
@@ -46,7 +47,8 @@ export function RestangularConfigFactory(RestangularProvider) {
         HomeComponent,
         WorkComponent,
         OverviewComponent,
-        HeroComponent
+        HeroComponent,
+        ResponseComponent
     ],
     imports: [
         AppRoutingModule,
