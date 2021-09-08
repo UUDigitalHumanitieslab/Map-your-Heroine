@@ -1,7 +1,7 @@
 from rest_framework.serializers import ModelSerializer
 from rest_framework import serializers
 
-from .models import Hero, Work
+from .models import Hero, Response, Work
 
 
 class HeroSerializer(ModelSerializer):    
@@ -31,3 +31,9 @@ class WorkSerializer(ModelSerializer):
         model = Work
         fields = ('id', 'title', 'author', 'medium', 'pub_year',
                   'pub_country', 'is_source', 'adaptation_of', 'environment', 'heroes')
+
+class ResponseSerializer(ModelSerializer):
+
+    class Meta:
+        model = Response
+        fields = '__all__'

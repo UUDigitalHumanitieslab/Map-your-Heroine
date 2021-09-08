@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.postgres.fields import ArrayField
+from django.db.models.fields.json import JSONField
 
 
 class Hero(models.Model):
@@ -100,3 +101,11 @@ class Work(models.Model):
 
     def __str__(self):
         return f'{self.title} ({self.medium} - {self.pub_year})'
+
+class Response(models.Model):
+    work = models.ForeignKey(
+        'Work', on_delete=models.CASCADE, related_name='responses')
+    hero = models.ForeignKey(
+        'Hero', on_delete=models.CASCADE, related_name='responses')
+
+    responses = JSONField()
