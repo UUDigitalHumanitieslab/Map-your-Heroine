@@ -19,6 +19,7 @@ export class OverviewComponent implements OnInit {
   existingHero: IHero;
   displayCreateWork = false;
   displayCreateHero = false;
+  heroChosen = false;
 
   constructor(private restangular: Restangular) { }
 
@@ -61,6 +62,22 @@ export class OverviewComponent implements OnInit {
   onWorkChange() {
     // Unset hero when changing work
     this.existingHero = undefined;
+  }
+
+  onChooseHero() {
+    this.heroChosen = true;
+  }
+
+  onGoBack() {
+    this.heroChosen = false;
+    this.fetchWorks();
+    this.fetchWorks();
+    this.works$.subscribe(
+      works => {
+        this.existingWork = works.find(w => w.id === this.existingWork.id);
+        this.existingHero = this.existingWork.heroes.find(h => h.id === this.existingHero.id);
+      }
+    );
   }
 
 }

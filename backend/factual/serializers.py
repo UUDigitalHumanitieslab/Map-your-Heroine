@@ -16,7 +16,7 @@ class HeroSerializer(ModelSerializer):
     class Meta:
         model = Hero
         fields = (
-            'name', 'work', 
+            'id', 'name', 'work', 
             'role', 'narrator', 'focaliser', 
             'gender', 'age', 'country_origin', 'country_live', 'country_growup', 
             'education', 'profession', 'hobbies', 'pets',
