@@ -81,6 +81,27 @@ export class HeroComponent implements OnInit {
       });
     }
   }
+
+  formIsValid() : Boolean {
+    var all_problems: string[];
+    if (this.heroForm.get('problems_other_enable').value) {
+      all_problems = (this.heroForm.get('problems').value).concat(this.heroForm.get('problems_other').value)
+    } else {
+      all_problems = this.heroForm.get('problems').value
+    }
+    const problems_added =  all_problems.length > 0
+
+    var all_solutions: string[];
+    if (this.heroForm.get('solutions_other_enable').value) {
+      all_solutions = (this.heroForm.get('solutions').value).concat(this.heroForm.get('solutions_other').value)
+    } else {
+      all_solutions = this.heroForm.get('solutions').value
+    }
+    const solutions_added =  all_solutions.length > 0
+
+
+    return this.heroForm.valid && problems_added && solutions_added
+  }
   
   onSubmit(){
     this.httpError = undefined;
