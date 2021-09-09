@@ -82,50 +82,39 @@ export class HeroComponent implements OnInit {
     }
   }
 
-  formIsValid() : Boolean {
-    var all_problems: string[];
+  allPets() : string[] {
+    if (this.heroForm.get('pets_other_enable').value) {
+      return (this.heroForm.get('pets').value).concat(this.heroForm.get('pets_other').value)
+    } else {
+      return this.heroForm.get('pets').value
+    }
+  }
+
+  allProblems() : string[] {
     if (this.heroForm.get('problems_other_enable').value) {
-      all_problems = (this.heroForm.get('problems').value).concat(this.heroForm.get('problems_other').value)
+      return (this.heroForm.get('problems').value).concat(this.heroForm.get('problems_other').value)
     } else {
-      all_problems = this.heroForm.get('problems').value
+      return this.heroForm.get('problems').value
     }
-    const problems_added =  all_problems.length > 0
+  }
 
-    var all_solutions: string[];
+  allSolutions() : string[] {
     if (this.heroForm.get('solutions_other_enable').value) {
-      all_solutions = (this.heroForm.get('solutions').value).concat(this.heroForm.get('solutions_other').value)
+      return (this.heroForm.get('solutions').value).concat(this.heroForm.get('solutions_other').value)
     } else {
-      all_solutions = this.heroForm.get('solutions').value
-    }
-    const solutions_added =  all_solutions.length > 0
+      return this.heroForm.get('solutions').value
+    } 
+  }
 
+  formIsValid() : Boolean {
+    const problems_added =  this.allProblems().length > 0
+    const solutions_added =  this.allSolutions().length > 0
 
     return this.heroForm.valid && problems_added && solutions_added
   }
   
   onSubmit(){
     this.httpError = undefined;
-
-    var all_pets: string[];
-    if (this.heroForm.get('pets_other_enable').value) {
-      all_pets = (this.heroForm.get('pets').value).concat(this.heroForm.get('pets_other').value)
-    } else {
-      all_pets = this.heroForm.get('pets').value
-    }
-
-    var all_problems: string[];
-    if (this.heroForm.get('problems_other_enable').value) {
-      all_problems = (this.heroForm.get('problems').value).concat(this.heroForm.get('problems_other').value)
-    } else {
-      all_problems = this.heroForm.get('problems').value
-    }
-
-    var all_solutions: string[];
-    if (this.heroForm.get('solutions_other_enable').value) {
-      all_solutions = (this.heroForm.get('solutions').value).concat(this.heroForm.get('solutions_other').value)
-    } else {
-      all_solutions = this.heroForm.get('solutions').value
-    }
 
     const heroFormData = {
       name: this.heroForm.get('name').value,
@@ -144,15 +133,15 @@ export class HeroComponent implements OnInit {
       education: this.heroForm.get('education').value,
       profession: this.heroForm.get('profession').value,
       hobbies: this.heroForm.get('hobbies').value,
-      pets: all_pets,
+      pets: this.allPets(),
 
       appearance: this.heroForm.get('appearance').value,
       sex: this.heroForm.get('sex').value,
       relatives: this.heroForm.get('relatives').value,
       wealth: this.heroForm.get('wealth').value,
 
-      problems: all_problems,
-      solutions: all_solutions,
+      problems: this.allProblems(),
+      solutions: this.allSolutions(),
     }
 
     this.restangular.all('heroes')
