@@ -73,7 +73,11 @@
   </div>
 
   <div class="block">
-    <mh-response [work]="existingWork" [hero]="existingHero"></mh-response>
+    Your response to {{existingHero.name}} from {{existingWork.title}}
+  </div>
+
+  <div class="block">
+    <mh-response (completeResponse)="onSurveyCompleted($event)"></mh-response>
   </div>
 </div>
 

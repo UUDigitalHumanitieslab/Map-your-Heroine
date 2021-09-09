@@ -29,6 +29,7 @@ from factual import views as factual_views
 api_router = routers.DefaultRouter()  # register viewsets with this router
 api_router.register('heroes', factual_views.HeroViewSet)
 api_router.register('works', factual_views.WorkViewSet)
+api_router.register('responses', factual_views.ResponseViewSet)
 
 if settings.PROXY_FRONTEND:
     spa_url = re_path(r'^(?P<path>.*)$', proxy_frontend)

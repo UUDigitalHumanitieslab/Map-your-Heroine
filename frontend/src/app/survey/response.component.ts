@@ -1,10 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, } from '@angular/core';
 import { Restangular } from 'ngx-restangular';
 import * as Survey from 'survey-angular';
-import { IHero } from '../models/hero';
-import { IResponse } from '../models/response';
-import { IWork } from '../models/work';
 
 Survey.StylesManager.applyTheme("default");
 
@@ -16,14 +13,9 @@ var surveyJSON = {"pages":[{"name":"About you","elements":[{"type":"radiogroup",
   styleUrls: ['./response.component.scss'],
 })
 
-export class ResponseComponent implements OnInit, OnChanges  {
-  httpError: HttpErrorResponse = undefined;
-
-  @Input() 
-  work: IWork;
-
-  @Input() 
-  hero: IHero;
+export class ResponseComponent implements OnInit  {
+  @Output()
+  completeResponse = new EventEmitter<any>()
 
   constructor(private restangular: Restangular) {}
 
@@ -33,22 +25,7 @@ export class ResponseComponent implements OnInit, OnChanges  {
     Survey.SurveyNG.render("surveyElement", {model:survey});
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-  }
-
-  sendDataToServer(survey) {
-    this.httpError = undefined;
-  
-    const responseData = {
-      work: this.work.id,
-      hero: this.hero.id,
-      responses: survey.data,
-    } as IResponse
-  
-    this.restangular.all('responses')
-        .post(responseData).subscribe(
-          response => {},
-          err => this.httpError = err
-        );
+  sendDataToServer = (survey,completed) => {  
+    this.completeResponse.emit(survey.data)
   }
 }
