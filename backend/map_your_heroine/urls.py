@@ -10,7 +10,7 @@ Class-based views
     1. Add an import:  from other_app.views import Home
     2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
 Including another URLconf
-    1. Import the include() function: from django.conf.urls import include, path
+    1. Import the include() function: from djangso.conf.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.conf import settings
@@ -25,6 +25,7 @@ from .proxy_frontend import proxy_frontend
 
 from example.views import hooray as ExampleView # DELETEME, see below
 from factual import views as factual_views
+from visualisations import views as vis_views
 
 api_router = routers.DefaultRouter()  # register viewsets with this router
 api_router.register('heroes', factual_views.HeroViewSet)
@@ -47,5 +48,9 @@ urlpatterns = [
         'rest_framework.urls',
         namespace='rest_framework',
     )),
+
+    #plots
+    path('api/results/exampleplot', vis_views.PlotView.as_view()),
+
     spa_url,  # catch-all; unknown paths to be handled by a SPA
 ]

@@ -24,6 +24,7 @@ import { DialogModule } from 'primeng/dialog';
 import { OverviewComponent } from './survey/overview.component';
 import { HeroComponent } from './survey/hero.component';
 import { ResponseComponent } from './survey/response.component';
+import { VisOverviewComponent } from './visualisations/vis-overview.component';
 
 export function RestangularConfigFactory(RestangularProvider) {
     RestangularProvider.setBaseUrl('/api');
@@ -48,7 +49,8 @@ export function RestangularConfigFactory(RestangularProvider) {
         WorkComponent,
         OverviewComponent,
         HeroComponent,
-        ResponseComponent
+        ResponseComponent,
+        VisOverviewComponent
     ],
     imports: [
         AppRoutingModule,
