@@ -13,9 +13,17 @@ export class VisOverviewComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.http.get('/api/results/exampleplot').subscribe(
+    this.embedPlot('genderplot');
+    this.embedPlot('ageplot');
+    this.embedPlot('roleplot');
+    this.embedPlot('narratorplot');
+    this.embedPlot('focaliserplot');
+  }
+
+  embedPlot(name: string) {
+    this.http.get(`/api/results/${name}`).subscribe(
       res => {
-        Bokeh.embed_item(res, 'exampleplot');
+        Bokeh.embed_item(res, `${name}`);
       },
       err => console.error(err)
     );

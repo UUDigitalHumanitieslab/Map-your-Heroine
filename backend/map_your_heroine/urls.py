@@ -50,7 +50,7 @@ urlpatterns = [
     )),
 
     #plots
-    path('api/results/exampleplot', vis_views.PlotView.as_view()),
+    path('api/results/<name>', vis_views.PlotView.as_view()),
 
     spa_url,  # catch-all; unknown paths to be handled by a SPA
 ]

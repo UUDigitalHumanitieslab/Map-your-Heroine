@@ -1,3 +1,53 @@
-<p>vis-overview works!</p>
+<div class="block">
+    <form>
+        <div class="field">
+            <label class="label" for="solutions">Gender of the hero(ine):</label>
+            <div class="control">
+                <div *ngFor="let response of ['Male', 'Female', 'Other']" class="p-field-checkbox">
+                    <label class="checkbox" [for]="response">
+                        <input type="checkbox" name="solutions" checked="checked" [value]="response">
+                        {{response}}
+                    </label>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
 
-<div id="exampleplot"></div>
+<div class="block">
+    <div class="tabs">
+        <ul>
+            <li><a>Works</a></li>
+            <li><a>Hero(in)es</a></li>
+            <li><a>Gender Identity</a></li>
+            <li><a>Profession</a></li>
+            <li><a>Agency</a></li>
+            <li><a>Personality</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="block">
+    <div class="columns">
+        <div class="column">
+            <div id="genderplot"></div>
+        </div>
+        <div class="column">
+            <div id="ageplot"></div>
+        </div>
+    </div>
+</div>
+
+<div class="block">
+    <div class="columns">
+        <div class="column">
+            <div id="roleplot"></div>
+        </div>
+        <div class="column">
+            <div id="narratorplot"></div>
+        </div>
+        <div class="column">
+            <div id="focaliserplot"></div>
+        </div>
+    </div>
+</div>
