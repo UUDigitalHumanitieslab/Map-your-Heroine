@@ -69,7 +69,7 @@ class Plots:
         gender_counts = Counter(nice_strings[hero.gender] for hero in all_heroes)
 
         p = Plots._pie_plot(gender_counts, 'gender', unit='character(s)')
-        p.title = 'Gender'
+        p.plot_width = 400
 
         return p
 
@@ -84,8 +84,8 @@ class Plots:
         counts = Counter(nice_strings[hero.role] for hero in all_heroes)
 
         p = Plots._pie_plot(counts, 'role', unit='character(s)')
-        p.title = 'Role'
         p.plot_width = 350
+        p.plot_height = 300
 
         return p
 
@@ -99,8 +99,8 @@ class Plots:
         counts = Counter(nice_strings[hero.narrator] for hero in all_heroes)
 
         p = Plots._pie_plot(counts, 'narrator', unit='character(s)')
-        p.title = 'Narrator'
         p.plot_width = 350
+        p.plot_height = 300
 
         return p
 
@@ -114,8 +114,8 @@ class Plots:
         counts = Counter(nice_strings[hero.focaliser] for hero in all_heroes)
 
         p = Plots._pie_plot(counts, 'focaliser', unit='character(s)')
-        p.title = 'Focaliser'
         p.plot_width = 350
+        p.plot_height = 300
 
         return p
     
@@ -126,6 +126,6 @@ class Plots:
         age_values = [age_counts[age] for age in ages]
 
         p = Plots._bar_plot(ages, age_values, name='age', unit='character(s)')
-        p.title = 'Age'
+        p.plot_width = 400
 
         return p

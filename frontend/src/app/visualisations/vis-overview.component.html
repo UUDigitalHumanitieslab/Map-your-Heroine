@@ -1,59 +1,70 @@
-<div class="block">
-    <form>
-        <div class="field">
-            <label class="label" for="solutions">Gender of the hero(ine):</label>
-            <div class="control">
-                <div *ngFor="let response of genderOptions" class="p-field-checkbox">
-                    <label class="checkbox" [for]="response.value">
-                        <input type="checkbox" name="hero_gender" checked="checked" (change)="onCheckboxChange('hero_gender', response.value, $event)">
-                        {{response.label}}
-                    </label>
+
+<div class="columns">
+    <div class="column is-narrow">
+        <div class="block">
+            <form>
+                <div class="field">
+                    <label class="label" for="solutions">Gender of the hero(ine):</label>
+                    <div class="control">
+                        <div *ngFor="let response of genderOptions" class="p-field-checkbox">
+                            <label class="checkbox" [for]="response.value">
+                                <input type="checkbox" name="hero_gender" checked="checked" (change)="onCheckboxChange('hero_gender', response.value, $event)">
+                                {{response.label}}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="field">
+                    <div class="control">
+                      <button class="button is-link" type="submit" [disabled]="!formIsValid()" (click)="submitFilters()">View results</button>
+                    </div>
+                  </div>
+            </form>
+        </div>
+    </div>
+    <div class="column">
+        <div class="block">
+            <nav class="tabs">
+                <ul>
+                    <li class="tab is-active" (click)="openTab($event, 'tab_work')"><a>Works</a></li>
+                    <li class="tab" (click)="openTab($event, 'tab_heroes')"><a>Heroes</a></li>
+                    <li class="tab" (click)="openTab($event, 'tab_gender')"><a>Gender Identity</a></li>
+                    <li class="tab" (click)="openTab($event, 'tab_profession')"><a>Profession</a></li>
+                    <li class="tab" (click)="openTab($event, 'tab_agency')"><a>Agency</a></li>
+                    <li class="tab" (click)="openTab($event, 'tab_personality')"><a>Personality</a></li>
+                </ul>
+            </nav>    
+            <div class="container section">
+                <div id="tab_work" class="content-tab">
+                    <div>
+                        Work plots coming soon!
+                    </div>
+                </div>
+                <div id="tab_heroes" class="content-tab" style="display:none">
+                    <mh-vis-hero [filters]="currentFilters"></mh-vis-hero>
+                </div>
+                <div id="tab_gender" class="content-tab" style="display:none">
+                    <div>
+                        Gender plots coming soon!
+                    </div>
+                </div>
+                <div id="tab_profession" class="content-tab" style="display:none">
+                    <div>
+                        Profession plots coming soon!
+                    </div>
+                </div>
+                <div id="tab_agency" class="content-tab" style="display:none">
+                    <div>
+                        Agency plots coming soon!
+                    </div>
+                </div>
+                <div id="tab_personality" class="content-tab" style="display:none">
+                    <div>
+                        Personality plots coming soon!
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <div class="field">
-            <div class="control">
-              <button class="button is-link" type="submit" [disabled]="!formIsValid()" (click)="applyFilters()">View results</button>
-            </div>
-          </div>
-    </form>
-</div>
-
-<div class="block">
-    <div class="tabs">
-        <ul>
-            <li><a>Works</a></li>
-            <li><a>Hero(in)es</a></li>
-            <li><a>Gender Identity</a></li>
-            <li><a>Profession</a></li>
-            <li><a>Agency</a></li>
-            <li><a>Personality</a></li>
-        </ul>
-    </div>
-</div>
-
-<div class="block">
-    <div class="columns">
-        <div class="column">
-            <div #genderplot id="genderplot"></div>
-        </div>
-        <div class="column">
-            <div #ageplot id="ageplot"></div>
-        </div>
-    </div>
-</div>
-
-<div class="block">
-    <div class="columns">
-        <div class="column">
-            <div #roleplot id="roleplot"></div>
-        </div>
-        <div class="column">
-            <div #narratorplot id="narratorplot"></div>
-        </div>
-        <div class="column">
-            <div #focaliserplot id="focaliserplot"></div>
         </div>
     </div>
 </div>

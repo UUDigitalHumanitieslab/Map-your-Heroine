@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
-import * as Bokeh from '@bokeh/bokehjs/build/js/lib/embed';
 import { GENDER_OPTIONS } from '../models/hero';
 
 @Component({
@@ -12,12 +11,7 @@ import { GENDER_OPTIONS } from '../models/hero';
 export class VisOverviewComponent implements OnInit {
   plots = ['genderplot', 'ageplot', 'roleplot', 'narratorplot', 'focaliserplot'];
   genderOptions = GENDER_OPTIONS;
-
-  @ViewChild('genderplot') genderPlot;
-  @ViewChild('ageplot') agePlot;
-  @ViewChild('roleplot') rolePlot;
-  @ViewChild('narratorplot') narratorPlot;
-  @ViewChild('focaliserplot') focaliserPlot;
+  currentFilters: any;
 
   filterForm = new FormGroup({
     hero_gender: new FormArray([])
@@ -26,23 +20,25 @@ export class VisOverviewComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.plots.forEach(plot =>
-      this.embedPlot(plot)
-      );
-
     this.genderOptions.forEach(response =>
       (this.filterForm.get('hero_gender') as FormArray).push(new FormControl(response.value))
     );
+    this.currentFilters = this.filterForm.value;
 
   }
 
-  embedPlot(name: string) {
-    this.http.get(`/api/results/${name}`).subscribe(
-      res => {
-        Bokeh.embed_item(res, name);
-      },
-      err => console.error(err)
-    );
+  openTab(event: any, tabName) {
+    var i, x, tablinks;
+    x = document.getElementsByClassName('content-tab');
+    for (i = 0; i < x.length; i++) {
+        x[i].style.display = 'none';
+    }
+    tablinks = document.getElementsByClassName('tab');
+    for (i = 0; i < x.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(' is-active', '');
+    }
+    document.getElementById(tabName).style.display = 'block';
+    event.currentTarget.className += ' is-active';
   }
 
   onCheckboxChange(name, value, event) {
@@ -67,33 +63,8 @@ export class VisOverviewComponent implements OnInit {
     return genderSelected;
   }
 
-  embedFilteredPlot(name: string, filters: any) {
-    this.http.post(`/api/results/${name}`, filters).subscribe(
-      res => {
-        Bokeh.embed_item(res, name);
-      },
-      err => console.error(err)
-    );
-  }
-
-  clearPlots() {
-    this.genderPlot.nativeElement.innerHTML = '';
-    this.agePlot.nativeElement.innerHTML = '';
-    this.rolePlot.nativeElement.innerHTML = '';
-    this.narratorPlot.nativeElement.innerHTML = '';
-    this.focaliserPlot.nativeElement.innerHTML = '';
-  }
-
-  applyFilters() {
-    const filters = this.filterForm.value;
-
-    alert(JSON.stringify(filters));
-
-    this.clearPlots();
-
-    this.plots.forEach(plot =>
-      this.embedFilteredPlot(plot, filters)
-      );
+  submitFilters() {
+    this.currentFilters = this.filterForm.value;
   }
 
 }

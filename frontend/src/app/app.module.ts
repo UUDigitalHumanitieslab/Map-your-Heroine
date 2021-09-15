@@ -23,6 +23,7 @@ import { OverviewComponent } from './survey/overview.component';
 import { HeroComponent } from './survey/hero.component';
 import { ResponseComponent } from './survey/response.component';
 import { VisOverviewComponent } from './visualisations/vis-overview.component';
+import { VisHeroComponent } from './visualisations/vis-hero.component';
 
 export function RestangularConfigFactory(RestangularProvider) {
     RestangularProvider.setBaseUrl('/api');
@@ -48,7 +49,8 @@ export function RestangularConfigFactory(RestangularProvider) {
         OverviewComponent,
         HeroComponent,
         ResponseComponent,
-        VisOverviewComponent
+        VisOverviewComponent,
+        VisHeroComponent
     ],
     imports: [
         AppRoutingModule,
