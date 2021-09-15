@@ -19,3 +19,9 @@ class PlotView(APIView):
         p = PLOT_NAMES[name]()
         json = json_item(p, name)
         return Response(json)
+    
+    def post(self, request, name, format=None):
+        filters = request.data
+        p = PLOT_NAMES[name](filters)
+        json = json_item(p, name)
+        return Response(json)

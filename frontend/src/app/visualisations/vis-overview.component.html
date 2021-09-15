@@ -3,14 +3,20 @@
         <div class="field">
             <label class="label" for="solutions">Gender of the hero(ine):</label>
             <div class="control">
-                <div *ngFor="let response of ['Male', 'Female', 'Other']" class="p-field-checkbox">
-                    <label class="checkbox" [for]="response">
-                        <input type="checkbox" name="solutions" checked="checked" [value]="response">
-                        {{response}}
+                <div *ngFor="let response of genderOptions" class="p-field-checkbox">
+                    <label class="checkbox" [for]="response.value">
+                        <input type="checkbox" name="hero_gender" checked="checked" (change)="onCheckboxChange('hero_gender', response.value, $event)">
+                        {{response.label}}
                     </label>
                 </div>
             </div>
         </div>
+
+        <div class="field">
+            <div class="control">
+              <button class="button is-link" type="submit" [disabled]="!formIsValid()" (click)="applyFilters()">View results</button>
+            </div>
+          </div>
     </form>
 </div>
 
@@ -30,10 +36,10 @@
 <div class="block">
     <div class="columns">
         <div class="column">
-            <div id="genderplot"></div>
+            <div #genderplot id="genderplot"></div>
         </div>
         <div class="column">
-            <div id="ageplot"></div>
+            <div #ageplot id="ageplot"></div>
         </div>
     </div>
 </div>
@@ -41,13 +47,13 @@
 <div class="block">
     <div class="columns">
         <div class="column">
-            <div id="roleplot"></div>
+            <div #roleplot id="roleplot"></div>
         </div>
         <div class="column">
-            <div id="narratorplot"></div>
+            <div #narratorplot id="narratorplot"></div>
         </div>
         <div class="column">
-            <div id="focaliserplot"></div>
+            <div #focaliserplot id="focaliserplot"></div>
         </div>
     </div>
 </div>

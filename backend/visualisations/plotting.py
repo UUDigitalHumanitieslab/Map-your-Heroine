@@ -1,10 +1,9 @@
 from typing import Counter
 from math import pi
-from bokeh.plotting import figure, show
+from bokeh.plotting import figure
 from factual.models import Hero, Work
 from bokeh.transform import cumsum
 from bokeh.palettes import Set2
-from bokeh.colors.groups import blue, red
 import pandas as pd
 
 DEFAULT_PALETTE = Set2[8]
@@ -14,9 +13,16 @@ class Plots:
         works = Work.objects.all()
         return works
 
-    def _all_heroes():
-        heroes = Hero.objects.all()
-        return heroes
+    def _hero_qualifies(hero, filters):
+        return hero.gender in filters['hero_gender']
+
+    def _all_heroes(filters = None):
+        if filters != None:
+            heroes = Hero.objects.all()            
+            filtered_heroes = [hero for hero in heroes if Plots._hero_qualifies(hero, filters)]
+            return filtered_heroes
+        else:
+            return Hero.objects.all()
 
     def _pie_plot(counts, name, unit='', palette = DEFAULT_PALETTE):
         data = pd.Series(counts).reset_index(name='value').rename(columns={'index':name}).sort_values(by=name)
@@ -51,14 +57,15 @@ class Plots:
         return p
 
 
-    def gender_plot():
+    def gender_plot(filters=None):
+        print(filters)
         nice_strings = {
             'MALE': 'Male',
             'FEMALE': 'Female',
             'OTHER': 'Other'
         }
 
-        all_heroes = Plots._all_heroes()
+        all_heroes = Plots._all_heroes(filters)
         gender_counts = Counter(nice_strings[hero.gender] for hero in all_heroes)
 
         p = Plots._pie_plot(gender_counts, 'gender', unit='character(s)')
@@ -66,14 +73,14 @@ class Plots:
 
         return p
 
-    def role_plot():
+    def role_plot(filters=None):
         nice_strings = {
             'MAIN': 'Main character',
             'MINOR': 'Minor character',
             'PROTAGONIST': 'Protagonist'
         }
 
-        all_heroes = Plots._all_heroes()
+        all_heroes = Plots._all_heroes(filters)
         counts = Counter(nice_strings[hero.role] for hero in all_heroes)
 
         p = Plots._pie_plot(counts, 'role', unit='character(s)')
@@ -82,13 +89,13 @@ class Plots:
 
         return p
 
-    def narrator_plot():
+    def narrator_plot(filters=None):
         nice_strings = {
             False: 'No',
             True: 'Yes'
         }
 
-        all_heroes = Plots._all_heroes()
+        all_heroes = Plots._all_heroes(filters)
         counts = Counter(nice_strings[hero.narrator] for hero in all_heroes)
 
         p = Plots._pie_plot(counts, 'narrator', unit='character(s)')
@@ -97,13 +104,13 @@ class Plots:
 
         return p
 
-    def focaliser_plot():
+    def focaliser_plot(filters=None):
         nice_strings = {
             False: 'No',
             True: 'Yes'
         }
 
-        all_heroes = Plots._all_heroes()
+        all_heroes = Plots._all_heroes(filters)
         counts = Counter(nice_strings[hero.focaliser] for hero in all_heroes)
 
         p = Plots._pie_plot(counts, 'focaliser', unit='character(s)')
@@ -112,8 +119,8 @@ class Plots:
 
         return p
     
-    def age_plot():
-        all_heroes = Plots._all_heroes()
+    def age_plot(filters=None):
+        all_heroes = Plots._all_heroes(filters)
         age_counts = Counter(hero.age for hero in all_heroes if hero.age != 'UNKNOWN')
         ages = ['0-25', '26-35', '36-45', '46-55', '56-65', '65+']
         age_values = [age_counts[age] for age in ages]
