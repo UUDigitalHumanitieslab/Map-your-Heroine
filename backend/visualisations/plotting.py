@@ -1,5 +1,6 @@
 from typing import Counter
 from math import pi
+from bokeh.models import filters
 from bokeh.plotting import figure
 from factual.models import Hero, Work
 from bokeh.transform import cumsum
@@ -7,16 +8,54 @@ from bokeh.palettes import Set2
 import pandas as pd
 
 DEFAULT_PALETTE = Set2[8]
+STANDARD_MEDIA = ['novel', 'film', 'tv-series', 'vlog', 'comic', 'fan fiction', 'music', 'ballet', 'game']  
 
 class Plots:
-    def _all_works():
-        works = Work.objects.all()
-        return works
+    def _work_qualifies(work, filters):
+        # has responses
+        # TODO: check for responses
+        
+        # medium
+        if 'work_medium' in filters:
+            if work.medium in STANDARD_MEDIA:
+                if not work.medium in filters['work_medium']:
+                    return False
+            else:
+                if not 'other' in filters['work_medium']:
+                    return False
+        
+        # has at least one qualifying hero
+        hero_keys = {key: filters[key] for key in filters.keys() if key.startswith('hero')}
+        if len(hero_keys) > 0:
+            print(work.heroes)
+
+        return True
+
+    def _all_works(filters = dict()):
+        if filters != None:
+            works = Work.objects.all()
+            filtered_works = [work for work in works if Plots._work_qualifies(work, filters)]
+            return filtered_works
+        else:
+            return Work.objects.all()
 
     def _hero_qualifies(hero, filters):
-        return hero.gender in filters['hero_gender']
+        #has responses
+        # TODO: check for responses
+        
+        #gender
+        if 'hero_gender' in filters:
+            if not hero.gender in filters['hero_gender']:
+                return False
+        
+        #work matches
+        work_keys = {key: filters[key] for key in filters.keys() if key.startswith('work')}
+        if len(work_keys) > 0:
+            return Plots._work_qualifies(hero.work, work_keys)
 
-    def _all_heroes(filters = None):
+        return True
+
+    def _all_heroes(filters = dict()):
         if filters != None:
             heroes = Hero.objects.all()            
             filtered_heroes = [hero for hero in heroes if Plots._hero_qualifies(hero, filters)]
@@ -56,32 +95,39 @@ class Plots:
 
         return p
 
+    def medium_plot(filters=dict()):
+        works = Plots._all_works(filters)
+        medium_counts = Counter(work.medium if work.medium in STANDARD_MEDIA else 'other' for work in works )
 
-    def gender_plot(filters=None):
-        print(filters)
+        p = Plots._pie_plot(medium_counts, 'medium', unit='work(s)')
+        p.plot_width = 400
+
+        return p
+
+    def gender_plot(filters=dict()):
         nice_strings = {
             'MALE': 'Male',
             'FEMALE': 'Female',
             'OTHER': 'Other'
         }
 
-        all_heroes = Plots._all_heroes(filters)
-        gender_counts = Counter(nice_strings[hero.gender] for hero in all_heroes)
+        heroes = Plots._all_heroes(filters)
+        gender_counts = Counter(nice_strings[hero.gender] for hero in heroes)
 
         p = Plots._pie_plot(gender_counts, 'gender', unit='character(s)')
         p.plot_width = 400
 
         return p
 
-    def role_plot(filters=None):
+    def role_plot(filters=dict()):
         nice_strings = {
             'MAIN': 'Main character',
             'MINOR': 'Minor character',
             'PROTAGONIST': 'Protagonist'
         }
 
-        all_heroes = Plots._all_heroes(filters)
-        counts = Counter(nice_strings[hero.role] for hero in all_heroes)
+        heroes = Plots._all_heroes(filters)
+        counts = Counter(nice_strings[hero.role] for hero in heroes)
 
         p = Plots._pie_plot(counts, 'role', unit='character(s)')
         p.plot_width = 350
@@ -89,14 +135,14 @@ class Plots:
 
         return p
 
-    def narrator_plot(filters=None):
+    def narrator_plot(filters=dict()):
         nice_strings = {
             False: 'No',
             True: 'Yes'
         }
 
-        all_heroes = Plots._all_heroes(filters)
-        counts = Counter(nice_strings[hero.narrator] for hero in all_heroes)
+        heroes = Plots._all_heroes(filters)
+        counts = Counter(nice_strings[hero.narrator] for hero in heroes)
 
         p = Plots._pie_plot(counts, 'narrator', unit='character(s)')
         p.plot_width = 350
@@ -104,14 +150,14 @@ class Plots:
 
         return p
 
-    def focaliser_plot(filters=None):
+    def focaliser_plot(filters=dict()):
         nice_strings = {
             False: 'No',
             True: 'Yes'
         }
 
-        all_heroes = Plots._all_heroes(filters)
-        counts = Counter(nice_strings[hero.focaliser] for hero in all_heroes)
+        heroes = Plots._all_heroes(filters)
+        counts = Counter(nice_strings[hero.focaliser] for hero in heroes)
 
         p = Plots._pie_plot(counts, 'focaliser', unit='character(s)')
         p.plot_width = 350
@@ -119,9 +165,9 @@ class Plots:
 
         return p
     
-    def age_plot(filters=None):
-        all_heroes = Plots._all_heroes(filters)
-        age_counts = Counter(hero.age for hero in all_heroes if hero.age != 'UNKNOWN')
+    def age_plot(filters=dict()):
+        heroes = Plots._all_heroes(filters)
+        age_counts = Counter(hero.age for hero in heroes if hero.age != 'UNKNOWN')
         ages = ['0-25', '26-35', '36-45', '46-55', '56-65', '65+']
         age_values = [age_counts[age] for age in ages]
 

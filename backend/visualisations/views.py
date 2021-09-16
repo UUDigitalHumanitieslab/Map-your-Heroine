@@ -7,6 +7,7 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
 PLOT_NAMES = {
+    'mediumplot': Plots.medium_plot,
     'ageplot': Plots.age_plot,
     'genderplot': Plots.gender_plot, 
     'roleplot': Plots.role_plot,

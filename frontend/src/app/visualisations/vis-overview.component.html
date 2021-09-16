@@ -4,13 +4,27 @@
         <div class="block">
             <form>
                 <div class="field">
-                    <label class="label" for="solutions">Gender of the hero(ine):</label>
-                    <div class="control">
-                        <div *ngFor="let response of genderOptions" class="p-field-checkbox">
-                            <label class="checkbox" [for]="response.value">
-                                <input type="checkbox" name="hero_gender" checked="checked" (change)="onCheckboxChange('hero_gender', response.value, $event)">
-                                {{response.label}}
-                            </label>
+                    <div class="block">
+                        <label class="label" for="work_medium">Medium of the work:</label>
+                        <div class="control">
+                            <div *ngFor="let response of mediumOptions">
+                                <label class="checkbox" [for]="response">
+                                    <input type="checkbox" name="work_medium" checked="checked" (change)="onCheckboxChange('work_medium', response, $event)">
+                                    {{response}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="block">
+                        <label class="label" for="hero_gender">Gender of the hero(ine):</label>
+                        <div class="control">
+                            <div *ngFor="let response of genderOptions">
+                                <label class="checkbox" [for]="response.value">
+                                    <input type="checkbox" name="hero_gender" checked="checked" (change)="onCheckboxChange('hero_gender', response.value, $event)">
+                                    {{response.label}}
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -23,7 +37,7 @@
             </form>
         </div>
     </div>
-    <div class="column">
+    <div class="column ">
         <div class="block">
             <nav class="tabs">
                 <ul>
@@ -38,7 +52,8 @@
             <div class="container section">
                 <div id="tab_work" class="content-tab">
                     <div>
-                        Work plots coming soon!
+                        <mh-vis-work [filters]="currentFilters"></mh-vis-work>
+                        
                     </div>
                 </div>
                 <div id="tab_heroes" class="content-tab" style="display:none">

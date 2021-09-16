@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { MEDIUM_OPTIONS } from '../models/work';
 import { GENDER_OPTIONS } from '../models/hero';
 
 @Component({
@@ -10,16 +11,22 @@ import { GENDER_OPTIONS } from '../models/hero';
 })
 export class VisOverviewComponent implements OnInit {
   plots = ['genderplot', 'ageplot', 'roleplot', 'narratorplot', 'focaliserplot'];
+
+  mediumOptions = [...MEDIUM_OPTIONS, 'other'];
   genderOptions = GENDER_OPTIONS;
   currentFilters: any;
 
   filterForm = new FormGroup({
+    work_medium: new FormArray([]),
     hero_gender: new FormArray([])
   });
 
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
+    this.mediumOptions.forEach(response =>
+      (this.filterForm.get('work_medium') as FormArray).push(new FormControl(response))
+    );
     this.genderOptions.forEach(response =>
       (this.filterForm.get('hero_gender') as FormArray).push(new FormControl(response.value))
     );
