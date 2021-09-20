@@ -25,9 +25,11 @@ class Plots:
                     return False
         
         # has at least one qualifying hero
-        hero_keys = {key: filters[key] for key in filters.keys() if key.startswith('hero')}
-        if len(hero_keys) > 0:
-            print(work.heroes)
+        hero_filters = {key: filters[key] for key in filters.keys() if key.startswith('hero')}
+        if len(hero_filters) > 0:
+            has_qualifying_hero = any(Plots._hero_qualifies(hero, hero_filters) for hero in work.heroes.all())
+            if not has_qualifying_hero:
+                return False
 
         return True
 
