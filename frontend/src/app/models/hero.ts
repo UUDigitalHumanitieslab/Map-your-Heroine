@@ -1,7 +1,7 @@
 export interface IHero {
     id?: number; // id exists only when retrieving from backend, so make it optional
     name: string;
-    work: number;
+    work: any;
 
     //role: 'protagonist' | 'main character' | 'minor character'
     role: string;
