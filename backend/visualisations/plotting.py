@@ -13,7 +13,8 @@ STANDARD_MEDIA = ['novel', 'film', 'tv-series', 'vlog', 'comic', 'fan fiction', 
 class Plots:
     def _work_qualifies(work, filters):
         # has responses
-        # TODO: check for responses
+        if not len(work.responses.all()):
+            return False
         
         # medium
         if 'work_medium' in filters:
@@ -43,7 +44,8 @@ class Plots:
 
     def _hero_qualifies(hero, filters):
         #has responses
-        # TODO: check for responses
+        if not len(hero.responses.all()):
+            return False
         
         #gender
         if 'hero_gender' in filters:
