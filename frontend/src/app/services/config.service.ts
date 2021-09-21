@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 export interface Config {
     backendUrl: string;
+    voyantUrl: string;
 }
 
 @Injectable({
