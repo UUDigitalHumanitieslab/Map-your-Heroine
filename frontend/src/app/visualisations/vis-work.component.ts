@@ -8,11 +8,12 @@ import * as Bokeh from '@bokeh/bokehjs/build/js/lib/embed';
   styleUrls: ['./vis-work.component.scss']
 })
 export class VisWorkComponent implements OnInit, OnChanges {
-  plots = ['mediumplot'];
+  plots = ['mediumplot', 'pubcountryplot'];
 
   @Input() filters: any;
 
   @ViewChild('mediumplot') mediumPlot;
+  @ViewChild('pubcountryplot') pubCountryPlot;
 
   constructor(private http: HttpClient) { }
 
@@ -35,6 +36,10 @@ export class VisWorkComponent implements OnInit, OnChanges {
   clearPlots() {
     if (this.mediumPlot !== undefined) {
       this.mediumPlot.nativeElement.innerHTML = '';
+    }
+
+    if (this.pubCountryPlot !== undefined) {
+      this.pubCountryPlot.nativeElement.innerHTML = '';
     }
   }
 

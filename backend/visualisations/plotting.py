@@ -4,10 +4,10 @@ from bokeh.models import filters
 from bokeh.plotting import figure
 from factual.models import Hero, Work
 from bokeh.transform import cumsum
-from bokeh.palettes import Set2
+from bokeh.palettes import Set2, Paired
 import pandas as pd
 
-DEFAULT_PALETTE = Set2[8]
+DEFAULT_PALETTE = Set2[8] + tuple(Paired[12][i] for i in range(0, 12, 2))
 STANDARD_MEDIA = ['novel', 'film', 'tv-series', 'vlog', 'comic', 'fan fiction', 'music', 'ballet', 'game']  
 
 class Plots:
@@ -108,6 +108,21 @@ class Plots:
 
         return p
 
+    def pubcountry_plot(filters=dict()):
+        works = Plots._all_works(filters)
+        counts_all = Counter(work.pub_country for work in works)
+        top10 = {country : count for (country, count) in counts_all.most_common(10)}
+        other_count = sum(counts_all[country] for country in counts_all if country not in top10)
+        if other_count:
+            data = {**top10, 'other' : other_count}
+        else:
+            data = top10
+
+        p = Plots._pie_plot(data, 'country', unit='work(s)')
+        p.plot_width = 400
+
+        return p
+
     def gender_plot(filters=dict()):
         nice_strings = {
             'MALE': 'Male',
@@ -115,10 +130,12 @@ class Plots:
             'OTHER': 'Other'
         }
 
+        palette = [DEFAULT_PALETTE[10], DEFAULT_PALETTE[2], DEFAULT_PALETTE[0]]
+
         heroes = Plots._all_heroes(filters)
         gender_counts = Counter(nice_strings[hero.gender] for hero in heroes)
 
-        p = Plots._pie_plot(gender_counts, 'gender', unit='character(s)')
+        p = Plots._pie_plot(gender_counts, 'gender', unit='character(s)', palette = palette)
         p.plot_width = 400
 
         return p
@@ -145,10 +162,12 @@ class Plots:
             True: 'Yes'
         }
 
+        palette = [DEFAULT_PALETTE[1], DEFAULT_PALETTE[0]]
+
         heroes = Plots._all_heroes(filters)
         counts = Counter(nice_strings[hero.narrator] for hero in heroes)
 
-        p = Plots._pie_plot(counts, 'narrator', unit='character(s)')
+        p = Plots._pie_plot(counts, 'narrator', unit='character(s)', palette = palette)
         p.plot_width = 350
         p.plot_height = 300
 
@@ -160,10 +179,12 @@ class Plots:
             True: 'Yes'
         }
 
+        palette = [DEFAULT_PALETTE[1], DEFAULT_PALETTE[0]]
+
         heroes = Plots._all_heroes(filters)
         counts = Counter(nice_strings[hero.focaliser] for hero in heroes)
 
-        p = Plots._pie_plot(counts, 'focaliser', unit='character(s)')
+        p = Plots._pie_plot(counts, 'focaliser', unit='character(s)', palette = palette)
         p.plot_width = 350
         p.plot_height = 300
 

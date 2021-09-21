@@ -8,6 +8,7 @@ from rest_framework.response import Response
 
 PLOT_NAMES = {
     'mediumplot': Plots.medium_plot,
+    'pubcountryplot': Plots.pubcountry_plot,
     'ageplot': Plots.age_plot,
     'genderplot': Plots.gender_plot, 
     'roleplot': Plots.role_plot,
