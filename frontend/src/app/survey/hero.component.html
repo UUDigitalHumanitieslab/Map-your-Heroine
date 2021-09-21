@@ -1,179 +1,215 @@
 <form [formGroup]="heroForm" (ngSubmit)="onSubmit()" novalidate>
-    <div class="field">
-      <label class="label" for="name">What is the hero/heroine's name?*</label>
+  <div class="field">
+    <label class="label" for="name">What is the hero/heroine's name?</label>
+    <div class="control">
+      <input class="input" id="name" type="text" formControlName="name" placeholder="Name of the hero(ine)">
+    </div>
+  </div>
+
+  <div class="field">
+      <label class="label" for="role">Is this hero/heroine a protagonist or minor character in the story?*</label>
       <div class="control">
-        <input class="input" id="name" type="text" formControlName="name" placeholder="Name of the hero(ine)">
+        <div *ngFor="let role of roleOptions" class="p-field-checkbox">
+          <label class="radio" [for]="role.value">
+          <input type="radio" name="role" [value]="role.value" formControlName="role">
+          {{role.label}}</label>
+        </div>
       </div>
-    </div>
+  </div>
 
-    <div class="field">
-        <label class="label" for="role">Is this hero/heroine a protagonist or minor character in the story?*</label>
-        <div class="control">
-          <div *ngFor="let role of roleOptions" class="p-field-checkbox">
-            <p-radioButton [inputId]="role.value" name="role" [value]="role" formControlName="role"></p-radioButton>
-            <label class="p-field-radiobutton" [for]="role.value">{{role.label}}</label>
-        </div>
-        </div>
-    </div>
-
-    <div class="field">
-      <label class="label" for="narrator">Is this hero(ine) the narrator for the story?</label>
+  <div class="field">
+    <label class="label" for="narrator">Is this hero(ine) the narrator for the story?</label>
       <div class="control">
         <div *ngFor="let narrator of yesnoOptions" class="p-field-checkbox">
-          <p-radioButton [inputId]="narrator.value" name="narrator" [value]="narrator" formControlName="narrator"></p-radioButton>
-          <label class="p-field-radiobutton" [for]="narrator.value">{{narrator.label}}</label>
-      </div>
-      </div>
-     </div>
-
-     <div class="field">
-      <label class="label" for="focaliser">Is this hero(ine) the focaliser?</label>
-      <div class="control">
-        <div *ngFor="let focaliser of yesnoOptions" class="p-field-checkbox">
-          <p-radioButton [inputId]="focaliser.value" name="focaliser" [value]="focaliser" formControlName="focaliser"></p-radioButton>
-          <label class="p-field-radiobutton" [for]="focaliser.value">{{focaliser.label}}</label>
-      </div>
-      </div>
-     </div>
-
-     <div class="field">
-      <label class="label" for="gender">What is the gender identity of this hero(ine)?</label>
-      <div class="control">
-        <div *ngFor="let gender of genderOptions" class="p-field-checkbox">
-          <p-radioButton [inputId]="gender" name="gender" [value]="gender" formControlName="gender"></p-radioButton>
-          <label class="p-field-radiobutton" [for]="gender">{{gender}}</label>
-      </div>
+          <label class="radio" [for]="narrator.value">
+          <input type="radio" name="narrator" [value]="narrator.value" formControlName="narrator">
+          {{narrator.label}}</label>
       </div>
     </div>
+  </div>
 
-    <div class="field">
-      <label class="label" for="age-dropdown">What is the age of this hero(ine) for most of the story?</label>
-      <div class="control">
-        <p-dropdown id="age-dropdown" [options]="ageOptions" formControlName="age"
-          placeholder="Pick an option" showClear="true">
-        </p-dropdown>
+  <div class="field">
+    <label class="label" for="focaliser">Is this hero(ine) the focaliser?</label>
+    <div class="control">
+      <div *ngFor="let focaliser of yesnoOptions" class="p-field-checkbox">
+        <label class="radio" [for]="focaliser.value">
+        <input type="radio" name="focaliser" [value]="focaliser.value" formControlName="focaliser">
+        {{focaliser.label}}</label>
       </div>
     </div>
+  </div>
 
-      <div class="field">
-        <label class="label" for="countryorigin">In what country was your hero/heroine born? You can also choose unkown or imaginary.</label>
-        <div class="control">
-          <input class="input" id="countryorigin" type="text" formControlName="country_origin" placeholder="The Netherlands">
-        </div>
-      </div>
-
-      <div class="field">
-        <label class="label" for="countrylive">In which country does this hero/heroine live? If more than one, choose the country in which most of the action takes place.</label>
-        <div class="control">
-          <input class="input" id="countrylive" type="text" formControlName="country_live" placeholder="The Netherlands">
-        </div>
-      </div>
-
-      <div class="field">
-        <label class="label" for="countrygrowup">In which country did this hero/heroine grow up?</label>
-        <div class="control">
-          <input class="input" id="countrygrowup" type="text" formControlName="country_growup" placeholder="The Netherlands">
-        </div>
-      </div>
-
-      <div class="field">
-        <label class="label" for="education">What is the level of education of this hero/heroine?</label>
-        <div class="control">
-          <div *ngFor="let education of educationOptions" class="p-field-checkbox">
-            <p-radioButton [inputId]="education.value" name="education" [value]="education" formControlName="education"></p-radioButton>
-            <label class="p-field-radiobutton" [for]="education.value">{{education.label}}</label>
-        </div>
-        </div>
-       </div>
-  
-
-      <div class="field">
-        <label class="label" for="profession">What is the profession or main occupation of this hero/heroine?</label>
-        <div class="control">
-          <input class="input" id="profession" type="text" formControlName="profession" placeholder="Profession of the hero(ine)">
-        </div>
-      </div>
-
-      <div class="field">
-        <label class="label" for="hobbies">What are the hobbies of this hero(ine)?</label>
-        <div class="control">
-          <p-chips id="hobbies" formControlName="hobbies" placeholder="Hobbies (comma separated)" separator=","></p-chips>
-          </div>
-      </div>
-
-      <div class="field">
-        <label class="label" for="pets">What kind of pets does this hero(ine) have?</label>
-        <div class="control">
-          <p-chips id="pets" formControlName="pets" placeholder="Pets (comma separated)" separator=","></p-chips>
-          </div>
-      </div>
-
-      <div class="field">
-        <label class="label" for="appearance">Is this hero(ine) physically attractive within the context of the work / according to the other characters?</label>
-        <div class="control">
-          <div *ngFor="let response of yesnounkOptions" class="p-field-checkbox">
-            <p-radioButton [inputId]="response.value" name="appearance" [value]="response" formControlName="appearance"></p-radioButton>
-            <label class="p-field-radiobutton" [for]="response.value">{{response.label}}</label>
-        </div>
-        </div>
-      </div>
-
-      <div class="field">
-        <label class="label" for="role">Are the hero(ine)'s sexual relations described in the text?</label>
-        <div class="control">
-          <div *ngFor="let response of yesnoOptions" class="p-field-checkbox">
-            <p-radioButton [inputId]="response.value" name="sex" [value]="response" formControlName="sex"></p-radioButton>
-            <label class="p-field-radiobutton" [for]="response.value">{{response.label}}</label>
-        </div>
-        </div>
-    </div>
-
-      <div class="field">
-        <label class="label" for="wealth-dropdown">How wealthy is this hero(ine) in the most significant parts of the story?</label>
-        <div class="control">
-          <p-dropdown id="wealth-dropdown" [options]="wealthOptions" formControlName="wealth"
-            placeholder="Pick an option" showClear="true">
-          </p-dropdown>
-        </div>
-      </div>
-
-      <div class="field">
-        <label class="label" for="relatives-dropdown">For the most important parts of the story, does this hero(ine) have one or more relatives?</label>
-        <div class="control">
-          <p-multiSelect id="relatives-dropdown" [options]="relativesOptions" formControlName="relatives"
-            placeholder="Pick an option" showClear="true">
-          </p-multiSelect>
-        </div>
-      </div>
-
-      <div class="field">
-        <label class="label" for="problems-dropdown">What is the nature of the main problem this hero(ine) encounters?</label>
-        <div class="control">
-          <p-multiSelect id="problems-dropdown" [options]="problemOptions" formControlName="problems"
-            placeholder="Pick an option" showClear="true">
-          </p-multiSelect>
-        </div>
-      </div>
-
-      <div class="field">
-        <label class="label" for="solutions-dropdown">How does this hero(ine) overcome problems? The most important tools for this hero(ine) are...</label>
-        <div class="control">
-          <p-multiSelect id="solutions-dropdown" [options]="solutionOptions" formControlName="solutions"
-            placeholder="Pick an option" showClear="true">
-          </p-multiSelect>
-        </div>
-      </div>
-
-      <div class="field">
-        <div class="control">
-          <button class="button is-link" type="submit" [disabled]="!heroForm.valid">Submit</button>
-        </div>
-      </div>
-
-    <div class="field" *ngIf="httpError">
-      <div class="notification is-error">
-        {{httpError.message}}
+  <div class="field">
+    <label class="label" for="gender">What is the gender identity of this hero(ine)?</label>
+    <div class="control">
+      <div *ngFor="let gender of genderOptions" class="p-field-checkbox">
+        <label class="radio" [for]="gender.value">
+        <input type="radio" name="gender" [value]="gender.value" formControlName="gender">
+        {{gender.label}}</label>
       </div>
     </div>
+  </div>
+
+  <div class="field">
+    <label class="label" for="age-dropdown">What is the age of this hero(ine) for most of the story?</label>
+    <div class="control">
+      <div *ngFor="let age of ageOptions" class="p-field-checkbox">
+        <label class="radio" [for]="age">
+        <input type="radio" name="age" [value]="age" formControlName="age">
+        {{age}}</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label" for="countryorigin">In what country was your hero/heroine born? You can also choose "unkown" or "imaginary".</label>
+    <div class="control">
+      <input class="input" id="countryorigin" type="text" formControlName="country_origin" placeholder="The Netherlands">
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label" for="countrylive">In which country does this hero/heroine live? If more than one, choose the country in which most of the action takes place.</label>
+    <div class="control">
+      <input class="input" id="countrylive" type="text" formControlName="country_live" placeholder="The Netherlands">
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label" for="countrygrowup">In which country did this hero/heroine grow up?</label>
+    <div class="control">
+      <input class="input" id="countrygrowup" type="text" formControlName="country_growup" placeholder="The Netherlands">
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label" for="education">What is the level of education of this hero/heroine?</label>
+    <div class="control">
+      <div *ngFor="let education of educationOptions" class="p-field-checkbox">
+        <label class="radio" [for]="education.value">
+        <input type="radio" name="education" [value]="education.value" formControlName="education">
+        {{education.label}}</label>
+    </div>
+    </div>
+    </div>
+
+
+  <div class="field">
+    <label class="label" for="profession">What is the profession or main occupation of this hero/heroine?</label>
+    <div class="control">
+      <input class="input" id="profession" type="text" formControlName="profession" placeholder="Profession of the hero(ine)">
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label" for="hobbies">What are the hobbies of this hero(ine)?</label>
+    <div class="control">
+      <p-chips id="hobbies" formControlName="hobbies" placeholder="Hobbies (comma separated)" separator=","></p-chips>
+      </div>
+  </div>
+
+  <div class="field">
+    <label class="label" for="pets">What kind of pets does this hero(ine) have?</label>
+    <div class="control">
+      <div *ngFor="let response of petsOptions" class="p-field-checkbox">
+        <label class="checkbox" [for]="response">
+        <input type="checkbox" name="pets" [value]="response" (change)="onCheckboxChange('pets', response, $event)">
+        {{response}}</label>
+      </div>
+      <div class="p-field-checkbox">
+        <label class="checkbox">
+        <input type="checkbox" binary="true" formControlName="pets_other_enable">
+        Other: <p-chips placeholder="Specify" separator="," [disabled]="!(this.heroForm.get('pets_other_enable').value)" formControlName="pets_other"></p-chips></label>
+      </div>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label" for="appearance">Is this hero(ine) physically attractive within the context of the work / according to the other characters?</label>
+    <div class="control">
+      <div *ngFor="let response of yesnounkOptions" class="p-field-checkbox">
+        <label class="radio" [for]="response.value">
+        <input type="radio" name="appearance" [value]="response.value" formControlName="appearance">
+        {{response.label}}</label>
+    </div>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label" for="role">Are the hero(ine)'s sexual relations described in the text?</label>
+    <div class="control">
+      <div *ngFor="let response of yesnoOptions" class="p-field-checkbox">
+        <label class="radio" [for]="response.value">
+        <input type="radio" name="sex" [value]="response.value" formControlName="sex">
+        {{response.label}}</label>
+    </div>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label" for="wealth">How wealthy is this hero(ine) in the most significant parts of the story?</label>
+    <div class="control">
+      <div *ngFor="let wealth of wealthOptions" class="p-field-checkbox">
+        <label class="radio" [for]="wealth.value">
+        <input type="radio" name="wealth" [value]="wealth.value" formControlName="wealth">
+        {{wealth.label}}</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label" for="relatives-dropdown">For the most important parts of the story, does this hero(ine) have one or more relatives?</label>
+    <div class="control">
+      <div *ngFor="let response of relativesOptions" class="p-field-checkbox">
+        <label class="checkbox" [for]="response.value">
+        <input type="checkbox" name="relatives" [value]="response.value" (change)="onCheckboxChange('relatives', response.value, $event)">
+        {{response.label}}</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label" for="problems">What is the nature of the main problem this hero(ine) encounters?</label>
+    <div class="control">
+      <div *ngFor="let response of problemOptions" class="p-field-checkbox">
+        <label class="checkbox" [for]="response">
+        <input type="checkbox" name="problems" [value]="response" (change)="onCheckboxChange('problems', response, $event)">
+        {{response}}</label>
+      </div>
+      <div class="p-field-checkbox">
+        <label class="checkbox">
+        <input type="checkbox" binary="true" formControlName="problems_other_enable">
+        Other: <p-chips placeholder="Specify" separator="," [disabled]="!(this.heroForm.get('problems_other_enable').value)" formControlName="problems_other"></p-chips></label>
+      </div>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label" for="solutions">How does this hero(ine) overcome problems? The most important tools for this hero(ine) are...</label>
+    <div class="control">
+      <div *ngFor="let response of solutionOptions" class="p-field-checkbox">
+        <label class="checkbox" [for]="response">
+        <input type="checkbox" name="solutions" [value]="response" (change)="onCheckboxChange('solutions', response, $event)">
+        {{response}}</label>
+      </div>
+      <div class="p-field-checkbox">
+        <label class="checkbox">
+        <input type="checkbox" binary="true" formControlName="solutions_other_enable">
+        Other: <p-chips placeholder="Specify" separator="," [disabled]="!(this.heroForm.get('solutions_other_enable').value)" formControlName="solutions_other"></p-chips></label>
+      </div>
+    </div>
+  </div>
+
+  <div class="field">
+    <div class="control">
+      <button class="button is-link" type="submit" [disabled]="!formIsValid()">Submit</button>
+    </div>
+  </div>
+
+  <div class="field" *ngIf="httpError">
+    <div class="notification is-error">
+      {{httpError.message}}
+    </div>
+  </div>
 
 </form>

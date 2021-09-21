@@ -7628,6 +7628,11 @@ supports-color@^8.0.0:
   dependencies:
     has-flag "^4.0.0"
 
+survey-angular@^1.8.65:
+  version "1.8.65"
+  resolved "https://registry.yarnpkg.com/survey-angular/-/survey-angular-1.8.65.tgz#c0a23bb643b120900b4592a5b06bcdad1358f594"
+  integrity sha512-Hj15Iv8Y3BBzl8naR7HZ2cjjWHAoCSd9TVz3pUXnnEgaVGhT5Sqm0V04VSG6y46lZFVAb5kMyov/wLwtQZdIBQ==
+
 svgo@^2.3.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/svgo/-/svgo-2.4.0.tgz#0c42653101fd668692c0f69b55b8d7b182ef422b"

@@ -18,10 +18,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
 import {MultiSelectModule} from 'primeng/multiselect';
 import {ChipsModule} from 'primeng/chips';
+import {CheckboxModule} from 'primeng/checkbox';
 import {RadioButtonModule} from 'primeng/radiobutton';
 import { DialogModule } from 'primeng/dialog';
 import { OverviewComponent } from './survey/overview.component';
 import { HeroComponent } from './survey/hero.component';
+import { ResponseComponent } from './survey/response.component';
 
 export function RestangularConfigFactory(RestangularProvider) {
     RestangularProvider.setBaseUrl('/api');
@@ -45,7 +47,8 @@ export function RestangularConfigFactory(RestangularProvider) {
         HomeComponent,
         WorkComponent,
         OverviewComponent,
-        HeroComponent
+        HeroComponent,
+        ResponseComponent
     ],
     imports: [
         AppRoutingModule,
@@ -61,6 +64,7 @@ export function RestangularConfigFactory(RestangularProvider) {
         RestangularModule.forRoot(RestangularConfigFactory),
         DropdownModule,
         MultiSelectModule,
+        CheckboxModule,
         ChipsModule,
         RadioButtonModule,
         DialogModule,

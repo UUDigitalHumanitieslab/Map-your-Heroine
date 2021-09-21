@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ThisReceiver } from '@angular/compiler';
+import { ANALYZE_FOR_ENTRY_COMPONENTS, Component, OnInit } from '@angular/core';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Restangular } from 'ngx-restangular';
 import { Subject } from 'rxjs';
 import { IHero } from '../models/hero';
+import { IResponse } from '../models/response';
 import { IWork } from '../models/work';
 
 @Component({
@@ -11,6 +14,7 @@ import { IWork } from '../models/work';
   styleUrls: ['./overview.component.scss']
 })
 export class OverviewComponent implements OnInit {
+  httpError: HttpErrorResponse = undefined;
   faPlus = faPlus;
 
   works$: Subject<IWork[]>;
@@ -19,6 +23,7 @@ export class OverviewComponent implements OnInit {
   existingHero: IHero;
   displayCreateWork = false;
   displayCreateHero = false;
+  heroChosen = false;
 
   constructor(private restangular: Restangular) { }
 
@@ -61,6 +66,38 @@ export class OverviewComponent implements OnInit {
   onWorkChange() {
     // Unset hero when changing work
     this.existingHero = undefined;
+  }
+
+  onChooseHero() {
+    this.heroChosen = true;
+  }
+
+  onGoBack() {
+    this.heroChosen = false;
+    this.fetchWorks();
+    this.fetchWorks();
+    this.works$.subscribe(
+      works => {
+        this.existingWork = works.find(w => w.id === this.existingWork.id);
+        this.existingHero = this.existingWork.heroes.find(h => h.id === this.existingHero.id);
+      }
+    );
+  }
+
+  onSurveyCompleted(data) {
+    this.httpError = undefined;
+
+    const response = {
+      work: this.existingWork.id,
+      hero: this.existingHero.id,
+      responses: data,
+    } as unknown as IResponse
+
+    this.restangular.all('responses')
+      .post(response).subscribe(
+        res => {},
+        err => this.httpError = err
+      )
   }
 
 }

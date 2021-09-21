@@ -30,13 +30,24 @@ export interface IHero {
     solutions: string[];
 }
 
-export const YESNOUNK_OPTIONS = [{label: 'Yes', value: true}, {label: 'No', value: 'False'}, {label: 'Unknown', value: null}]
-export const YESNO_OPTIONS = [{label: 'Yes', value: true}, {label: 'No', value: 'False'}]
-export const ROLE_OPTIONS = [{ label: 'protagonist', value: 'protagonist' }, { label: 'main character', value: 'main' }, { label: 'minor character', value: 'minor' }];
-export const EDUCATION_OPTIONS = [{ label: 'high (university, university of applied sciences)', value: 'high' }, { label: 'low (primary or secondary school, vocational training)', value: 'low' }];
-export const AGE_OPTIONS = ['0-25', '26-35', '36-45', '46-55', '56-65', '65+', {label: 'Unknown', value: null}];
-export const GENDER_OPTIONS = ['Male', 'Female', 'Other'];
-export const RELATIVES_OPTIONS = ['Parents(s) alive and present', 'Parents(s) alive but not present', 'Sibling(s) alive and present', 'Sibling(s) alive but not present', {label: 'Unknown', value: null}]
-export const WEALTH_OPTIONS = ['Rich', 'In between', 'Poor', {label: 'Unknown', value: null}];
-export const PROBLEM_OPTIONS = ['Financial', 'Psychological', 'Physcial', 'Social', 'Ethnic', 'Sexual'];
+export const YESNOUNK_OPTIONS = [{label: 'Yes', value: true}, {label: 'No', value: false}, {label: 'Unknown', value: null}]
+export const YESNO_OPTIONS = [{label: 'Yes', value: true}, {label: 'No', value: false}]
+export const ROLE_OPTIONS = [{ label: 'Protagonist', value: 'PROTAGONIST' }, { label: 'Main character', value: 'MAIN' }, { label: 'Minor character', value: 'MINOR' }];
+export const EDUCATION_OPTIONS = [
+    {label: 'High (university, university of applied sciences)', value: 'HIGH' }, 
+    {label: 'Low (primary or secondary school, vocational training)', value: 'LOW' },
+    {label: 'None', value: 'NONE' },
+    {label: 'Unknown', value: 'UNKNOWN'}];
+export const PETS_OPTIONS = ['Dog', 'Cat', 'Horse', 'Fish', 'Bird', 'Rodent']
+export const AGE_OPTIONS = ['0-25', '26-35', '36-45', '46-55', '56-65', '65+', 'Unknown'];
+export const GENDER_OPTIONS = [{ label: 'Male', value: 'MALE' }, { label: 'Female', value: 'FEMALE' }, { label: 'Other', value: 'OTHER' }];;
+export const RELATIVES_OPTIONS = [
+    {label: 'Parents(s) alive and present', value: 'PARENTS_PRESENT'}, 
+    {label: 'Parents(s) alive but not present', value: 'PARENTS_ABSENT'}, 
+    {label: 'Sibling(s) alive and present', value: 'SIBLINGS_PRESENT'}, 
+    {label: 'Sibling(s) alive but not present', value: 'SIBLINGS_ABSENT'}, 
+    {label: 'Unknown', value: 'unknown'}]
+export const WEALTH_OPTIONS = [
+    {label: 'Rich', value: 'RICH'}, {label: 'In between', value: 'INBETWEEN'}, {label: 'Poor', value: 'POOR'}, {label: 'Unknown', value: 'UNKNOWN'}];
+export const PROBLEM_OPTIONS = ['Financial', 'Psychological', 'Physical', 'Social', 'Ethnic', 'Sexual'];
 export const SOLUTION_OPTIONS = ['Education', 'Work', 'Crime', 'Friends', 'Marriage', 'Reflection', 'Religion'];
