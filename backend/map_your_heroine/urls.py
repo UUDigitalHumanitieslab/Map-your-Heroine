@@ -24,9 +24,12 @@ from .index import index
 from .proxy_frontend import proxy_frontend
 
 from example.views import hooray as ExampleView # DELETEME, see below
+from factual import views as factual_views
 
 api_router = routers.DefaultRouter()  # register viewsets with this router
-
+api_router.register('heroes', factual_views.HeroViewSet)
+api_router.register('works', factual_views.WorkViewSet)
+api_router.register('responses', factual_views.ResponseViewSet)
 
 if settings.PROXY_FRONTEND:
     spa_url = re_path(r'^(?P<path>.*)$', proxy_frontend)

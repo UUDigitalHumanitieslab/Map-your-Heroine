@@ -1,0 +1,81 @@
+<form [formGroup]="workForm" (ngSubmit)="onSubmit()" novalidate>
+  <div class="field">
+    <label class="label" for="title">Title*</label>
+    <div class="control">
+      <input class="input" id="title" type="text" formControlName="title" placeholder="Title of the work">
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label" for="author">Author*</label>
+    <div class="control">
+      <input class="input" id="author" type="text" formControlName="author" placeholder="Author of the work">
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label" for="medium-dropdown">Medium*</label>
+    <div class="control">
+      <p-dropdown id="medium-dropdown" [options]="mediumOptions" editable="true" formControlName="medium"
+        placeholder="Pick one or type" showClear="true">
+      </p-dropdown>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label" for="pubyear">Year of publication*</label>
+    <div class="control">
+      <input class="input" id="pubyear" type="number" formControlName="pub_year" placeholder="1990">
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label" for="pubcountry">Country of publication*</label>
+    <div class="control">
+      <input class="input" id="pubcountry" type="text" formControlName="pub_country" placeholder="The Netherlands">
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label" for="pubcountry">Is this a source text or an adaptation?*</label>
+    <div class="control">
+      <label class="radio">
+        <input type="radio" formControlName="is_source" [value]="true">
+        Source text
+      </label>
+      <label class="radio">
+        <input type="radio" formControlName="is_source" [value]="false">
+        Adaptation
+      </label>
+    </div>
+  </div>
+
+  <div class="field" *ngIf="showAdaptationOf">
+    <label class="label" for="adaptionof-dropdown">Of which work is this an adaptation?</label>
+    <div class="control">
+      <p-dropdown id="adaptationof-dropdown" [options]="existingWorksOptions" formControlName="adaptation_of"
+        showClear="true" optionValue="value.id" optionLabel="label" placeholder="pick a work">
+      </p-dropdown>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label" for="environment-dropdown">In what environment does the most of the action take place?*</label>
+    <div class="control">
+      <p-dropdown id="environment-dropdown" [options]="environmentOptions" editable="true" formControlName="environment"
+        placeholder="Pick one or type" showClear="true">
+      </p-dropdown>
+    </div>
+  </div>
+
+  <div class="field">
+    <div class="control">
+      <button class="button is-link" type="submit" [disabled]="!workForm.valid">Submit</button>
+    </div>
+  </div>
+<div class="field" *ngIf="httpError">
+  <div class="notification is-error">
+    {{httpError.message}}
+  </div>
+</div>
+</form>

@@ -138,6 +138,15 @@
   dependencies:
     tslib "^2.2.0"
 
+"@angular/cdk@^12.2.2":
+  version "12.2.2"
+  resolved "https://registry.yarnpkg.com/@angular/cdk/-/cdk-12.2.2.tgz#9c804be21e4b1a4c1d4b04ae2f9f09926a057e94"
+  integrity sha512-aF8pfzJYfTeMpc+71nXcSaHOOjAdk+XEKTbTSmOO++OLoOevUoQU0ap0g+H3pfKyO5QCx28IZQxtQHV134QrqA==
+  dependencies:
+    tslib "^2.2.0"
+  optionalDependencies:
+    parse5 "^5.0.0"
+
 "@angular/cli@~12.2.2":
   version "12.2.2"
   resolved "https://registry.yarnpkg.com/@angular/cli/-/cli-12.2.2.tgz#8900cf22e946a9be667044ba13856e9b065f85a5"
@@ -1206,6 +1215,11 @@
     "@babel/helper-validator-identifier" "^7.14.9"
     to-fast-properties "^2.0.0"
 
+"@creativebulma/bulma-divider@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@creativebulma/bulma-divider/-/bulma-divider-1.1.0.tgz#fb0c3527efc5b8d7b1ac52cd065e9f8c57b5a8bc"
+  integrity sha512-Lx5MlUhgAnTF+wNZ5LXcaE1K0F2m0Pkwte1p08FBsIyRV6Oq7BuKPk/O9XJPcF+vR6BjCxNy/hjYFXtNmoXbNg==
+
 "@csstools/convert-colors@^1.4.0":
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/@csstools/convert-colors/-/convert-colors-1.4.0.tgz#ad495dc41b12e75d588c6db8b9834f08fa131eb7"
@@ -1425,6 +1439,11 @@
   version "7.0.9"
   resolved "https://registry.yarnpkg.com/@types/json-schema/-/json-schema-7.0.9.tgz#97edc9037ea0c38585320b28964dde3b39e4660d"
   integrity sha512-qcUXuemtEu+E5wZSJHNxUXeCZhAfXKQ41D+duX+VYPde7xyEVZci+/oXKJL13tnRs9lR2pr4fod59GT6/X1/yQ==
+
+"@types/lodash@^4.14.62":
+  version "4.14.172"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.172.tgz#aad774c28e7bfd7a67de25408e03ee5a8c3d028a"
+  integrity sha512-/BHF5HAx3em7/KkzVKm3LrsD6HZAXuXO1AJZQ3cRRBZj4oHZDviWPYu0aEplAqDFNHZPW6d3G7KN+ONcCCC7pw==
 
 "@types/minimatch@*":
   version "3.0.5"
@@ -5352,6 +5371,14 @@ neo-async@^2.6.2:
   resolved "https://registry.yarnpkg.com/neo-async/-/neo-async-2.6.2.tgz#b4aafb93e3aeb2d8174ca53cf163ab7d7308305f"
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
 
+ngx-restangular@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/ngx-restangular/-/ngx-restangular-6.0.0.tgz#a23179297c00a8731d72f5170ec534b6b8f0f96e"
+  integrity sha512-bu/j3NNqiX/+I5nTF9vXpeReFBNKTE3EzrZv1qM04QQ0Ep3q7Frxu0FUXp2sV3AYgPAEJ6Ksxho+9DIJMhqKQQ==
+  dependencies:
+    "@types/lodash" "^4.14.62"
+    tslib "^2.0.0"
+
 nice-napi@^1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/nice-napi/-/nice-napi-1.0.2.tgz#dc0ab5a1eac20ce548802fc5686eaa6bc654927b"
@@ -5789,6 +5816,11 @@ parse5-sax-parser@^6.0.1:
   integrity sha512-kXX+5S81lgESA0LsDuGjAlBybImAChYRMT+/uKCEXFBFOeEhS52qUCydGhU3qLRD8D9DVjaUo821WK7DM4iCeg==
   dependencies:
     parse5 "^6.0.1"
+
+parse5@^5.0.0:
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/parse5/-/parse5-5.1.1.tgz#f68e4e5ba1852ac2cadc00f4555fff6c2abb6178"
+  integrity sha512-ugq4DFI0Ptb+WWjAdOK16+u/nHfiIrcE+sh8kZMaM0WllQKLI9rOUq6c2b7cwPkXdzfQESqvoqK6ug7U/Yyzug==
 
 parse5@^6.0.1:
   version "6.0.1"
@@ -7595,6 +7627,11 @@ supports-color@^8.0.0:
   integrity sha512-MpUEN2OodtUzxvKQl72cUF7RQ5EiHsGvSsVG0ia9c5RbWGL2CI4C7EpPS8UTBIplnlzZiNuV56w+FuNxy3ty2Q==
   dependencies:
     has-flag "^4.0.0"
+
+survey-angular@^1.8.65:
+  version "1.8.65"
+  resolved "https://registry.yarnpkg.com/survey-angular/-/survey-angular-1.8.65.tgz#c0a23bb643b120900b4592a5b06bcdad1358f594"
+  integrity sha512-Hj15Iv8Y3BBzl8naR7HZ2cjjWHAoCSd9TVz3pUXnnEgaVGhT5Sqm0V04VSG6y46lZFVAb5kMyov/wLwtQZdIBQ==
 
 svgo@^2.3.0:
   version "2.4.0"
