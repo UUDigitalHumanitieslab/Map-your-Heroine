@@ -39,10 +39,12 @@
     </div>
     <div class="column ">
         <div class="block">
-            <nav class="tabs">
+            <nav class="tabs is-fullwidth">
                 <ul>
                     <li class="tab is-active" (click)="openTab($event, 'tab_work')"><a>Works</a></li>
                     <li class="tab" (click)="openTab($event, 'tab_heroes')"><a>Heroes</a></li>
+                    <li class="tab" (click)="openTab($event, 'tab_idenficiation')"><a>Identification</a></li>
+                    <li class="tab" (click)="openTab($event, 'tab_appearance')"><a>Appearance</a></li>
                     <li class="tab" (click)="openTab($event, 'tab_gender')"><a>Gender Identity</a></li>
                     <li class="tab" (click)="openTab($event, 'tab_profession')"><a>Profession</a></li>
                     <li class="tab" (click)="openTab($event, 'tab_agency')"><a>Agency</a></li>
@@ -51,16 +53,40 @@
             </nav>    
             <div class="container section">
                 <div id="tab_work" class="content-tab">
-                    <div>
+                    <div *ngIf="numberOfResponses != 0">
                         <mh-vis-work [filters]="currentFilters"></mh-vis-work>
+                    </div>
+                    <div *ngIf="numberOfResponses == 0" class="content">
+                        There are no responses matching your selection.
                     </div>
                 </div>
                 <div id="tab_heroes" class="content-tab" style="display:none">
-                    <mh-vis-hero [filters]="currentFilters"></mh-vis-hero>
+                    <div *ngIf="numberOfResponses != 0">
+                        <mh-vis-hero [filters]="currentFilters"></mh-vis-hero>
+                    </div>
+                    <div *ngIf="numberOfResponses == 0" class="content">
+                        There are no responses matching your selection.
+                    </div>
+                </div>
+                <div id="tab_idenficiation" class="content-tab" style="display:none">
+                    <div *ngIf="numberOfResponses != 0">
+                        <mh-vis-identification [filters]="currentFilters"></mh-vis-identification>
+                    </div>
+                    <div *ngIf="numberOfResponses == 0" class="content">
+                        There are no responses matching your selection.
+                    </div>
+                </div>
+                <div id="tab_appearance" class="content-tab" style="display:none">
+                    <div>
+                        Appearance plots coming soon!
+                    </div>
                 </div>
                 <div id="tab_gender" class="content-tab" style="display:none">
-                    <div>
+                    <div *ngIf="numberOfResponses != 0">
                         <mh-vis-gender [filters]="currentFilters"></mh-vis-gender>
+                    </div>
+                    <div *ngIf="numberOfResponses == 0" class="content">
+                        There are no responses matching your selection.
                     </div>
                 </div>
                 <div id="tab_profession" class="content-tab" style="display:none">
@@ -69,13 +95,19 @@
                     </div>
                 </div>
                 <div id="tab_agency" class="content-tab" style="display:none">
-                    <div>
-                        Agency plots coming soon!
+                    <div *ngIf="numberOfResponses != 0">
+                        <mh-vis-agency [filters]="currentFilters"></mh-vis-agency>
+                    </div>
+                    <div *ngIf="numberOfResponses == 0" class="content">
+                        There are no responses matching your selection.
                     </div>
                 </div>
                 <div id="tab_personality" class="content-tab" style="display:none">
-                    <div>
-                        Personality plots coming soon!
+                    <div *ngIf="numberOfResponses != 0">
+                        <mh-vis-personality [filters]="currentFilters"></mh-vis-personality>
+                    </div>
+                    <div *ngIf="numberOfResponses == 0" class="content">
+                        There are no responses matching your selection.
                     </div>
                 </div>
             </div>

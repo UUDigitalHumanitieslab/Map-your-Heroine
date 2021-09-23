@@ -1,14 +1,14 @@
 <div class="block">
-    <div class="columns is-vcentered is-multiline">
+    <div class="columns is-vcentered is-multiline is-centered">
         <div class="column is-half">
             <div class="card">
                 <header class="card-header">
                     <p class="card-header-title">
-                        Media
+                        You identify with your hero(ine) because you find common qualities between your personality and that of the character
                     </p>
                 </header>
                 <div class="card-content">
-                    <p-chart type="pie" [data]="mediumPlotData"></p-chart>
+                    <p-chart type="bar" [data]="identificationPersonalityPlotData" [options]="likertPlotOptions"></p-chart>
                 </div>
             </div>
         </div>
@@ -16,11 +16,11 @@
             <div class="card">
                 <header class="card-header">
                     <p class="card-header-title">
-                        Country of publication
+                        You identifiy with your hero(ine) because you are able to explore intruiging experiences and moral boundaries through the character
                     </p>
                 </header>
                 <div class="card-content">
-                    <p-chart type="pie" [data]="pubcountryPlotData"></p-chart>
+                    <p-chart type="bar" [data]="identificationIntruigingPlotData" [options]="likertPlotOptions"></p-chart>
                 </div>
             </div>
         </div>
@@ -28,11 +28,11 @@
             <div class="card">
                 <header class="card-header">
                     <p class="card-header-title">
-                        Where does the action take place?
+                        You wish to be more like your hero(ine)
                     </p>
                 </header>
                 <div class="card-content">
-                    <p-chart type="pie" [data]="environmentPlotData"></p-chart>
+                    <p-chart type="bar" [data]="identificationWishbelikePlotData" [options]="likertPlotOptions"></p-chart>
                 </div>
             </div>
         </div>

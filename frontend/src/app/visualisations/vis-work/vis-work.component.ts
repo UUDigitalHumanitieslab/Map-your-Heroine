@@ -13,12 +13,19 @@ export class VisWorkComponent implements OnInit, OnChanges {
   pubcountryPlotData: any;
   environmentPlotData: any;
 
+  numberOfWorks: number;
+
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
   }
 
   ngOnChanges(): void {
+    this.http.post('/api/results/n-works', this.filters).subscribe(
+      res => this.numberOfWorks = res as number,
+      err => console.log(err)
+    );
+
     this.http.post('/api/results/mediumplotdata', this.filters).subscribe(
       res => this.mediumPlotData = res,
       err => console.log(err)

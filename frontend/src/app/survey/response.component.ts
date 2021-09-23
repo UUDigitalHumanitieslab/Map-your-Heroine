@@ -46,7 +46,7 @@ var surveyJSON = {
       },{
         "name":"Agency",
         "elements":[
-          {"type":"rating","name":"agency_responsible","title":"Your hero is responsible for the challenges they face.","isRequired":true,"rateMax":7,"minRateDescription":"Strongly disagree","maxRateDescription":"Strongly agree"},
+          {"type":"rating","name":"agency_responsible","title":"Your hero(ine) is responsible for the challenges they face.","isRequired":true,"rateMax":7,"minRateDescription":"Strongly disagree","maxRateDescription":"Strongly agree"},
           {"type":"rating","name":"agency_independent","title":"Your hero(ine) acts independently in facing challenges and problems.","isRequired":true,"rateMax":7,"minRateDescription":"Strongly disagree","maxRateDescription":"Strongly agree"},
           {"type":"rating","name":"agency_hindered","title":"Your hero(ine) is hindered by external factors upon acting according to their will.","isRequired":true,"rateMax":7,"minRateDescription":"Strongly disagree","maxRateDescription":"Strongly agree"},
           {"type":"rating","name":"agency_environment","title":"Your hero(ine) considers the best interest of the people in their environment.","isRequired":true,"rateMax":7,"minRateDescription":"Strongly disagree","maxRateDescription":"Strongly agree"},

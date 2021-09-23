@@ -1,0 +1,76 @@
+<div class="block">
+    <div class="columns is-vcentered is-multiline is-centered">
+        <div class="column is-half">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        Gender of the hero(ine)
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="pie" [data]="heroGenderPlotData"></p-chart>
+                </div>
+            </div>
+        </div>
+        <div class="column is-half">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        Gender of the participant
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="pie" [data]="responseGenderPlotData"></p-chart>
+                </div>
+            </div>
+        </div>
+        <div class="column is-half">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        Your hero(ine)'s gender identity defines their personality
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="bar" [data]="genderDefinesPersonalityPlotData" [options]="likertPlotOptions"></p-chart>
+                </div>
+            </div>
+        </div>
+        <div class="column is-half">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        Your hero(ine) embraces their gender identity
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="bar" [data]="genderEmbracesPlotData" [options]="likertPlotOptions"></p-chart>
+                </div>
+            </div>
+        </div>
+        <div class="column is-half">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        Your hero(ine) attempts to fulfill social expectations derived from their gender
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="bar" [data]="genderAttemptsExpectationsPlotData" [options]="likertPlotOptions"></p-chart>
+                </div>
+            </div>
+        </div>
+        <div class="column is-half">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        Your hero(ine) struggles to fulfill social expectations regarding their gender
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="bar" [data]="genderStrugglesExpectationsPlotData" [options]="likertPlotOptions"></p-chart>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

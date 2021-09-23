@@ -9,6 +9,7 @@ import { Component, Input, OnChanges, OnInit } from '@angular/core';
 export class VisHeroComponent implements OnInit, OnChanges {
   @Input() filters: any;
 
+  numberOfHeroes: number;
   genderPlotData: any;
   agePlotData: any;
   rolePlotData: any;
@@ -27,6 +28,11 @@ export class VisHeroComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
+    this.http.post('/api/results/n-heroes', this.filters).subscribe(
+      res => this.numberOfHeroes = res as number,
+      err => console.log(err)
+    );
+
     this.http.post('/api/results/genderplotdata', this.filters).subscribe(
       res => this.genderPlotData = res,
       err => console.log(err)

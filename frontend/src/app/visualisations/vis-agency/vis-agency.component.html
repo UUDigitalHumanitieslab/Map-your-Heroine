@@ -1,0 +1,64 @@
+<div class="block">
+    <div class="columns is-vcentered is-multiline is-centered">
+        <div class="column is-half">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        Your hero(ine) is responsible for the challenges they face
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="bar" [data]="agencyResponsiblePlotData" [options]="likertPlotOptions"></p-chart>
+                </div>
+            </div>
+        </div>
+        <div class="column is-half">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        Your hero(ine) acts independently in facing challenges and problems
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="bar" [data]="agencyIndependentPlotData" [options]="likertPlotOptions"></p-chart>
+                </div>
+            </div>
+        </div>
+        <div class="column is-half">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        Your hero(ine) is hindered by external factors upon acting according to their will
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="bar" [data]="agencyHinderedPlotData" [options]="likertPlotOptions"></p-chart>
+                </div>
+            </div>
+        </div>
+        <div class="column is-half">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        Your hero(ine) considers the best interest of the people in their environment
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="bar" [data]="agencyEnvironmentPlotData" [options]="likertPlotOptions"></p-chart>
+                </div>
+            </div>
+        </div>
+        <div class="column is-half">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        Your hero(ine) changes, develops, or learns throughout their challenges
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="bar" [data]="agencyDevelopmentPlotData" [options]="likertPlotOptions"></p-chart>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

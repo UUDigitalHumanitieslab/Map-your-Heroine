@@ -12,6 +12,9 @@ export class VisGenderComponent implements OnInit, OnChanges {
   heroGenderPlotData: any;
   responseGenderPlotData: any;
   genderDefinesPersonalityPlotData: any;
+  genderEmbracesPlotData: any;
+  genderAttemptsExpectationsPlotData: any;
+  genderStrugglesExpectationsPlotData: any;
 
   likertPlotOptions = {
     aspectRatio: 8,
@@ -45,8 +48,23 @@ export class VisGenderComponent implements OnInit, OnChanges {
       err => console.log(err)
     );
 
-    this.http.post('/api/results/gender-defines-personality-plotdata', this.filters).subscribe(
+    this.http.post('/api/results/gender-definespersonality-plotdata', this.filters).subscribe(
       res => this.genderDefinesPersonalityPlotData = res,
+      err => console.log(err)
+    );
+
+    this.http.post('/api/results/gender-embraces-plotdata', this.filters).subscribe(
+      res => this.genderEmbracesPlotData = res,
+      err => console.log(err)
+    );
+
+    this.http.post('/api/results/gender-attempts-expectations-plotdata', this.filters).subscribe(
+      res => this.genderAttemptsExpectationsPlotData = res,
+      err => console.log(err)
+    );
+
+    this.http.post('/api/results/gender-struggles-expectations-plotdata', this.filters).subscribe(
+      res => this.genderStrugglesExpectationsPlotData = res,
       err => console.log(err)
     );
   }

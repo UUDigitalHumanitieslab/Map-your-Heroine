@@ -15,6 +15,7 @@ export class VisOverviewComponent implements OnInit {
   mediumOptions = [...MEDIUM_OPTIONS, 'other'];
   genderOptions = GENDER_OPTIONS;
   currentFilters: any;
+  numberOfResponses: number;
 
   filterForm = new FormGroup({
     work_medium: new FormArray([]),
@@ -72,6 +73,11 @@ export class VisOverviewComponent implements OnInit {
 
   submitFilters() {
     this.currentFilters = this.filterForm.value;
+
+    this.http.post('/api/results/n-works', this.currentFilters).subscribe(
+      res => this.numberOfResponses = res as number,
+      err => console.log(err)
+    );
   }
 
 }

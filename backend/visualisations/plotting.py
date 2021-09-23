@@ -41,6 +41,10 @@ class Plots:
             return filtered_works
         else:
             return Work.objects.all()
+    
+    def n_works(filters = dict()):
+        works = Plots._all_works(filters)
+        return len(works)
 
     def _hero_qualifies(hero, filters):
         #has responses
@@ -67,6 +71,10 @@ class Plots:
             return filtered_heroes
         else:
             return Hero.objects.all()
+    
+    def n_heroes(filters = dict()):
+        heroes = Plots._all_heroes(filters)
+        return len(heroes)
 
     def _response_qualifies(response, filters):
         #work matches
@@ -90,6 +98,10 @@ class Plots:
             return filtered_responses
         else:
             return Response.objects.all()
+    
+    def n_responses(filters):
+        responses = Plots._all_responses(filters)
+        return len(responses)
 
     def medium_plotdata(filters=dict()):
         works = Plots._all_works(filters)
@@ -267,7 +279,7 @@ class Plots:
 
         return data
     
-    def _likert_plotdata(field, filters=dict()):
+    def likert_plotdata(field, filters=dict()):
         responses = Plots._all_responses(filters)
         counts = Counter(response.responses[field] for response in responses)
         labels = list(range(1,8))
@@ -284,13 +296,13 @@ class Plots:
         return data
 
     def gender_defines_personality_plotdata(filters=dict()):
-        return Plots._likert_plotdata('gender_definespersonality', filters)
+        return Plots.likert_plotdata('gender_definespersonality', filters)
 
     def gender_embraces_plotdata(filters=dict()):
-        return Plots._likert_plotdata('gender_embraces', filters)
+        return Plots.likert_plotdata('gender_embraces', filters)
 
     def gender_attempts_expectations_plotdata(filters=dict()):
-        return Plots._likert_plotdata('gender_attempts_expectations', filters)
+        return Plots.likert_plotdata('gender_attempts_expectations', filters)
     
     def gender_struggles_expectations_plotdata(filters=dict()):
-        return Plots._likert_plotdata('gender_struggles_expectations', filters)
+        return Plots.likert_plotdata('gender_struggles_expectations', filters)
