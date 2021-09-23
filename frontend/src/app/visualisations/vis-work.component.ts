@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
-import * as Bokeh from '@bokeh/bokehjs/build/js/lib/embed';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 
 @Component({
   selector: 'mh-vis-work',
@@ -8,12 +7,11 @@ import * as Bokeh from '@bokeh/bokehjs/build/js/lib/embed';
   styleUrls: ['./vis-work.component.scss']
 })
 export class VisWorkComponent implements OnInit, OnChanges {
-  plots = ['mediumplot', 'pubcountryplot'];
-
   @Input() filters: any;
 
-  @ViewChild('mediumplot') mediumPlot;
-  @ViewChild('pubcountryplot') pubCountryPlot;
+  mediumPlotData: any;
+  pubcountryPlotData: any;
+  environmentPlotData: any;
 
   constructor(private http: HttpClient) { }
 
@@ -21,34 +19,20 @@ export class VisWorkComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    this.applyFilters();
-  }
-
-  embedFilteredPlot(name: string, filters: any) {
-    this.http.post(`/api/results/${name}`, filters).subscribe(
-      res => {
-        Bokeh.embed_item(res, name);
-      },
-      err => console.error(err)
+    this.http.post('/api/results/mediumplotdata', this.filters).subscribe(
+      res => this.mediumPlotData = res,
+      err => console.log(err)
     );
-  }
 
-  clearPlots() {
-    if (this.mediumPlot !== undefined) {
-      this.mediumPlot.nativeElement.innerHTML = '';
-    }
+    this.http.post('/api/results/pubcountryplotdata', this.filters).subscribe(
+      res => this.pubcountryPlotData = res,
+      err => console.log(err)
+    );
 
-    if (this.pubCountryPlot !== undefined) {
-      this.pubCountryPlot.nativeElement.innerHTML = '';
-    }
-  }
-
-  applyFilters() {
-    this.clearPlots();
-
-    this.plots.forEach(plot =>
-      this.embedFilteredPlot(plot, this.filters)
-      );
+    this.http.post('/api/results/environmentplotdata', this.filters).subscribe(
+      res => this.environmentPlotData = res,
+      err => console.log(err)
+    );
   }
 
 }

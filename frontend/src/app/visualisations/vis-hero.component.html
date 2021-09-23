@@ -1,33 +1,63 @@
 <div class="block">
     <div class="columns is-vcentered is-multiline">
         <div class="column is-half">
-            <div class="block">
-                <div>Distribution of the <b>gender</b> of hero(in)es</div>
-                <div #genderplot id="genderplot"></div>
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        Gender of the hero(ine)
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="pie" [data]="genderPlotData"></p-chart>
+                </div>
             </div>
         </div>
         <div class="column is-half">
-            <div class="block">
-                <div>Distribution of the <b>age</b> of hero(in)es</div>
-                <div #ageplot id="ageplot"></div>
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        Age of the hero(ine)
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="bar" [data]="agePlotData" [options]=agePlotOptions></p-chart>
+                </div>
             </div>
         </div>
         <div class="column is-one-third">
-            <div class="block">
-                <div>What is the <b>role</b> of the hero(ine) in the story?</div>
-                <div #roleplot id="roleplot"></div>
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        What is the role of the hero(ine) in the story?
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="pie" [data]="rolePlotData"></p-chart>
+                </div>
             </div>
         </div>
         <div class="column is-one-third">
-            <div class="block">
-                <div>Is the hero(ine) the <b>narrator</b> of the story?</div>
-                <div #narratorplot id="narratorplot"></div>
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        Is the hero(ine) the narrator of the story?
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="pie" [data]="narratorPlotData"></p-chart>
+                </div>
             </div>
         </div>
         <div class="column is-one-third">
-            <div class="block">
-                <div>Is the hero(ine) the <b>focaliser</b> of the story?</div>
-                <div #focaliserplot id="focaliserplot"></div>
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        Is the hero(ine) the focaliser of the story?
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="pie" [data]="focaliserPlotData"></p-chart>
+                </div>
             </div>
         </div>
     </div>

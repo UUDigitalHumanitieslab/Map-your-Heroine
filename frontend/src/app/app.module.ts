@@ -19,6 +19,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import {ChipsModule} from 'primeng/chips';
 import { DialogModule } from 'primeng/dialog';
 import { PanelModule } from 'primeng/panel';
+import {ChartModule} from 'primeng/chart';
 import { OverviewComponent } from './survey/overview.component';
 import { HeroComponent } from './survey/hero.component';
 import { ResponseComponent } from './survey/response.component';
@@ -71,6 +72,7 @@ export function RestangularConfigFactory(RestangularProvider) {
         DialogModule,
         PanelModule,
         ReactiveFormsModule,
+        ChartModule,
     ],
     providers: [],
     bootstrap: [AppComponent]

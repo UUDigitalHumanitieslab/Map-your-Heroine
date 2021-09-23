@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Input, OnChanges, OnInit, ViewChild } from '@angular/core';
-import * as Bokeh from '@bokeh/bokehjs/build/js/lib/embed';
+import { Component, Input, OnChanges, OnInit } from '@angular/core';
 
 @Component({
   selector: 'mh-vis-hero',
@@ -8,15 +7,19 @@ import * as Bokeh from '@bokeh/bokehjs/build/js/lib/embed';
   styleUrls: ['./vis-hero.component.scss']
 })
 export class VisHeroComponent implements OnInit, OnChanges {
-  plots = ['genderplot', 'ageplot', 'roleplot', 'narratorplot', 'focaliserplot'];
-
   @Input() filters: any;
 
-  @ViewChild('genderplot') genderPlot;
-  @ViewChild('ageplot') agePlot;
-  @ViewChild('roleplot') rolePlot;
-  @ViewChild('narratorplot') narratorPlot;
-  @ViewChild('focaliserplot') focaliserPlot;
+  genderPlotData: any;
+  agePlotData: any;
+  rolePlotData: any;
+  narratorPlotData: any;
+  focaliserPlotData: any;
+
+  agePlotOptions = {
+    legend: {
+      display: false
+    }
+  };
 
   constructor(private http: HttpClient) { }
 
@@ -24,46 +27,33 @@ export class VisHeroComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    this.applyFilters();
-  }
-
-  embedFilteredPlot(name: string, filters: any) {
-    this.http.post(`/api/results/${name}`, filters).subscribe(
-      res => {
-        Bokeh.embed_item(res, name);
-      },
-      err => console.error(err)
+    this.http.post('/api/results/genderplotdata', this.filters).subscribe(
+      res => this.genderPlotData = res,
+      err => console.log(err)
     );
-  }
 
-  clearPlots() {
-    if (this.genderPlot !== undefined) {
-      this.genderPlot.nativeElement.innerHTML = '';
-    }
+    this.http.post('/api/results/ageplotdata', this.filters).subscribe(
+      res => {
+        console.log(res);
+        this.agePlotData = res;
+      },
+      err => console.log(err)
+    );
 
-    if (this.agePlot !== undefined) {
-      this.agePlot.nativeElement.innerHTML = '';
-    }
+    this.http.post('/api/results/roleplotdata', this.filters).subscribe(
+      res => this.rolePlotData = res,
+      err => console.log(err)
+    );
 
-    if (this.rolePlot !== undefined) {
-      this.rolePlot.nativeElement.innerHTML = '';
-    }
+    this.http.post('/api/results/narratorplotdata', this.filters).subscribe(
+      res => this.narratorPlotData = res,
+      err => console.log(err)
+    );
 
-    if (this.narratorPlot !== undefined) {
-      this.narratorPlot.nativeElement.innerHTML = '';
-    }
-
-    if (this.focaliserPlot !== undefined) {
-      this.focaliserPlot.nativeElement.innerHTML = '';
-    }
-  }
-
-  applyFilters() {
-    this.clearPlots();
-
-    this.plots.forEach(plot =>
-      this.embedFilteredPlot(plot, this.filters)
-      );
+    this.http.post('/api/results/focaliserplotdata', this.filters).subscribe(
+      res => this.focaliserPlotData = res,
+      err => console.log(err)
+    );
   }
 
 }

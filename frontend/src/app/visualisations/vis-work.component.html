@@ -1,15 +1,39 @@
 <div class="block">
     <div class="columns is-vcentered is-multiline">
         <div class="column is-half">
-            <div class="block">
-                <div>Distribution of <b>media</b> among the works</div>
-                <div #mediumplot id="mediumplot"></div>
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        Media
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="pie" [data]="mediumPlotData"></p-chart>
+                </div>
             </div>
         </div>
         <div class="column is-half">
-            <div class="block">
-                <div><b>Country of publication</b> of the works</div>
-                <div #pubcountryplot id="pubcountryplot"></div>
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        Country of publication
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="pie" [data]="pubcountryPlotData"></p-chart>
+                </div>
+            </div>
+        </div>
+        <div class="column is-half">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        Where does the action take place?
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="pie" [data]="environmentPlotData"></p-chart>
+                </div>
             </div>
         </div>
     </div>
