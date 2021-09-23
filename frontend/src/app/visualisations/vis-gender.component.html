@@ -1,0 +1,40 @@
+<div class="block">
+    <div class="columns is-vcentered is-multiline">
+        <div class="column is-half">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        Gender of the hero(ine)
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="pie" [data]="heroGenderPlotData"></p-chart>
+                </div>
+            </div>
+        </div>
+        <div class="column is-half">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        Gender of the participant
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="pie" [data]="responseGenderPlotData"></p-chart>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="block">
+        <div class="card">
+            <header class="card-header">
+                <p class="card-header-title">
+                    The hero(ine)'s gender identity defines their personality
+                </p>
+            </header>
+            <div class="card-content likert-card-content">
+                <p-chart type="bar" [data]="genderDefinesPersonalityPlotData" [options]="likertPlotOptions"></p-chart>
+            </div>
+        </div>
+    </div>
+</div>

@@ -2,7 +2,7 @@ from typing import Counter
 from math import pi
 from bokeh.models import filters
 from bokeh.plotting import figure
-from factual.models import Hero, Work
+from factual.models import Hero, Response, Work
 from bokeh.transform import cumsum
 from bokeh.palettes import Set2, Paired
 import pandas as pd
@@ -35,7 +35,7 @@ class Plots:
         return True
 
     def _all_works(filters = dict()):
-        if filters != None:
+        if filters:
             works = Work.objects.all()
             filtered_works = [work for work in works if Plots._work_qualifies(work, filters)]
             return filtered_works
@@ -55,17 +55,41 @@ class Plots:
         #work matches
         work_keys = {key: filters[key] for key in filters.keys() if key.startswith('work')}
         if len(work_keys) > 0:
-            return Plots._work_qualifies(hero.work, work_keys)
+            if not Plots._work_qualifies(hero.work, work_keys):
+                return False
 
         return True
 
     def _all_heroes(filters = dict()):
-        if filters != None:
+        if filters:
             heroes = Hero.objects.all()            
             filtered_heroes = [hero for hero in heroes if Plots._hero_qualifies(hero, filters)]
             return filtered_heroes
         else:
             return Hero.objects.all()
+
+    def _response_qualifies(response, filters):
+        #work matches
+        work_keys = {key: filters[key] for key in filters.keys() if key.startswith('work')}
+        if len(work_keys) > 0:
+            if not Plots._work_qualifies(response.work, work_keys):
+                return False
+        
+        #hero matches
+        hero_keys = {key: filters[key] for key in filters.keys() if key.startswith('hero')}
+        if len(work_keys) > 0:
+            if not Plots._hero_qualifies(response.hero, hero_keys):
+                return False
+
+        return True
+
+    def _all_responses(filters = dict()):
+        if filters:
+            responses = Response.objects.all()            
+            filtered_responses = [response for response in responses if Plots._response_qualifies(response, filters)]
+            return filtered_responses
+        else:
+            return Response.objects.all()
 
     def medium_plotdata(filters=dict()):
         works = Plots._all_works(filters)
@@ -155,7 +179,7 @@ class Plots:
 
         heroes = Plots._all_heroes(filters)
         counts = Counter(nice_strings[hero.role] for hero in heroes)
-        labels = [ 'Main character', 'Minor character', 'Protagonist']
+        labels = ['Protagonist', 'Main character', 'Minor character']
 
         data = {
             'labels': labels,
@@ -225,3 +249,48 @@ class Plots:
             }]
         }
         return data
+    
+    def response_gender_plotdata(filters=dict()):
+        palette = [DEFAULT_PALETTE[2], DEFAULT_PALETTE[10], DEFAULT_PALETTE[0]]
+
+        responses = Plots._all_responses(filters)
+        gender_counts = Counter(response.responses['participant_gender'] for response in responses)
+        labels = ['Male', 'Female', 'Other']
+
+        data = {
+            'labels': labels,
+            'datasets': [{
+                'data': [gender_counts[gender] for gender in labels],
+                'backgroundColor': palette,
+            }]
+        }
+
+        return data
+    
+    def _likert_plotdata(field, filters=dict()):
+        responses = Plots._all_responses(filters)
+        counts = Counter(response.responses[field] for response in responses)
+        labels = list(range(1,8))
+
+        data = {
+            'labels': labels,
+            'datasets': [{
+                'label': 'responses',
+                'data': [counts[value] for value in labels],
+                'backgroundColor': DEFAULT_PALETTE[0],
+            }]
+        }
+
+        return data
+
+    def gender_defines_personality_plotdata(filters=dict()):
+        return Plots._likert_plotdata('gender_definespersonality', filters)
+
+    def gender_embraces_plotdata(filters=dict()):
+        return Plots._likert_plotdata('gender_embraces', filters)
+
+    def gender_attempts_expectations_plotdata(filters=dict()):
+        return Plots._likert_plotdata('gender_attempts_expectations', filters)
+    
+    def gender_struggles_expectations_plotdata(filters=dict()):
+        return Plots._likert_plotdata('gender_struggles_expectations', filters)

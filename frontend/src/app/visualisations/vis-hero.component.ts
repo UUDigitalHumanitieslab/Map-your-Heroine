@@ -33,10 +33,7 @@ export class VisHeroComponent implements OnInit, OnChanges {
     );
 
     this.http.post('/api/results/ageplotdata', this.filters).subscribe(
-      res => {
-        console.log(res);
-        this.agePlotData = res;
-      },
+      res => this.agePlotData = res,
       err => console.log(err)
     );
 

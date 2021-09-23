@@ -12,6 +12,8 @@ PLOT_NAMES = {
     'roleplotdata': Plots.role_plotdata,
     'narratorplotdata': Plots.narrator_plotdata,
     'focaliserplotdata': Plots.focaliser_plotdata,
+    'responsegenderplotdata': Plots.response_gender_plotdata,
+    'gender-defines-personality-plotdata': Plots.gender_defines_personality_plotdata,
 }
 
 class PlotView(APIView):
