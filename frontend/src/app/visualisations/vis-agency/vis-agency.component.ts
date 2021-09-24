@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { LIKERTPLOTOPTIONS } from 'src/app/models/plotdata';
 
 @Component({
   selector: 'mh-vis-agency',
@@ -15,21 +16,7 @@ export class VisAgencyComponent implements OnInit, OnChanges {
   agencyEnvironmentPlotData: any;
   agencyDevelopmentPlotData: any;
 
-  likertPlotOptions = {
-    aspectRatio: 8,
-    responsive: true,
-    scales: {
-      xAxes: [{
-        display: true,
-      }],
-      yAxes: [{
-        display: false
-      }]
-    },
-    legend: {
-      display: false
-    }
-  };
+  likertPlotOptions = LIKERTPLOTOPTIONS;
 
   constructor(private http: HttpClient) { }
 

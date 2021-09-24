@@ -77,8 +77,11 @@
                     </div>
                 </div>
                 <div id="tab_appearance" class="content-tab" style="display:none">
-                    <div>
-                        Appearance plots coming soon!
+                    <div *ngIf="numberOfResponses != 0">
+                        <mh-vis-appearance [filters]="currentFilters"></mh-vis-appearance>
+                    </div>
+                    <div *ngIf="numberOfResponses == 0" class="content">
+                        There are no responses matching your selection.
                     </div>
                 </div>
                 <div id="tab_gender" class="content-tab" style="display:none">
@@ -90,8 +93,11 @@
                     </div>
                 </div>
                 <div id="tab_profession" class="content-tab" style="display:none">
-                    <div>
-                        Profession plots coming soon!
+                    <div *ngIf="numberOfResponses != 0">
+                        <mh-vis-profession [filters]="currentFilters"></mh-vis-profession>
+                    </div>
+                    <div *ngIf="numberOfResponses == 0" class="content">
+                        There are no responses matching your selection.
                     </div>
                 </div>
                 <div id="tab_agency" class="content-tab" style="display:none">

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { LIKERTPLOTOPTIONS } from 'src/app/models/plotdata';
 
 @Component({
   selector: 'mh-vis-gender',
@@ -16,21 +17,7 @@ export class VisGenderComponent implements OnInit, OnChanges {
   genderAttemptsExpectationsPlotData: any;
   genderStrugglesExpectationsPlotData: any;
 
-  likertPlotOptions = {
-    aspectRatio: 8,
-    responsive: true,
-    scales: {
-      xAxes: [{
-        display: true,
-      }],
-      yAxes: [{
-        display: false
-      }]
-    },
-    legend: {
-      display: false
-    }
-  };
+  likertPlotOptions = LIKERTPLOTOPTIONS;
 
   constructor(private http: HttpClient) { }
 

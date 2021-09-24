@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { LIKERTPLOTOPTIONS } from 'src/app/models/plotdata';
 
 @Component({
   selector: 'mh-vis-personality',
@@ -18,21 +19,7 @@ export class VisPersonalityComponent implements OnInit, OnChanges {
   personalityLoyalPlotData: any;
   personalityCooperativePlotData: any;
 
-  likertPlotOptions = {
-    aspectRatio: 8,
-    responsive: true,
-    scales: {
-      xAxes: [{
-        display: true,
-      }],
-      yAxes: [{
-        display: false
-      }]
-    },
-    legend: {
-      display: false
-    }
-  };
+  likertPlotOptions = LIKERTPLOTOPTIONS;
 
   constructor(private http: HttpClient) { }
 

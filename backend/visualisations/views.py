@@ -14,6 +14,8 @@ PLOT_NAMES = {
     'roleplotdata': Plots.role_plotdata,
     'narratorplotdata': Plots.narrator_plotdata,
     'focaliserplotdata': Plots.focaliser_plotdata,
+    'professionplotdata': Plots.profession_plotdata,
+    'attractiveplotdata': Plots.attractive_plotdata,
     'responsegenderplotdata': Plots.response_gender_plotdata,
 }
 
@@ -59,8 +61,20 @@ COUNT_NAMES = {
 
 class PlotView(APIView):
     def get(self, request, name, format=None):
-        json = PLOT_NAMES[name]()
-        return Response(json)
+        if name in COUNT_NAMES:
+            count = COUNT_NAMES[name]()
+            return Response(count)
+        
+        underscore_name = name.replace('-', '_').replace('_plotdata', '')
+        if underscore_name in LIKERT_NAMES:
+            json = Plots.likert_plotdata(underscore_name)
+            return Response(json)
+
+        if name in PLOT_NAMES:
+            json = PLOT_NAMES[name]()
+            return Response(json)
+        
+        return HttpResponseNotFound('{} is not a known plot name'.format(name))
     
     def post(self, request, name, format=None):
         filters = request.data

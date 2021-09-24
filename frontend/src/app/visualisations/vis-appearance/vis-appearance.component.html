@@ -1,0 +1,76 @@
+<div class="block">
+    <div class="columns is-vcentered is-multiline is-centered">
+        <div class="column is-full">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        Is the hero(ine) physically attractive within the context of the work / according to the other characters? 
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="pie" [data]="attractivePlotData" [options]="attractivePlotOptions"></p-chart>
+                </div>
+            </div>
+        </div>
+        <div class="column is-half">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        You consider your hero(ine) beautiful
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="bar" [data]="appearanceBeautifulPlotData" [options]="likertPlotOptions"></p-chart>
+                </div>
+            </div>
+        </div>
+        <div class="column is-half">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        You wish you looked like your hero(ine)
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="bar" [data]="appearanceWishlookedlikePlotData" [options]="likertPlotOptions"></p-chart>
+                </div>
+            </div>
+        </div>
+        <div class="column is-half">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        The appearance of your hero(ine) influences your feelings towards them
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="bar" [data]="appearanceInfluencefeelingsPlotData" [options]="likertPlotOptions"></p-chart>
+                </div>
+            </div>
+        </div>
+        <div class="column is-half">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        Your hero(ine)'s appearance impacts their experience in the story
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="bar" [data]="appearanceImpactPlotData" [options]="likertPlotOptions"></p-chart>
+                </div>
+            </div>
+        </div>
+        <div class="column is-half">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        Your hero(ine)' is aware of the effects of their appearance
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="bar" [data]="appearanceAwarePlotData" [options]="likertPlotOptions"></p-chart>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

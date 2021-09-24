@@ -30,6 +30,8 @@ import { VisGenderComponent } from './visualisations/vis-gender/vis-gender.compo
 import { VisAgencyComponent } from './visualisations/vis-agency/vis-agency.component';
 import { VisIdentificationComponent } from './visualisations/vis-identification/vis-identification.component';
 import { VisPersonalityComponent } from './visualisations/vis-personality/vis-personality.component';
+import { VisAppearanceComponent } from './visualisations/vis-appearance/vis-appearance.component';
+import { VisProfessionComponent } from './visualisations/vis-profession/vis-profession.component';
 
 export function RestangularConfigFactory(RestangularProvider) {
     RestangularProvider.setBaseUrl('/api');
@@ -61,7 +63,9 @@ export function RestangularConfigFactory(RestangularProvider) {
         VisGenderComponent,
         VisAgencyComponent,
         VisIdentificationComponent,
-        VisPersonalityComponent
+        VisPersonalityComponent,
+        VisAppearanceComponent,
+        VisProfessionComponent
     ],
     imports: [
         AppRoutingModule,

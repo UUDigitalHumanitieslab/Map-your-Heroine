@@ -1,11 +1,6 @@
 from typing import Counter
-from math import pi
-from bokeh.models import filters
-from bokeh.plotting import figure
 from factual.models import Hero, Response, Work
-from bokeh.transform import cumsum
 from bokeh.palettes import Set2, Paired
-import pandas as pd
 
 DEFAULT_PALETTE = Set2[8] + tuple(Paired[12][i] for i in range(0, 12, 2))
 STANDARD_MEDIA = ['novel', 'film', 'tv-series', 'vlog', 'comic', 'fan fiction', 'music', 'ballet', 'game']  
@@ -118,22 +113,22 @@ class Plots:
 
         return data
 
-    def _counts_with_other(values):
+    def _top_10_counts_with_other(values):
         counts_all = Counter(values)
-        top10 = {country : count for (country, count) in counts_all.most_common(10)}
-        other_count = sum(counts_all[country] for country in counts_all if country not in top10)
+        top10 = {value : count for (value, count) in counts_all.most_common(10)}
+        other_count = sum(counts_all[value] for value in counts_all if value not in top10)
         if other_count:
-            labels = [country for (country, count) in counts_all.most_common(10)] + ['other']
+            labels = [value for (value, count) in counts_all.most_common(10)] + ['other']
             counts = {**top10, 'other' : other_count}
         else:
-            labels = [country for (country, count) in counts_all.most_common(10)]
+            labels = [value for (value, count) in counts_all.most_common(10)]
             counts = top10
         
         return labels, counts
     
     def pubcountry_plotdata(filters=dict()):
         works = Plots._all_works(filters)
-        labels, counts = Plots._counts_with_other(work.pub_country for work in works)
+        labels, counts = Plots._top_10_counts_with_other(work.pub_country for work in works)
 
         data = {
             'labels': labels,
@@ -147,7 +142,7 @@ class Plots:
     
     def environment_plotdata(filters=dict()):
         works = Plots._all_works(filters)
-        labels, counts = Plots._counts_with_other(work.environment for work in works)
+        labels, counts = Plots._top_10_counts_with_other(work.environment for work in works)
 
         data = {
             'labels': labels,
@@ -247,6 +242,43 @@ class Plots:
 
         return data
 
+    def profession_plotdata(filters=dict()):
+        heroes = Plots._all_heroes(filters)
+        labels, counts = Plots._top_10_counts_with_other(hero.profession for hero in heroes)
+
+        data = {
+            'labels': labels,
+            'datasets': [{
+                'data': [counts[label] for label in labels],
+                'backgroundColor': DEFAULT_PALETTE[:len(labels)],
+            }]
+        }
+
+        return data
+    
+    def attractive_plotdata(filters=dict()):
+        nice_strings = {
+            False: 'No',
+            True: 'Yes',
+            None: 'Unknown'
+        }
+
+        palette = DEFAULT_PALETTE[:2]
+
+        heroes = Plots._all_heroes(filters)
+        counts = Counter(nice_strings[hero.appearance] for hero in heroes)
+        labels = ['Yes', 'No', 'Unknown']
+
+        data = {
+            'labels': labels,
+            'datasets': [{
+                'data': [counts[label] for label in labels],
+                'backgroundColor': DEFAULT_PALETTE[:len(labels)],
+            }]
+        }
+
+        return data
+
     def age_plotdata(filters=dict()):
         heroes = Plots._all_heroes(filters)
         age_counts = Counter(hero.age for hero in heroes if hero.age != 'UNKNOWN')
@@ -281,7 +313,7 @@ class Plots:
     
     def likert_plotdata(field, filters=dict()):
         responses = Plots._all_responses(filters)
-        counts = Counter(response.responses[field] for response in responses)
+        counts = Counter(response.responses[field] for response in responses if field in response.responses)
         labels = list(range(1,8))
 
         data = {
