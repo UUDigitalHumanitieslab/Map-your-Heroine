@@ -8,7 +8,7 @@ import { LIKERTPLOTOPTIONS } from 'src/app/models/plotdata';
   styleUrls: ['./vis-gender.component.scss']
 })
 export class VisGenderComponent implements OnInit, OnChanges {
-  @Input() filters: any;
+  @Input() plotData: any;
 
   heroGenderPlotData: any;
   responseGenderPlotData: any;
@@ -25,35 +25,12 @@ export class VisGenderComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    this.http.post('/api/results/genderplotdata', this.filters).subscribe(
-      res => this.heroGenderPlotData = res,
-      err => console.log(err)
-    );
-
-    this.http.post('/api/results/responsegenderplotdata', this.filters).subscribe(
-      res => this.responseGenderPlotData = res,
-      err => console.log(err)
-    );
-
-    this.http.post('/api/results/gender-definespersonality-plotdata', this.filters).subscribe(
-      res => this.genderDefinesPersonalityPlotData = res,
-      err => console.log(err)
-    );
-
-    this.http.post('/api/results/gender-embraces-plotdata', this.filters).subscribe(
-      res => this.genderEmbracesPlotData = res,
-      err => console.log(err)
-    );
-
-    this.http.post('/api/results/gender-attempts-expectations-plotdata', this.filters).subscribe(
-      res => this.genderAttemptsExpectationsPlotData = res,
-      err => console.log(err)
-    );
-
-    this.http.post('/api/results/gender-struggles-expectations-plotdata', this.filters).subscribe(
-      res => this.genderStrugglesExpectationsPlotData = res,
-      err => console.log(err)
-    );
+    this.heroGenderPlotData = this.plotData.hero_gender;
+    this.responseGenderPlotData = this.plotData.response_gender;
+    this.genderDefinesPersonalityPlotData = this.plotData.response_gender_definespersonality;
+    this.genderEmbracesPlotData = this.plotData.response_gender_embraces;
+    this.genderAttemptsExpectationsPlotData = this.plotData.response_gender_attempts_expectations;
+    this.genderStrugglesExpectationsPlotData = this.plotData.response_gender_struggles_expectations;
   }
 
 }

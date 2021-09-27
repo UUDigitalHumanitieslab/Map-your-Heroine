@@ -8,7 +8,7 @@ import { LIKERTPLOTOPTIONS } from 'src/app/models/plotdata';
   styleUrls: ['./vis-agency.component.scss']
 })
 export class VisAgencyComponent implements OnInit, OnChanges {
-  @Input() filters: any;
+  @Input() plotData: any;
 
   agencyResponsiblePlotData: any;
   agencyIndependentPlotData: any;
@@ -24,30 +24,11 @@ export class VisAgencyComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    this.http.post('/api/results/agency-responsible-plotdata', this.filters).subscribe(
-      res => this.agencyResponsiblePlotData = res,
-      err => console.log(err)
-    );
-
-    this.http.post('/api/results/agency-independent-plotdata', this.filters).subscribe(
-      res => this.agencyIndependentPlotData = res,
-      err => console.log(err)
-    );
-
-    this.http.post('/api/results/agency-hindered-plotdata', this.filters).subscribe(
-      res => this.agencyHinderedPlotData = res,
-      err => console.log(err)
-    );
-
-    this.http.post('/api/results/agency-environment-plotdata', this.filters).subscribe(
-      res => this.agencyEnvironmentPlotData = res,
-      err => console.log(err)
-    );
-
-    this.http.post('/api/results/agency-development-plotdata', this.filters).subscribe(
-      res => this.agencyDevelopmentPlotData = res,
-      err => console.log(err)
-    );
+    this.agencyResponsiblePlotData = this.plotData.response_agency_responsible;
+    this.agencyIndependentPlotData = this.plotData.response_agency_independent;
+    this.agencyHinderedPlotData = this.plotData.response_agency_hindered;
+    this.agencyEnvironmentPlotData = this.plotData.response_agency_environment;
+    this.agencyDevelopmentPlotData = this.plotData.response_agency_development;
   }
 
 }

@@ -53,10 +53,6 @@ class Plots:
             return filtered_works
         else:
             return Work.objects.all()
-    
-    def n_works(filters = dict()):
-        works = Plots._all_works(filters)
-        return len(works)
 
     def _hero_qualifies(hero, filters):
         #has responses
@@ -83,10 +79,6 @@ class Plots:
             return filtered_heroes
         else:
             return Hero.objects.all()
-    
-    def n_heroes(filters = dict()):
-        heroes = Plots._all_heroes(filters)
-        return len(heroes)
 
     def _response_qualifies(response, filters):
         #work matches
@@ -110,13 +102,8 @@ class Plots:
             return filtered_responses
         else:
             return Response.objects.all()
-    
-    def n_responses(filters):
-        responses = Plots._all_responses(filters)
-        return len(responses)
 
-    def medium_plotdata(filters=dict()):
-        works = Plots._all_works(filters)
+    def medium_plotdata(works, heroes, responses):
         medium_counts = Counter(work.medium if work.medium in STANDARD_MEDIA else 'other' for work in works )
         labels = STANDARD_MEDIA + ['other']
 
@@ -143,8 +130,7 @@ class Plots:
         
         return labels, counts
     
-    def pubcountry_plotdata(filters=dict()):
-        works = Plots._all_works(filters)
+    def pubcountry_plotdata(works, heroes, responses):
         labels, counts = Plots._top_10_counts_with_other(work.pub_country for work in works)
 
         data = {
@@ -157,8 +143,7 @@ class Plots:
 
         return data
 
-    def pubyear_plotdata(filters=dict()):
-        works = Plots._all_works(filters)
+    def pubyear_plotdata(works, heroes, responses):
         counts = Counter(work.pub_year for work in works)
 
         min_year = min(counts.keys())
@@ -183,8 +168,7 @@ class Plots:
 
 
     
-    def environment_plotdata(filters=dict()):
-        works = Plots._all_works(filters)
+    def environment_plotdata(works, heroes, responses):
         counts = Counter(work.environment if work.environment in STANDARD_ENVIRONMENTS else 'other' for work in works )
         labels = STANDARD_ENVIRONMENTS + ['other']
 
@@ -198,12 +182,12 @@ class Plots:
 
         return data
     
-    def adaptation_plotdata(filters=dict()):
+    def adaptation_plotdata(works, heroes, responses):
         nice_strings = {
             True: 'source text',
             False: 'adaptation'
         }
-        works = Plots._all_works(filters)
+
         counts = Counter(nice_strings[work.is_source] for work in works )
         labels = ['source text', 'adaptation']
 
@@ -215,18 +199,15 @@ class Plots:
             }]
         }
 
-        print(data)
-
         return data
 
-    def gender_plotdata(filters=dict()):
+    def gender_plotdata(works, heroes, responses):
         nice_strings = {
             'MALE': 'male',
             'FEMALE': 'female',
             'OTHER': 'other'
         }
 
-        heroes = Plots._all_heroes(filters)
         gender_counts = Counter(nice_strings[hero.gender] for hero in heroes)
         labels = ['male', 'female', 'other']
 
@@ -240,14 +221,13 @@ class Plots:
 
         return data
     
-    def role_plotdata(filters=dict()):
+    def role_plotdata(works, heroes, responses):
         nice_strings = {
             'MAIN': 'main character',
             'MINOR': 'minor character',
             'PROTAGONIST': 'protagonist'
         }
 
-        heroes = Plots._all_heroes(filters)
         counts = Counter(nice_strings[hero.role] for hero in heroes)
         labels = ['protagonist', 'main character', 'minor character']
 
@@ -261,13 +241,12 @@ class Plots:
 
         return data
     
-    def narrator_plotdata(filters=dict()):
+    def narrator_plotdata(works, heroes, responses):
         nice_strings = {
             False: 'no',
             True: 'yes'
         }
 
-        heroes = Plots._all_heroes(filters)
         counts = Counter(nice_strings[hero.narrator] for hero in heroes)
         labels = ['yes', 'no']
 
@@ -281,14 +260,12 @@ class Plots:
 
         return data
     
-    def focaliser_plotdata(filters=dict()):
+    def focaliser_plotdata(works, heroes, responses):
         nice_strings = {
             False: 'no',
             True: 'yes'
         }
 
-
-        heroes = Plots._all_heroes(filters)
         counts = Counter(nice_strings[hero.focaliser] for hero in heroes)
         labels = ['yes', 'no']
 
@@ -302,7 +279,7 @@ class Plots:
 
         return data
 
-    def education_plotdata(filters=dict()):
+    def education_plotdata(works, heroes, responses):
         nice_strings = {
             'HIGH': 'high',
             'LOW': 'low',
@@ -310,7 +287,6 @@ class Plots:
             'UNKNOWN': 'unknown'
         }
 
-        heroes = Plots._all_heroes(filters)
         counts = Counter(nice_strings[hero.education] for hero in heroes)
         labels = ['high', 'low', 'none', 'unknown']
 
@@ -324,7 +300,7 @@ class Plots:
 
         return data
     
-    def wealth_plotdata(filters=dict()):
+    def wealth_plotdata(works, heroes, responses):
         nice_strings = {
             'RICH': 'rich',
             'INBETWEEN': 'in between',
@@ -332,7 +308,6 @@ class Plots:
             'UNKNOWN': 'unknown'
         }
 
-        heroes = Plots._all_heroes(filters)
         counts = Counter(nice_strings[hero.wealth] for hero in heroes)
         labels = ['rich', 'in between', 'poor', 'unknown']
 
@@ -346,8 +321,7 @@ class Plots:
 
         return data
 
-    def country_origin_plotdata(filters=dict()):
-        heroes = Plots._all_heroes(filters)
+    def country_origin_plotdata(works, heroes, responses):
         labels, counts = Plots._top_10_counts_with_other(hero.country_origin for hero in heroes)
 
         data = {
@@ -360,8 +334,7 @@ class Plots:
 
         return data
 
-    def country_growup_plotdata(filters=dict()):
-        heroes = Plots._all_heroes(filters)
+    def country_growup_plotdata(works, heroes, responses):
         labels, counts = Plots._top_10_counts_with_other(hero.country_growup for hero in heroes)
 
         data = {
@@ -374,8 +347,7 @@ class Plots:
 
         return data
     
-    def country_live_plotdata(filters=dict()):
-        heroes = Plots._all_heroes(filters)
+    def country_live_plotdata(works, heroes, responses):
         labels, counts = Plots._top_10_counts_with_other(hero.country_live for hero in heroes)
 
         data = {
@@ -388,8 +360,7 @@ class Plots:
 
         return data
 
-    def profession_plotdata(filters=dict()):
-        heroes = Plots._all_heroes(filters)
+    def profession_plotdata(works, heroes, responses):
         labels, counts = Plots._top_10_counts_with_other(hero.profession.lower() for hero in heroes)
 
         data = {
@@ -402,14 +373,13 @@ class Plots:
 
         return data
     
-    def attractive_plotdata(filters=dict()):
+    def attractive_plotdata(works, heroes, responses):
         nice_strings = {
             False: 'no',
             True: 'yes',
             None: 'unknown'
         }
 
-        heroes = Plots._all_heroes(filters)
         counts = Counter(nice_strings[hero.appearance] for hero in heroes)
         labels = ['yes', 'no', 'unknown']
 
@@ -423,8 +393,7 @@ class Plots:
 
         return data
 
-    def age_plotdata(filters=dict()):
-        heroes = Plots._all_heroes(filters)
+    def age_plotdata(works, heroes, responses):
         age_counts = Counter(hero.age for hero in heroes if hero.age != 'UNKNOWN')
         ages = ['0-25', '26-35', '36-45', '46-55', '56-65', '65+']
         total = sum(age_counts.values())
@@ -439,8 +408,7 @@ class Plots:
         }
         return data
     
-    def response_gender_plotdata(filters=dict()):
-        responses = Plots._all_responses(filters)
+    def response_gender_plotdata(works, heroes, responses):
         gender_counts = Counter(response.responses['participant_gender'].lower() for response in responses)
         labels = ['male', 'female', 'other']
 
@@ -454,8 +422,7 @@ class Plots:
 
         return data
     
-    def likert_plotdata(field, filters=dict()):
-        responses = Plots._all_responses(filters)
+    def likert_plotdata(field, works, heroes, responses):
         counts = Counter(response.responses[field] for response in responses if field in response.responses)
         labels = list(range(1,8))
 
@@ -470,14 +437,70 @@ class Plots:
 
         return data
 
-    def gender_defines_personality_plotdata(filters=dict()):
-        return Plots.likert_plotdata('gender_definespersonality', filters)
+    def all_plotdata(filters=dict()):
+        works = Plots._all_works(filters)
+        heroes = Plots._all_heroes(filters)
+        responses = Plots._all_responses(filters)
 
-    def gender_embraces_plotdata(filters=dict()):
-        return Plots.likert_plotdata('gender_embraces', filters)
+        plot_names = {
+            'work_medium': Plots.medium_plotdata,
+            'work_pub_country': Plots.pubcountry_plotdata,
+            'work_pub_year': Plots.pubyear_plotdata,
+            'work_environment': Plots.environment_plotdata,
+            'work_adaptation': Plots.adaptation_plotdata,
+            'hero_age': Plots.age_plotdata,
+            'hero_gender': Plots.gender_plotdata,
+            'hero_role': Plots.role_plotdata,
+            'hero_narrator': Plots.narrator_plotdata,
+            'hero_focaliser': Plots.focaliser_plotdata,
+            'hero_education': Plots.education_plotdata,
+            'hero_wealth': Plots.wealth_plotdata,
+            'hero_country_origin': Plots.country_origin_plotdata,
+            'hero_country_growup': Plots.country_growup_plotdata,
+            'hero_country_live': Plots.country_live_plotdata,
+            'hero_profession': Plots.profession_plotdata,
+            'hero_attractive': Plots.attractive_plotdata,
+            'response_gender': Plots.response_gender_plotdata,
+        }
 
-    def gender_attempts_expectations_plotdata(filters=dict()):
-        return Plots.likert_plotdata('gender_attempts_expectations', filters)
-    
-    def gender_struggles_expectations_plotdata(filters=dict()):
-        return Plots.likert_plotdata('gender_struggles_expectations', filters)
+        likert_names = [
+            'identification_personality',
+            'identification_intruiging',
+            'identification_wishbelike',
+            'appearance_beautiful',
+            'appearance_wishlookedlike',
+            'appearance_influencefeelings',
+            'appearance_impact',
+            'appearance_aware',
+            'gender_definespersonality',
+            'gender_embraces',
+            'gender_attempts_expectations',
+            'gender_struggles_expectations',
+            'agency_responsible',
+            'agency_independent',
+            'agency_hindered',
+            'agency_environment',
+            'agency_development',
+            'profession_relevant_to_personality',
+            'profession_social_status',
+            'profession_growth',
+            'profession_defines_life',
+            'personality_assertive',
+            'personality_independent',
+            'personality_vain',
+            'personality_confident',
+            'personality_wellrounded',
+            'personality_honest',
+            'personality_loyal',
+            'personality_cooperative',
+        ]
+
+        all_data = {
+            'n_works': len(works),
+            'n_heroes': len(heroes),
+            'n_responses': len(responses),
+            **{name: plot_names[name](works=works, heroes=heroes, responses=responses) for name in plot_names},
+            **{'response_' + field: Plots.likert_plotdata(field, works=works, heroes=heroes, responses=responses) for field in likert_names},
+        }
+
+        return all_data

@@ -16,6 +16,7 @@ export class VisOverviewComponent implements OnInit {
   genderOptions = GENDER_OPTIONS;
   currentFilters: any;
   numberOfResponses: number;
+  plotData: any;
 
   filterForm = new FormGroup({
     work_medium: new FormArray([]),
@@ -32,6 +33,8 @@ export class VisOverviewComponent implements OnInit {
       (this.filterForm.get('hero_gender') as FormArray).push(new FormControl(response.value))
     );
     this.currentFilters = this.filterForm.value;
+
+    this.submitFilters();
 
   }
 
@@ -74,8 +77,11 @@ export class VisOverviewComponent implements OnInit {
   submitFilters() {
     this.currentFilters = this.filterForm.value;
 
-    this.http.post('/api/results/n-works', this.currentFilters).subscribe(
-      res => this.numberOfResponses = res as number,
+    this.http.post('/api/results/plots', this.currentFilters).subscribe(
+      res => {
+        this.plotData = res;
+        this.numberOfResponses = this.plotData.n_responses;
+      },
       err => console.log(err)
     );
   }

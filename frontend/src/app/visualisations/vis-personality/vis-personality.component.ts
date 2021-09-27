@@ -8,7 +8,7 @@ import { LIKERTPLOTOPTIONS } from 'src/app/models/plotdata';
   styleUrls: ['./vis-personality.component.scss']
 })
 export class VisPersonalityComponent implements OnInit, OnChanges {
-  @Input() filters: any;
+  @Input() plotData: any;
 
   personalityAssertivePlotData: any;
   personalityIndependentPlotData: any;
@@ -27,45 +27,14 @@ export class VisPersonalityComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    this.http.post('/api/results/personality-assertive-plotdata', this.filters).subscribe(
-      res => this.personalityAssertivePlotData = res,
-      err => console.log(err)
-    );
-
-    this.http.post('/api/results/personality-independent-plotdata', this.filters).subscribe(
-      res => this.personalityIndependentPlotData = res,
-      err => console.log(err)
-    );
-
-    this.http.post('/api/results/personality-vain-plotdata', this.filters).subscribe(
-      res => this.personalityVainPlotData = res,
-      err => console.log(err)
-    );
-
-    this.http.post('/api/results/personality-confident-plotdata', this.filters).subscribe(
-      res => this.personalityConfidentPlotData = res,
-      err => console.log(err)
-    );
-
-    this.http.post('/api/results/personality-wellrounded-plotdata', this.filters).subscribe(
-      res => this.personalityWellroundedPlotData = res,
-      err => console.log(err)
-    );
-
-    this.http.post('/api/results/personality-honest-plotdata', this.filters).subscribe(
-      res => this.personalityHonestPlotData = res,
-      err => console.log(err)
-    );
-
-    this.http.post('/api/results/personality-loyal-plotdata', this.filters).subscribe(
-      res => this.personalityLoyalPlotData = res,
-      err => console.log(err)
-    );
-
-    this.http.post('/api/results/personality-cooperative-plotdata', this.filters).subscribe(
-      res => this.personalityCooperativePlotData = res,
-      err => console.log(err)
-    );
+    this.personalityAssertivePlotData = this.plotData.response_personality_assertive;
+    this.personalityIndependentPlotData = this.plotData.response_personality_independent;
+    this.personalityVainPlotData = this.plotData.response_personality_vain;
+    this.personalityConfidentPlotData = this.plotData.response_personality_confident;
+    this.personalityWellroundedPlotData = this.plotData.response_personality_wellrounded;
+    this.personalityHonestPlotData = this.plotData.response_personality_honest;
+    this.personalityLoyalPlotData = this.plotData.response_personality_loyal;
+    this.personalityCooperativePlotData = this.plotData.response_personality_cooperative;
   }
 
 }

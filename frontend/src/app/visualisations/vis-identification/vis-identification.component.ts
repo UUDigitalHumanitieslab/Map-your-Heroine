@@ -8,7 +8,7 @@ import { LIKERTPLOTOPTIONS } from 'src/app/models/plotdata';
   styleUrls: ['./vis-identification.component.scss']
 })
 export class VisIdentificationComponent implements OnInit, OnChanges {
-  @Input() filters: any;
+  @Input() plotData: any;
 
   identificationPersonalityPlotData: any;
   identificationIntruigingPlotData: any;
@@ -22,20 +22,9 @@ export class VisIdentificationComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    this.http.post('/api/results/identification-personality-plotdata', this.filters).subscribe(
-      res => this.identificationPersonalityPlotData = res,
-      err => console.log(err)
-    );
-
-    this.http.post('/api/results/identification-intruiging-plotdata', this.filters).subscribe(
-      res => this.identificationIntruigingPlotData = res,
-      err => console.log(err)
-    );
-
-    this.http.post('/api/results/identification-wishbelike-plotdata', this.filters).subscribe(
-      res => this.identificationWishbelikePlotData = res,
-      err => console.log(err)
-    );
+    this.identificationPersonalityPlotData = this.plotData.response_identification_personality;
+    this.identificationIntruigingPlotData = this.plotData.response_identification_intruiging;
+    this.identificationWishbelikePlotData = this.plotData.response_identification_wishbelike;
   }
 
 }

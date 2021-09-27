@@ -7,7 +7,7 @@ import { Component, Input, OnChanges, OnInit } from '@angular/core';
   styleUrls: ['./vis-work.component.scss']
 })
 export class VisWorkComponent implements OnInit, OnChanges {
-  @Input() filters: any;
+  @Input() plotData: any;
 
   mediumPlotData: any;
   pubcountryPlotData: any;
@@ -29,35 +29,14 @@ export class VisWorkComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    this.http.post('/api/results/n-works', this.filters).subscribe(
-      res => this.numberOfWorks = res as number,
-      err => console.log(err)
-    );
-
-    this.http.post('/api/results/mediumplotdata', this.filters).subscribe(
-      res => this.mediumPlotData = res,
-      err => console.log(err)
-    );
-
-    this.http.post('/api/results/pubcountryplotdata', this.filters).subscribe(
-      res => this.pubcountryPlotData = res,
-      err => console.log(err)
-    );
-
-    this.http.post('/api/results/pubyearplotdata', this.filters).subscribe(
-      res => this.pubyearPlotData = res,
-      err => console.log(err)
-    );
-
-    this.http.post('/api/results/environmentplotdata', this.filters).subscribe(
-      res => this.environmentPlotData = res,
-      err => console.log(err)
-    );
-
-    this.http.post('/api/results/adaptationplotdata', this.filters).subscribe(
-      res => this.adaptationPlotData = res,
-      err => console.log(err)
-    );
+    if (this.plotData) {
+      this.numberOfWorks = this.plotData.n_works;
+      this.mediumPlotData = this.plotData.work_medium;
+      this.pubcountryPlotData = this.plotData.work_pub_country;
+      this.pubyearPlotData = this.plotData.work_pub_year;
+      this.environmentPlotData = this.plotData.work_environment;
+      this.adaptationPlotData = this.plotData.work_adaptation;
+    }
   }
 
 }

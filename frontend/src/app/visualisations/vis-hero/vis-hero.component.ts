@@ -7,7 +7,7 @@ import { Component, Input, OnChanges, OnInit } from '@angular/core';
   styleUrls: ['./vis-hero.component.scss']
 })
 export class VisHeroComponent implements OnInit, OnChanges {
-  @Input() filters: any;
+  @Input() plotData: any;
 
   numberOfHeroes: number;
   genderPlotData: any;
@@ -49,65 +49,18 @@ export class VisHeroComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    this.http.post('/api/results/n-heroes', this.filters).subscribe(
-      res => this.numberOfHeroes = res as number,
-      err => console.log(err)
-    );
-
-    this.http.post('/api/results/genderplotdata', this.filters).subscribe(
-      res => this.genderPlotData = res,
-      err => console.log(err)
-    );
-
-    this.http.post('/api/results/ageplotdata', this.filters).subscribe(
-      res => this.agePlotData = res,
-      err => console.log(err)
-    );
-
-    this.http.post('/api/results/roleplotdata', this.filters).subscribe(
-      res => this.rolePlotData = res,
-      err => console.log(err)
-    );
-
-    this.http.post('/api/results/narratorplotdata', this.filters).subscribe(
-      res => this.narratorPlotData = res,
-      err => console.log(err)
-    );
-
-    this.http.post('/api/results/focaliserplotdata', this.filters).subscribe(
-      res => this.focaliserPlotData = res,
-      err => console.log(err)
-    );
-
-    this.http.post('/api/results/education-plotdata', this.filters).subscribe(
-      res => this.educationPlotData = res,
-      err => console.log(err)
-    );
-
-    this.http.post('/api/results/wealth-plotdata', this.filters).subscribe(
-      res => this.wealthPlotData = res,
-      err => console.log(err)
-    );
-
-    this.http.post('/api/results/professionplotdata', this.filters).subscribe(
-      res => this.professionPlotData = res,
-      err => console.log(err)
-    );
-
-    this.http.post('/api/results/country-origin-plotdata', this.filters).subscribe(
-      res => this.countryOriginPlotData = res,
-      err => console.log(err)
-    );
-
-    this.http.post('/api/results/country-growup-plotdata', this.filters).subscribe(
-      res => this. countryGrowupPlotData = res,
-      err => console.log(err)
-    );
-
-    this.http.post('/api/results/country-live-plotdata', this.filters).subscribe(
-      res => this.countryLivePlotData = res,
-      err => console.log(err)
-    );
+    this.numberOfHeroes = this.plotData.n_heroes;
+    this.genderPlotData = this.plotData.hero_gender;
+    this.agePlotData = this.plotData.hero_age;
+    this.rolePlotData = this.plotData.hero_role;
+    this.narratorPlotData = this.plotData.hero_narrator;
+    this.focaliserPlotData = this.plotData.hero_focaliser;
+    this.educationPlotData = this.plotData.hero_education;
+    this.wealthPlotData = this.plotData.hero_wealth;
+    this.professionPlotData = this.plotData.hero_profession;
+    this.countryOriginPlotData = this.plotData.hero_country_origin;
+    this.countryGrowupPlotData = this.plotData.hero_country_growup;
+    this.countryLivePlotData = this.plotData.hero_country_live;
   }
 
 }

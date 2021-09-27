@@ -8,7 +8,7 @@ import { LIKERTPLOTOPTIONS } from 'src/app/models/plotdata';
   styleUrls: ['./vis-profession.component.scss']
 })
 export class VisProfessionComponent implements OnInit, OnChanges {
-  @Input() filters: any;
+  @Input() plotData: any;
 
   professionPlotData: any;
   professionRelevantToPersonalityPlotData: any;
@@ -27,26 +27,11 @@ export class VisProfessionComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    this.http.post('/api/results/professionplotdata', this.filters).subscribe(
-      res => this.professionPlotData = res,
-      err => console.log(err)
-    );
-    this.http.post('/api/results/profession-relevant-to-personality-plotdata', this.filters).subscribe(
-      res => this.professionRelevantToPersonalityPlotData = res,
-      err => console.log(err)
-    );
-    this.http.post('/api/results/profession-social-status-plotdata', this.filters).subscribe(
-      res => this.professionSocialStatusPlotData = res,
-      err => console.log(err)
-    );
-    this.http.post('/api/results/profession-growth-plotdata', this.filters).subscribe(
-      res => this.professionGrowthPlotData = res,
-      err => console.log(err)
-    );
-    this.http.post('/api/results/profession-defines-life-plotdata', this.filters).subscribe(
-      res => this.professionDefinesLifePlotData = res,
-      err => console.log(err)
-    );
+    this.professionPlotData = this.plotData.hero_profession;
+    this.professionRelevantToPersonalityPlotData = this.plotData.response_profession_relevant_to_personality;
+    this.professionSocialStatusPlotData = this.plotData.response_profession_social_status;
+    this.professionGrowthPlotData = this.plotData.response_profession_growth;
+    this.professionDefinesLifePlotData = this.plotData.response_profession_defines_life;
   }
 
 }
