@@ -24,6 +24,7 @@ class Hero(models.Model):
         ('PARENTS_ABSENT', 'parents absent'), 
         ('SIBLINGS_PRESENT', 'siblings present'), 
         ('SIBLINGS_ABSENT', 'siblings absent'), 
+        ('NONE', 'none'),
         ('UNKNOWN', 'unknown'),
     )
     

@@ -3,14 +3,14 @@ export interface IHero {
     name: string;
     work: any;
 
-    //role: 'protagonist' | 'main character' | 'minor character'
+    // role: 'protagonist' | 'main character' | 'minor character'
     role: string;
     narrator: boolean;
     focaliser: boolean;
 
     // age: '0-25' | '26-35' | '46-55' | '56-65' | '65+'
     age?: string;
-    //gender: 'Male' | 'Female' | 'Other'
+    // gender: 'Male' | 'Female' | 'Other'
     gender: string;
     country_origin: string;
     country_live: string;
@@ -22,30 +22,31 @@ export interface IHero {
     pets: string[];
     appearance?: boolean;
     sex: boolean;
-    //relatives: 
+    // relatives:
     relatives: string[];
     wealth?: string;
     problems: string[];
-    // solutions: 
+    // solutions:
     solutions: string[];
 }
 
-export const YESNOUNK_OPTIONS = [{label: 'Yes', value: true}, {label: 'No', value: false}, {label: 'Unknown', value: null}]
+export const YESNOUNK_OPTIONS = [{label: 'Yes', value: true}, {label: 'No', value: false}, {label: 'Unknown', value: null}];
 export const YESNO_OPTIONS = [{label: 'Yes', value: true}, {label: 'No', value: false}]
 export const ROLE_OPTIONS = [{ label: 'Protagonist', value: 'PROTAGONIST' }, { label: 'Main character', value: 'MAIN' }, { label: 'Minor character', value: 'MINOR' }];
 export const EDUCATION_OPTIONS = [
-    {label: 'High (university, university of applied sciences)', value: 'HIGH' }, 
+    {label: 'High (university, university of applied sciences)', value: 'HIGH' },
     {label: 'Low (primary or secondary school, vocational training)', value: 'LOW' },
     {label: 'None', value: 'NONE' },
     {label: 'Unknown', value: 'UNKNOWN'}];
-export const PETS_OPTIONS = ['Dog', 'Cat', 'Horse', 'Fish', 'Bird', 'Rodent']
+export const PETS_OPTIONS = ['None', 'Dog', 'Cat', 'Horse', 'Fish', 'Bird', 'Rodent'];
 export const AGE_OPTIONS = ['0-25', '26-35', '36-45', '46-55', '56-65', '65+', 'Unknown'];
-export const GENDER_OPTIONS = [{ label: 'Male', value: 'MALE' }, { label: 'Female', value: 'FEMALE' }, { label: 'Other', value: 'OTHER' }];;
+export const GENDER_OPTIONS = [{ label: 'Male', value: 'MALE' }, { label: 'Female', value: 'FEMALE' }, { label: 'Other', value: 'OTHER' }];
 export const RELATIVES_OPTIONS = [
-    {label: 'Parents(s) alive and present', value: 'PARENTS_PRESENT'}, 
-    {label: 'Parents(s) alive but not present', value: 'PARENTS_ABSENT'}, 
-    {label: 'Sibling(s) alive and present', value: 'SIBLINGS_PRESENT'}, 
-    {label: 'Sibling(s) alive but not present', value: 'SIBLINGS_ABSENT'}, 
+    {label: 'Parents(s) alive and present', value: 'PARENTS_PRESENT'},
+    {label: 'Parents(s) alive but not present', value: 'PARENTS_ABSENT'},
+    {label: 'Sibling(s) alive and present', value: 'SIBLINGS_PRESENT'},
+    {label: 'Sibling(s) alive but not present', value: 'SIBLINGS_ABSENT'},
+    {label: 'This hero has no relatives', value: 'NONE'},
     {label: 'Unknown', value: 'unknown'}]
 export const WEALTH_OPTIONS = [
     {label: 'Rich', value: 'RICH'}, {label: 'In between', value: 'INBETWEEN'}, {label: 'Poor', value: 'POOR'}, {label: 'Unknown', value: 'UNKNOWN'}];

@@ -126,7 +126,15 @@
     <label class="label" for="hobbies">What are the hobbies of this hero(ine)?</label>
     <div class="control">
       <p-chips id="hobbies" formControlName="hobbies" placeholder="Hobbies (comma separated)" separator=","></p-chips>
-      </div>
+    </div>
+  </div>
+
+  <div class="field">
+    <div class="control">
+      <label class="checkbox">
+        <input type="checkbox" name="no_hobbies" (change)="onNoHobbiesChange($event)">
+        This hero has no (known) hobbies</label>
+    </div>
   </div>
 
   <div class="field">

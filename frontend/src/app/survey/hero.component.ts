@@ -47,6 +47,7 @@ export class HeroComponent implements OnInit {
     education: new FormControl('', [Validators.required]),
     profession: new FormControl('', [Validators.required]),
     hobbies: new FormControl(''),
+    no_hobbies: new FormControl(false),
     pets: new FormArray([]),
     pets_other_enable: new FormControl(false),
     pets_other: new FormControl({value: [], disabled: true}),
@@ -90,6 +91,17 @@ export class HeroComponent implements OnInit {
     }
   }
 
+  onNoHobbiesChange(event): void {
+    const hobbiesControl = this.heroForm.get('hobbies');
+    const noHobbiesControl = this.heroForm.get('no_hobbies')
+    if (event.target.checked) {
+      hobbiesControl.disable();
+    } else {
+      hobbiesControl.enable();
+    }
+    noHobbiesControl.setValue(event.target.checked);
+  }
+
   filteredCountries(event) {
     let filtered : any[] = [];
     const query = event.query;
@@ -114,7 +126,15 @@ export class HeroComponent implements OnInit {
     this.filteredCountriesGrowup = this.filteredCountries(event);
   }
 
-  allPets(): string[] {
+  get allHobbies(): string[] {
+    if (this.heroForm.get('no_hobbies').value) {
+      return [];
+    } else {
+      return this.heroForm.get('hobbies').value;
+    }
+  }
+
+  get allPets(): string[] {
     if (this.heroForm.get('pets_other_enable').value) {
       return (this.heroForm.get('pets').value).concat(this.heroForm.get('pets_other').value);
     } else {
@@ -122,7 +142,7 @@ export class HeroComponent implements OnInit {
     }
   }
 
-  allProblems(): string[] {
+  get allProblems(): string[] {
     if (this.heroForm.get('problems_other_enable').value) {
       return (this.heroForm.get('problems').value).concat(this.heroForm.get('problems_other').value);
     } else {
@@ -130,7 +150,7 @@ export class HeroComponent implements OnInit {
     }
   }
 
-  allSolutions(): string[] {
+  get allSolutions(): string[] {
     if (this.heroForm.get('solutions_other_enable').value) {
       return (this.heroForm.get('solutions').value).concat(this.heroForm.get('solutions_other').value);
     } else {
@@ -139,11 +159,13 @@ export class HeroComponent implements OnInit {
   }
 
   formIsValid(): boolean {
-    const problemsAdded =  this.allProblems().length > 0;
-    const solutionsAdded =  this.allSolutions().length > 0;
+    const hobbiesAdded = this.heroForm.get('no_hobbies').value || (this.heroForm.get('hobbies').value.length > 0);
+    const petsAdded =  this.allPets.length > 0;
+    const problemsAdded =  this.allProblems.length > 0;
+    const solutionsAdded =  this.allSolutions.length > 0;
     const appearanceDirty = this.heroForm.get('appearance').dirty;
 
-    return this.heroForm.valid && problemsAdded && solutionsAdded && appearanceDirty;
+    return this.heroForm.valid && hobbiesAdded && petsAdded && problemsAdded && solutionsAdded && appearanceDirty;
   }
 
   onSubmit(){
@@ -165,16 +187,16 @@ export class HeroComponent implements OnInit {
 
       education: this.heroForm.get('education').value,
       profession: this.heroForm.get('profession').value,
-      hobbies: this.heroForm.get('hobbies').value,
-      pets: this.allPets(),
+      hobbies: this.allHobbies,
+      pets: this.allPets,
 
       appearance: this.heroForm.get('appearance').value,
       sex: this.heroForm.get('sex').value,
       relatives: this.heroForm.get('relatives').value,
       wealth: this.heroForm.get('wealth').value,
 
-      problems: this.allProblems(),
-      solutions: this.allSolutions(),
+      problems: this.allProblems,
+      solutions: this.allSolutions,
     };
 
     console.log(heroFormData);
