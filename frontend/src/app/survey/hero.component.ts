@@ -3,8 +3,11 @@ import { FormControl, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Restangular } from 'ngx-restangular';
 import { IHero } from '../models/hero';
 import { IWork } from '../models/work';
-import { YESNOUNK_OPTIONS, YESNO_OPTIONS, ROLE_OPTIONS, EDUCATION_OPTIONS, PETS_OPTIONS, AGE_OPTIONS, GENDER_OPTIONS, RELATIVES_OPTIONS, WEALTH_OPTIONS, PROBLEM_OPTIONS, SOLUTION_OPTIONS } from '../models/hero';
+import { YESNOUNK_OPTIONS, YESNO_OPTIONS, ROLE_OPTIONS,
+  EDUCATION_OPTIONS, PETS_OPTIONS, AGE_OPTIONS, GENDER_OPTIONS,
+  RELATIVES_OPTIONS, WEALTH_OPTIONS, PROBLEM_OPTIONS, SOLUTION_OPTIONS } from '../models/hero';
 import { HttpErrorResponse } from '@angular/common/http';
+import { COUNTRIES } from '../models/countries';
 
 @Component({
   selector: 'mh-hero',
@@ -25,6 +28,11 @@ export class HeroComponent implements OnInit {
   wealthOptions = WEALTH_OPTIONS;
   problemOptions = PROBLEM_OPTIONS;
   solutionOptions = SOLUTION_OPTIONS;
+  countryOptions = COUNTRIES.concat([{name: 'Other', code: 'OTHER'}, {name: 'Imaginary', code: 'IMAGINARY'}, {name: 'Unknown', code: 'UNKNOWN'}]);
+
+  filteredCountriesOrigin = [];
+  filteredCountriesLive = [];
+  filteredCountriesGrowup = [];
 
   heroForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
@@ -41,17 +49,17 @@ export class HeroComponent implements OnInit {
     hobbies: new FormControl(''),
     pets: new FormArray([]),
     pets_other_enable: new FormControl(false),
-    pets_other: new FormControl([]),
-    appearance: new FormControl('', [Validators.required]),
+    pets_other: new FormControl({value: [], disabled: true}),
+    appearance: new FormControl(''),
     sex: new FormControl('', [Validators.required]),
     relatives: new FormArray([], [Validators.required]),
     wealth: new FormControl('', [Validators.required]),
     problems: new FormArray([]),
     problems_other_enable: new FormControl(false),
-    problems_other: new FormControl([]),
+    problems_other: new FormControl({value: [], disabled: true}),
     solutions: new FormArray([]),
     solutions_other_enable: new FormControl(false),
-    solutions_other: new FormControl([]),
+    solutions_other: new FormControl({value: [], disabled: true}),
   });
 
   @Input() 
@@ -66,9 +74,9 @@ export class HeroComponent implements OnInit {
   }
 
   onCheckboxChange(name, value, event) {
-    const checkArray: FormArray = this.heroForm.get(name) as FormArray
+    const checkArray: FormArray = this.heroForm.get(name) as FormArray;
     if (event.target.checked) {
-      checkArray.push(new FormControl(value))
+      checkArray.push(new FormControl(value));
     }
     else {
       let i: number = 0;
@@ -82,37 +90,62 @@ export class HeroComponent implements OnInit {
     }
   }
 
-  allPets() : string[] {
+  filteredCountries(event) {
+    let filtered : any[] = [];
+    const query = event.query;
+
+    for (const country of this.countryOptions) {
+        if (country.name.toLowerCase().indexOf(query.toLowerCase()) === 0) {
+            filtered.push(country);
+        }
+    }
+    return filtered;
+  }
+
+  filterCountryOrigin(event) {
+    this.filteredCountriesOrigin = this.filteredCountries(event);
+  }
+
+  filterCountryLive(event) {
+    this.filteredCountriesLive = this.filteredCountries(event);
+  }
+
+  filterCountryGrowup(event) {
+    this.filteredCountriesGrowup = this.filteredCountries(event);
+  }
+
+  allPets(): string[] {
     if (this.heroForm.get('pets_other_enable').value) {
-      return (this.heroForm.get('pets').value).concat(this.heroForm.get('pets_other').value)
+      return (this.heroForm.get('pets').value).concat(this.heroForm.get('pets_other').value);
     } else {
-      return this.heroForm.get('pets').value
+      return this.heroForm.get('pets').value;
     }
   }
 
-  allProblems() : string[] {
+  allProblems(): string[] {
     if (this.heroForm.get('problems_other_enable').value) {
-      return (this.heroForm.get('problems').value).concat(this.heroForm.get('problems_other').value)
+      return (this.heroForm.get('problems').value).concat(this.heroForm.get('problems_other').value);
     } else {
-      return this.heroForm.get('problems').value
+      return this.heroForm.get('problems').value;
     }
   }
 
-  allSolutions() : string[] {
+  allSolutions(): string[] {
     if (this.heroForm.get('solutions_other_enable').value) {
-      return (this.heroForm.get('solutions').value).concat(this.heroForm.get('solutions_other').value)
+      return (this.heroForm.get('solutions').value).concat(this.heroForm.get('solutions_other').value);
     } else {
-      return this.heroForm.get('solutions').value
-    } 
+      return this.heroForm.get('solutions').value;
+    }
   }
 
-  formIsValid() : Boolean {
-    const problems_added =  this.allProblems().length > 0
-    const solutions_added =  this.allSolutions().length > 0
+  formIsValid(): boolean {
+    const problemsAdded =  this.allProblems().length > 0;
+    const solutionsAdded =  this.allSolutions().length > 0;
+    const appearanceDirty = this.heroForm.get('appearance').dirty;
 
-    return this.heroForm.valid && problems_added && solutions_added
+    return this.heroForm.valid && problemsAdded && solutionsAdded && appearanceDirty;
   }
-  
+
   onSubmit(){
     this.httpError = undefined;
 
@@ -126,9 +159,9 @@ export class HeroComponent implements OnInit {
 
       gender: this.heroForm.get('gender').value,
       age: this.heroForm.get('age').value,
-      country_origin: this.heroForm.get('country_origin').value,
-      country_live: this.heroForm.get('country_live').value,
-      country_growup: this.heroForm.get('country_growup').value,
+      country_origin: this.heroForm.get('country_origin').value.name,
+      country_live: this.heroForm.get('country_live').value.name,
+      country_growup: this.heroForm.get('country_growup').value.name,
 
       education: this.heroForm.get('education').value,
       profession: this.heroForm.get('profession').value,
@@ -142,7 +175,9 @@ export class HeroComponent implements OnInit {
 
       problems: this.allProblems(),
       solutions: this.allSolutions(),
-    }
+    };
+
+    console.log(heroFormData);
 
     this.restangular.all('heroes')
       .post(heroFormData as IHero).subscribe(

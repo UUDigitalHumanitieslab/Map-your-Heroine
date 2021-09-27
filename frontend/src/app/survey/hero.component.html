@@ -64,21 +64,42 @@
   <div class="field">
     <label class="label" for="countryorigin">In what country was your hero/heroine born? You can also choose "unkown" or "imaginary".</label>
     <div class="control">
-      <input class="input" id="countryorigin" type="text" formControlName="country_origin" placeholder="The Netherlands">
+      <p-autoComplete id="countryorigin" formControlName="country_origin" placeholder="Pick or type"
+      [suggestions]="filteredCountriesOrigin" (completeMethod)="filterCountryOrigin($event)" field="name" [dropdown]="true">
+        <ng-template let-country pTemplate="item">
+            <div class="country-item">
+                <div>{{country.name}}</div>
+            </div>
+        </ng-template>
+      </p-autoComplete>
     </div>
   </div>
 
   <div class="field">
     <label class="label" for="countrylive">In which country does this hero/heroine live? If more than one, choose the country in which most of the action takes place.</label>
     <div class="control">
-      <input class="input" id="countrylive" type="text" formControlName="country_live" placeholder="The Netherlands">
+      <p-autoComplete id="countrylive" formControlName="country_live" placeholder="Pick or type"
+      [suggestions]="filteredCountriesLive" (completeMethod)="filterCountryLive($event)" field="name" [dropdown]="true">
+        <ng-template let-country pTemplate="item">
+            <div class="country-item">
+                <div>{{country.name}}</div>
+            </div>
+        </ng-template>
+      </p-autoComplete>
     </div>
   </div>
 
   <div class="field">
     <label class="label" for="countrygrowup">In which country did this hero/heroine grow up?</label>
     <div class="control">
-      <input class="input" id="countrygrowup" type="text" formControlName="country_growup" placeholder="The Netherlands">
+      <p-autoComplete id="countrygrowup" formControlName="country_growup" placeholder="Pick or type"
+      [suggestions]="filteredCountriesGrowup" (completeMethod)="filterCountryGrowup($event)" field="name" [dropdown]="true">
+        <ng-template let-country pTemplate="item">
+            <div class="country-item">
+                <div>{{country.name}}</div>
+            </div>
+        </ng-template>
+      </p-autoComplete>
     </div>
   </div>
 
@@ -119,7 +140,7 @@
       <div class="p-field-checkbox">
         <label class="checkbox">
         <input type="checkbox" binary="true" formControlName="pets_other_enable">
-        Other: <p-chips placeholder="Specify" separator="," [disabled]="!(this.heroForm.get('pets_other_enable').value)" formControlName="pets_other"></p-chips></label>
+        Other: <p-chips placeholder="Pets (comma separated)" separator="," [disabled]="!(this.heroForm.get('pets_other_enable').value)" formControlName="pets_other"></p-chips></label>
       </div>
     </div>
   </div>
@@ -179,7 +200,7 @@
       <div class="p-field-checkbox">
         <label class="checkbox">
         <input type="checkbox" binary="true" formControlName="problems_other_enable">
-        Other: <p-chips placeholder="Specify" separator="," [disabled]="!(this.heroForm.get('problems_other_enable').value)" formControlName="problems_other"></p-chips></label>
+        Other: <p-chips placeholder="Problems (comma separated)" separator="," [disabled]="!(this.heroForm.get('problems_other_enable').value)" formControlName="problems_other"></p-chips></label>
       </div>
     </div>
   </div>
@@ -195,7 +216,7 @@
       <div class="p-field-checkbox">
         <label class="checkbox">
         <input type="checkbox" binary="true" formControlName="solutions_other_enable">
-        Other: <p-chips placeholder="Specify" separator="," [disabled]="!(this.heroForm.get('solutions_other_enable').value)" formControlName="solutions_other"></p-chips></label>
+        Other: <p-chips placeholder="Solutions (comma spearated)" separator="," [disabled]="!(this.heroForm.get('solutions_other_enable').value)" formControlName="solutions_other"></p-chips></label>
       </div>
     </div>
   </div>
