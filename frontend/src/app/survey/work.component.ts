@@ -104,7 +104,10 @@ export class WorkComponent implements OnInit, OnDestroy {
     this.restangular.all('works')
       .post(workFormData).subscribe(
         newWork => this.addWork.emit(newWork),
-        errorResponse => this.httpError = errorResponse
+        errorResponse => {
+          this.httpError = errorResponse;
+          console.log(this.httpError.message);
+        }
       );
   }
 

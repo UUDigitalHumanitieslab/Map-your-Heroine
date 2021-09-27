@@ -79,6 +79,12 @@
   <div class="block">
     <mh-response (completeResponse)="onSurveyCompleted($event)"></mh-response>
   </div>
+
+  <div class="field" *ngIf="httpError">
+    <div class="notification is-error">
+      Something went wrong with submitting your form. If you keep seeing this error, please let us know.
+    </div>
+  </div>
 </div>
 
 <p-dialog header="Create a new work" [(visible)]="displayCreateWork">

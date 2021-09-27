@@ -204,7 +204,10 @@ export class HeroComponent implements OnInit {
     this.restangular.all('heroes')
       .post(heroFormData as IHero).subscribe(
         newHero => this.addHero.emit(newHero),
-        errorResponse => this.httpError = errorResponse
+        errorResponse => {
+          this.httpError = errorResponse;
+          console.log(this.httpError.message);
+        }
       );
   }
 
