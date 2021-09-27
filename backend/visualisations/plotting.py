@@ -1,8 +1,23 @@
 from typing import Counter
 from factual.models import Hero, Response, Work
-from bokeh.palettes import Set2, Paired
 
-DEFAULT_PALETTE = Set2[8] + tuple(Paired[12][i] for i in range(0, 12, 2))
+UU_COLOURS = {
+    'yellow': '#FFCD00',
+    'red': '#C00A35',
+    'cream': '#FFE6AB',
+    'orange': '#F3965E', 
+    'burgundy': '#AA1555',
+    'brown': '#6E3B23',
+    'green': '#24A793',  
+    'blue': '#5287C6',
+    'dark blue': '#001240',
+    'purple': '#5B2182'
+}
+
+DEFAULT_PALETTE = [UU_COLOURS[colour] for colour in ['green', 'yellow', 'purple', 'blue', 'red', 'orange', 'dark blue', 'burgundy', 'cream',  'brown',]] + ['#808080']
+GENDER_PALETTE = [UU_COLOURS[colour] for colour in ['blue', 'burgundy', 'cream']]
+YESNO_PALETTE = [UU_COLOURS[colour] for colour in ['green', 'orange', 'brown']]
+
 STANDARD_MEDIA = ['novel', 'film', 'tv-series', 'vlog', 'comic', 'fan fiction', 'music', 'ballet', 'game']  
 
 class Plots:
@@ -161,8 +176,6 @@ class Plots:
             'OTHER': 'Other'
         }
 
-        palette = [DEFAULT_PALETTE[2], DEFAULT_PALETTE[10], DEFAULT_PALETTE[0]]
-
         heroes = Plots._all_heroes(filters)
         gender_counts = Counter(nice_strings[hero.gender] for hero in heroes)
         labels = ['Male', 'Female', 'Other']
@@ -171,7 +184,7 @@ class Plots:
             'labels': labels,
             'datasets': [{
                 'data': [gender_counts[gender] for gender in labels],
-                'backgroundColor': palette,
+                'backgroundColor': GENDER_PALETTE,
             }]
         }
 
@@ -204,8 +217,6 @@ class Plots:
             True: 'Yes'
         }
 
-        palette = DEFAULT_PALETTE[:2]
-
         heroes = Plots._all_heroes(filters)
         counts = Counter(nice_strings[hero.narrator] for hero in heroes)
         labels = ['Yes', 'No']
@@ -214,7 +225,7 @@ class Plots:
             'labels': labels,
             'datasets': [{
                 'data': [counts[label] for label in labels],
-                'backgroundColor': palette,
+                'backgroundColor': YESNO_PALETTE[:len(labels)],
             }]
         }
 
@@ -226,7 +237,6 @@ class Plots:
             True: 'Yes'
         }
 
-        palette = DEFAULT_PALETTE[:2]
 
         heroes = Plots._all_heroes(filters)
         counts = Counter(nice_strings[hero.focaliser] for hero in heroes)
@@ -236,7 +246,7 @@ class Plots:
             'labels': labels,
             'datasets': [{
                 'data': [counts[label] for label in labels],
-                'backgroundColor': palette,
+                'backgroundColor': YESNO_PALETTE[:len(labels)],
             }]
         }
 
@@ -263,8 +273,6 @@ class Plots:
             None: 'Unknown'
         }
 
-        palette = DEFAULT_PALETTE[:2]
-
         heroes = Plots._all_heroes(filters)
         counts = Counter(nice_strings[hero.appearance] for hero in heroes)
         labels = ['Yes', 'No', 'Unknown']
@@ -273,7 +281,7 @@ class Plots:
             'labels': labels,
             'datasets': [{
                 'data': [counts[label] for label in labels],
-                'backgroundColor': DEFAULT_PALETTE[:len(labels)],
+                'backgroundColor': YESNO_PALETTE[:len(labels)],
             }]
         }
 
@@ -283,20 +291,19 @@ class Plots:
         heroes = Plots._all_heroes(filters)
         age_counts = Counter(hero.age for hero in heroes if hero.age != 'UNKNOWN')
         ages = ['0-25', '26-35', '36-45', '46-55', '56-65', '65+']
+        total = sum(age_counts.values())
 
         data = {
             'labels': ages,
             'datasets': [{
-                'label': 'number of characters',
+                'label': 'percentage of characters',
                 'backgroundColor': DEFAULT_PALETTE[0],
-                'data': [age_counts[age] for age in ages]
+                'data': [round(100 * age_counts[age] / total) for age in ages]
             }]
         }
         return data
     
     def response_gender_plotdata(filters=dict()):
-        palette = [DEFAULT_PALETTE[2], DEFAULT_PALETTE[10], DEFAULT_PALETTE[0]]
-
         responses = Plots._all_responses(filters)
         gender_counts = Counter(response.responses['participant_gender'] for response in responses)
         labels = ['Male', 'Female', 'Other']
@@ -305,7 +312,7 @@ class Plots:
             'labels': labels,
             'datasets': [{
                 'data': [gender_counts[gender] for gender in labels],
-                'backgroundColor': palette,
+                'backgroundColor': GENDER_PALETTE,
             }]
         }
 
