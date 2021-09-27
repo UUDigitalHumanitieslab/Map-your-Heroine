@@ -11,7 +11,7 @@
                     </p>
                 </header>
                 <div class="card-content">
-                    <p-chart type="pie" [data]="genderPlotData"></p-chart>
+                    <p-chart type="doughnut" [data]="genderPlotData"></p-chart>
                 </div>
             </div>
         </div>
@@ -31,11 +31,11 @@
             <div class="card">
                 <header class="card-header">
                     <p class="card-header-title">
-                        What is the role of the hero(ine) in the story?
+                        What is the role of the hero(ine)?
                     </p>
                 </header>
                 <div class="card-content">
-                    <p-chart type="pie" [data]="rolePlotData"></p-chart>
+                    <p-chart type="doughnut" [data]="rolePlotData" [options]="smallPlotOptions"></p-chart>
                 </div>
             </div>
         </div>
@@ -43,11 +43,11 @@
             <div class="card">
                 <header class="card-header">
                     <p class="card-header-title">
-                        Is the hero(ine) the narrator of the story?
+                        Is the hero(ine) the narrator?
                     </p>
                 </header>
                 <div class="card-content">
-                    <p-chart type="pie" [data]="narratorPlotData"></p-chart>
+                    <p-chart type="doughnut" [data]="narratorPlotData" [options]="smallPlotOptions"></p-chart>
                 </div>
             </div>
         </div>
@@ -55,11 +55,83 @@
             <div class="card">
                 <header class="card-header">
                     <p class="card-header-title">
-                        Is the hero(ine) the focaliser of the story?
+                        Is the hero(ine) the focaliser?
                     </p>
                 </header>
                 <div class="card-content">
-                    <p-chart type="pie" [data]="focaliserPlotData"></p-chart>
+                    <p-chart type="doughnut" [data]="focaliserPlotData" [options]="smallPlotOptions"></p-chart>
+                </div>
+            </div>
+        </div>
+        <div class="column is-half">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        Education
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="doughnut" [data]="educationPlotData"></p-chart>
+                </div>
+            </div>
+        </div>
+        <div class="column is-half">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        Wealth
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="doughnut" [data]="wealthPlotData"></p-chart>
+                </div>
+            </div>
+        </div>
+        <div class="column is-full">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        Common professions
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="doughnut" [data]="professionPlotData" [options]="widePlotOptions"></p-chart>
+                </div>
+            </div>
+        </div>
+        <div class="column is-one-third">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        Where was the hero(ine) born?
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="doughnut" [data]="countryOriginPlotData" [options]="countryPlotOptions"></p-chart>
+                </div>
+            </div>
+        </div>
+        <div class="column is-one-third">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        Where did the hero(ine) grow up?
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="doughnut" [data]="countryGrowupPlotData" [options]="countryPlotOptions"></p-chart>
+                </div>
+            </div>
+        </div>
+        <div class="column is-one-third">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        Where does the hero(ine) live?
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="doughnut" [data]="countryLivePlotData" [options]="countryPlotOptions"></p-chart>
                 </div>
             </div>
         </div>

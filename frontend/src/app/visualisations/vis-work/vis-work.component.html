@@ -2,7 +2,7 @@
     There are <strong>{{numberOfWorks}}</strong> works matching your selection
 </div>
 <div class="block">
-    <div class="columns is-vcentered is-multiline">
+    <div class="columns is-vcentered is-multiline is-centered">
         <div class="column is-half">
             <div class="card">
                 <header class="card-header">
@@ -11,7 +11,19 @@
                     </p>
                 </header>
                 <div class="card-content">
-                    <p-chart type="pie" [data]="mediumPlotData"></p-chart>
+                    <p-chart type="doughnut" [data]="mediumPlotData"></p-chart>
+                </div>
+            </div>
+        </div>
+        <div class="column is-half">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        Source works and adaptations
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="doughnut" [data]="adaptationPlotData"></p-chart>
                 </div>
             </div>
         </div>
@@ -23,7 +35,19 @@
                     </p>
                 </header>
                 <div class="card-content">
-                    <p-chart type="pie" [data]="pubcountryPlotData"></p-chart>
+                    <p-chart type="doughnut" [data]="pubcountryPlotData"></p-chart>
+                </div>
+            </div>
+        </div>
+        <div class="column is-half">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        Year of publication
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="line" [data]="pubyearPlotData" [options]="pubyearPlotOptions"></p-chart>
                 </div>
             </div>
         </div>
@@ -35,7 +59,7 @@
                     </p>
                 </header>
                 <div class="card-content">
-                    <p-chart type="pie" [data]="environmentPlotData"></p-chart>
+                    <p-chart type="doughnut" [data]="environmentPlotData"></p-chart>
                 </div>
             </div>
         </div>

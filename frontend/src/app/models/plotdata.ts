@@ -1,12 +1,13 @@
 export const LIKERTPLOTOPTIONS = {
-    aspectRatio: 8,
+    aspectRatio: 4,
     responsive: true,
     scales: {
         xAxes: [{
         display: true,
         }],
         yAxes: [{
-        display: false
+        display: false,
+        ticks: {min: 0}
         }]
     },
     legend: {

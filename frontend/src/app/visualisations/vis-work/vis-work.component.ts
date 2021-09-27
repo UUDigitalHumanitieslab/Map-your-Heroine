@@ -11,7 +11,15 @@ export class VisWorkComponent implements OnInit, OnChanges {
 
   mediumPlotData: any;
   pubcountryPlotData: any;
+  pubyearPlotData: any;
   environmentPlotData: any;
+  adaptationPlotData: any;
+
+  pubyearPlotOptions = {
+    legend: {
+      display: false
+    }
+  };
 
   numberOfWorks: number;
 
@@ -36,8 +44,18 @@ export class VisWorkComponent implements OnInit, OnChanges {
       err => console.log(err)
     );
 
+    this.http.post('/api/results/pubyearplotdata', this.filters).subscribe(
+      res => this.pubyearPlotData = res,
+      err => console.log(err)
+    );
+
     this.http.post('/api/results/environmentplotdata', this.filters).subscribe(
       res => this.environmentPlotData = res,
+      err => console.log(err)
+    );
+
+    this.http.post('/api/results/adaptationplotdata', this.filters).subscribe(
+      res => this.adaptationPlotData = res,
       err => console.log(err)
     );
   }

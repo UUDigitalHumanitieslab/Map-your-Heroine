@@ -1,5 +1,6 @@
 from typing import Counter
 from factual.models import Hero, Response, Work
+from django.utils import timezone
 
 UU_COLOURS = {
     'yellow': '#FFCD00',
@@ -15,10 +16,11 @@ UU_COLOURS = {
 }
 
 DEFAULT_PALETTE = [UU_COLOURS[colour] for colour in ['green', 'yellow', 'purple', 'blue', 'red', 'orange', 'dark blue', 'burgundy', 'cream',  'brown',]] + ['#808080']
-GENDER_PALETTE = [UU_COLOURS[colour] for colour in ['blue', 'burgundy', 'cream']]
-YESNO_PALETTE = [UU_COLOURS[colour] for colour in ['green', 'orange', 'brown']]
+GENDER_PALETTE = [UU_COLOURS['blue'], UU_COLOURS['red'], '#808080']
+YESNO_PALETTE = [UU_COLOURS['green'], UU_COLOURS['orange'], '#808080']
 
-STANDARD_MEDIA = ['novel', 'film', 'tv-series', 'vlog', 'comic', 'fan fiction', 'music', 'ballet', 'game']  
+STANDARD_MEDIA = ['novel', 'film', 'tv-series', 'vlog', 'comic', 'fan fiction', 'music', 'ballet', 'game']
+STANDARD_ENVIRONMENTS = ['countryside', 'village', 'city', 'extra-terrestrial', 'unknown']
 
 class Plots:
     def _work_qualifies(work, filters):
@@ -148,37 +150,85 @@ class Plots:
         data = {
             'labels': labels,
             'datasets': [{
-                'data': [counts[country] for country in labels],
+                'data': [counts[label] for label in labels],
+                'backgroundColor': DEFAULT_PALETTE[:len(labels)],
+            }]
+        }
+
+        return data
+
+    def pubyear_plotdata(filters=dict()):
+        works = Plots._all_works(filters)
+        counts = Counter(work.pub_year for work in works)
+
+        min_year = min(counts.keys())
+        this_year = timezone.now().year
+        step = int((this_year - min_year) / 15)
+        labels = list(range(min_year - step, this_year, step))
+
+        value = lambda year: sum(counts[y] for y in range(year, year+step) if y in counts)
+
+        data = {
+            'labels': [year + int(step / 2) for year in labels],
+            'datasets': [{
+                'label': 'works',
+                'data': [value(year) for year in labels],
+                'fill': True,
+                'borderColor': DEFAULT_PALETTE[0],
+                'backgroundColor': 'rgba(36,167,147,0.5)',
+            }]
+        }
+
+        return data
+
+
+    
+    def environment_plotdata(filters=dict()):
+        works = Plots._all_works(filters)
+        counts = Counter(work.environment if work.environment in STANDARD_ENVIRONMENTS else 'other' for work in works )
+        labels = STANDARD_ENVIRONMENTS + ['other']
+
+        data = {
+            'labels': labels,
+            'datasets': [{
+                'data': [counts[label] for label in labels],
                 'backgroundColor': DEFAULT_PALETTE[:len(labels)],
             }]
         }
 
         return data
     
-    def environment_plotdata(filters=dict()):
+    def adaptation_plotdata(filters=dict()):
+        nice_strings = {
+            True: 'source text',
+            False: 'adaptation'
+        }
         works = Plots._all_works(filters)
-        labels, counts = Plots._top_10_counts_with_other(work.environment for work in works)
+        counts = Counter(nice_strings[work.is_source] for work in works )
+        labels = ['source text', 'adaptation']
 
         data = {
             'labels': labels,
             'datasets': [{
-                'data': [counts[country] for country in labels],
+                'data': [counts[label] for label in labels],
                 'backgroundColor': DEFAULT_PALETTE[:len(labels)],
             }]
         }
+
+        print(data)
 
         return data
 
     def gender_plotdata(filters=dict()):
         nice_strings = {
-            'MALE': 'Male',
-            'FEMALE': 'Female',
-            'OTHER': 'Other'
+            'MALE': 'male',
+            'FEMALE': 'female',
+            'OTHER': 'other'
         }
 
         heroes = Plots._all_heroes(filters)
         gender_counts = Counter(nice_strings[hero.gender] for hero in heroes)
-        labels = ['Male', 'Female', 'Other']
+        labels = ['male', 'female', 'other']
 
         data = {
             'labels': labels,
@@ -192,14 +242,14 @@ class Plots:
     
     def role_plotdata(filters=dict()):
         nice_strings = {
-            'MAIN': 'Main character',
-            'MINOR': 'Minor character',
-            'PROTAGONIST': 'Protagonist'
+            'MAIN': 'main character',
+            'MINOR': 'minor character',
+            'PROTAGONIST': 'protagonist'
         }
 
         heroes = Plots._all_heroes(filters)
         counts = Counter(nice_strings[hero.role] for hero in heroes)
-        labels = ['Protagonist', 'Main character', 'Minor character']
+        labels = ['protagonist', 'main character', 'minor character']
 
         data = {
             'labels': labels,
@@ -213,13 +263,13 @@ class Plots:
     
     def narrator_plotdata(filters=dict()):
         nice_strings = {
-            False: 'No',
-            True: 'Yes'
+            False: 'no',
+            True: 'yes'
         }
 
         heroes = Plots._all_heroes(filters)
         counts = Counter(nice_strings[hero.narrator] for hero in heroes)
-        labels = ['Yes', 'No']
+        labels = ['yes', 'no']
 
         data = {
             'labels': labels,
@@ -233,14 +283,14 @@ class Plots:
     
     def focaliser_plotdata(filters=dict()):
         nice_strings = {
-            False: 'No',
-            True: 'Yes'
+            False: 'no',
+            True: 'yes'
         }
 
 
         heroes = Plots._all_heroes(filters)
         counts = Counter(nice_strings[hero.focaliser] for hero in heroes)
-        labels = ['Yes', 'No']
+        labels = ['yes', 'no']
 
         data = {
             'labels': labels,
@@ -252,9 +302,95 @@ class Plots:
 
         return data
 
+    def education_plotdata(filters=dict()):
+        nice_strings = {
+            'HIGH': 'high',
+            'LOW': 'low',
+            'NONE': 'none',
+            'UNKNOWN': 'unknown'
+        }
+
+        heroes = Plots._all_heroes(filters)
+        counts = Counter(nice_strings[hero.education] for hero in heroes)
+        labels = ['high', 'low', 'none', 'unknown']
+
+        data = {
+            'labels': labels,
+            'datasets': [{
+                'data': [counts[role] for role in labels],
+                'backgroundColor': DEFAULT_PALETTE[:len(labels)],
+            }]
+        }
+
+        return data
+    
+    def wealth_plotdata(filters=dict()):
+        nice_strings = {
+            'RICH': 'rich',
+            'INBETWEEN': 'in between',
+            'POOR': 'poor',
+            'UNKNOWN': 'unknown'
+        }
+
+        heroes = Plots._all_heroes(filters)
+        counts = Counter(nice_strings[hero.wealth] for hero in heroes)
+        labels = ['rich', 'in between', 'poor', 'unknown']
+
+        data = {
+            'labels': labels,
+            'datasets': [{
+                'data': [counts[role] for role in labels],
+                'backgroundColor': DEFAULT_PALETTE[:len(labels)],
+            }]
+        }
+
+        return data
+
+    def country_origin_plotdata(filters=dict()):
+        heroes = Plots._all_heroes(filters)
+        labels, counts = Plots._top_10_counts_with_other(hero.country_origin for hero in heroes)
+
+        data = {
+            'labels': labels,
+            'datasets': [{
+                'data': [counts[label] for label in labels],
+                'backgroundColor': DEFAULT_PALETTE[:len(labels)],
+            }]
+        }
+
+        return data
+
+    def country_growup_plotdata(filters=dict()):
+        heroes = Plots._all_heroes(filters)
+        labels, counts = Plots._top_10_counts_with_other(hero.country_growup for hero in heroes)
+
+        data = {
+            'labels': labels,
+            'datasets': [{
+                'data': [counts[label] for label in labels],
+                'backgroundColor': DEFAULT_PALETTE[:len(labels)],
+            }]
+        }
+
+        return data
+    
+    def country_live_plotdata(filters=dict()):
+        heroes = Plots._all_heroes(filters)
+        labels, counts = Plots._top_10_counts_with_other(hero.country_live for hero in heroes)
+
+        data = {
+            'labels': labels,
+            'datasets': [{
+                'data': [counts[label] for label in labels],
+                'backgroundColor': DEFAULT_PALETTE[:len(labels)],
+            }]
+        }
+
+        return data
+
     def profession_plotdata(filters=dict()):
         heroes = Plots._all_heroes(filters)
-        labels, counts = Plots._top_10_counts_with_other(hero.profession for hero in heroes)
+        labels, counts = Plots._top_10_counts_with_other(hero.profession.lower() for hero in heroes)
 
         data = {
             'labels': labels,
@@ -268,14 +404,14 @@ class Plots:
     
     def attractive_plotdata(filters=dict()):
         nice_strings = {
-            False: 'No',
-            True: 'Yes',
-            None: 'Unknown'
+            False: 'no',
+            True: 'yes',
+            None: 'unknown'
         }
 
         heroes = Plots._all_heroes(filters)
         counts = Counter(nice_strings[hero.appearance] for hero in heroes)
-        labels = ['Yes', 'No', 'Unknown']
+        labels = ['yes', 'no', 'unknown']
 
         data = {
             'labels': labels,
@@ -305,8 +441,8 @@ class Plots:
     
     def response_gender_plotdata(filters=dict()):
         responses = Plots._all_responses(filters)
-        gender_counts = Counter(response.responses['participant_gender'] for response in responses)
-        labels = ['Male', 'Female', 'Other']
+        gender_counts = Counter(response.responses['participant_gender'].lower() for response in responses)
+        labels = ['male', 'female', 'other']
 
         data = {
             'labels': labels,
