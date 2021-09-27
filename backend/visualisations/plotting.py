@@ -148,13 +148,13 @@ class Plots:
 
         min_year = min(counts.keys())
         this_year = timezone.now().year
-        step = int((this_year - min_year) / 15)
-        labels = list(range(min_year - step, this_year, step))
+        step = int((this_year - min_year) / 10)
+        labels = list(range(min_year - (2*step) + 1, this_year - step + 1, step))
 
         value = lambda year: sum(counts[y] for y in range(year, year+step) if y in counts)
 
         data = {
-            'labels': [year + int(step / 2) for year in labels],
+            'labels': ['{} - {}'.format(year, year+step) for year in labels],
             'datasets': [{
                 'label': 'works',
                 'data': [value(year) for year in labels],
