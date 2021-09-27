@@ -2,7 +2,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output, } from '@angular/core';
 import { Restangular } from 'ngx-restangular';
 import * as Survey from 'survey-angular';
-import { SURVEY } from '../models/survey';
+import { SURVEY } from '../models/response';
 
 Survey.StylesManager.applyTheme("default");
 
@@ -17,7 +17,7 @@ export class ResponseComponent implements OnInit  {
   surveyJSON = SURVEY;
 
   @Output()
-  completeResponse = new EventEmitter<any>()
+  completeResponse = new EventEmitter<any>();
 
   constructor(private restangular: Restangular) {}
 
