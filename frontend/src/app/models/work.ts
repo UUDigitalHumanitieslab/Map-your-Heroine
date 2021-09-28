@@ -28,5 +28,5 @@ export class Work implements IWork {
     ) { }
 }
 
-export const MEDIUM_OPTIONS = ['novel', 'film', 'tv-series', 'vlog', 'comic', 'fan fiction', 'music', 'ballet', 'game', 'other (please specify)'];
+export const MEDIUM_OPTIONS = ['novel', 'film', 'tv-series', 'vlog', 'comic', 'fan fiction', 'music', 'ballet', 'game'];
 export const ENVIRONMENT_OPTIONS = ['countryside', 'village', 'city', 'extra-terrestrial', 'unknown'];

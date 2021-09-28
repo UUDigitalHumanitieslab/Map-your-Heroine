@@ -8,6 +8,7 @@ import { YESNOUNK_OPTIONS, YESNO_OPTIONS, ROLE_OPTIONS,
   RELATIVES_OPTIONS, WEALTH_OPTIONS, PROBLEM_OPTIONS, SOLUTION_OPTIONS } from '../models/hero';
 import { HttpErrorResponse } from '@angular/common/http';
 import { COUNTRIES } from '../models/countries';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'mh-hero',
@@ -15,6 +16,7 @@ import { COUNTRIES } from '../models/countries';
   styleUrls: ['./hero.component.scss']
 })
 export class HeroComponent implements OnInit {
+  subscriptions$: Subscription[] = [];
   httpError: HttpErrorResponse = undefined;
 
   yesnounkOptions = YESNOUNK_OPTIONS;
@@ -46,7 +48,7 @@ export class HeroComponent implements OnInit {
     country_growup: new FormControl('', [Validators.required]),
     education: new FormControl('', [Validators.required]),
     profession: new FormControl('', [Validators.required]),
-    hobbies: new FormControl(''),
+    hobbies: new FormControl('', [Validators.required]),
     no_hobbies: new FormControl(false),
     pets: new FormArray([]),
     pets_other_enable: new FormControl(false),
@@ -72,6 +74,18 @@ export class HeroComponent implements OnInit {
   constructor(private restangular: Restangular) { }
 
   ngOnInit(): void {
+    this.subscriptions$.push(
+      this.heroForm.controls.problems_other_enable.valueChanges
+        .subscribe(change => this.onOtherCheckboxChange(change, 'problems_other'))
+    );
+    this.subscriptions$.push(
+      this.heroForm.controls.solutions_other_enable.valueChanges
+        .subscribe(change => this.onOtherCheckboxChange(change, 'solutions_other'))
+    );
+    this.subscriptions$.push(
+      this.heroForm.controls.pets_other_enable.valueChanges
+        .subscribe(change => this.onOtherCheckboxChange(change, 'pets_other'))
+    );
   }
 
   onCheckboxChange(name, value, event) {
@@ -91,14 +105,26 @@ export class HeroComponent implements OnInit {
     }
   }
 
+  onOtherCheckboxChange(change: boolean, field: string): void {
+    const control = this.heroForm.get(field);
+    if (change) {
+      control.enable();
+    } else {
+      control.disable();
+    }
+  }
+
   onNoHobbiesChange(event): void {
-    const hobbiesControl = this.heroForm.get('hobbies');
-    const noHobbiesControl = this.heroForm.get('no_hobbies')
+    const hobbiesControl = this.heroForm.controls.hobbies;
+    const noHobbiesControl = this.heroForm.controls.no_hobbies;
     if (event.target.checked) {
+      hobbiesControl.clearValidators();
       hobbiesControl.disable();
     } else {
       hobbiesControl.enable();
+      hobbiesControl.setValidators([Validators.required]);
     }
+    hobbiesControl.updateValueAndValidity();
     noHobbiesControl.setValue(event.target.checked);
   }
 
@@ -127,73 +153,73 @@ export class HeroComponent implements OnInit {
   }
 
   get allHobbies(): string[] {
-    if (this.heroForm.get('no_hobbies').value) {
+    if (this.heroForm.controls.no_hobbies.value) {
       return [];
     } else {
-      return this.heroForm.get('hobbies').value;
+      return this.heroForm.controls.hobbies.value;
     }
   }
 
   get allPets(): string[] {
     if (this.heroForm.get('pets_other_enable').value) {
-      return (this.heroForm.get('pets').value).concat(this.heroForm.get('pets_other').value);
+      return (this.heroForm.controls.pets.value).concat(this.heroForm.controls.pets_other.value);
     } else {
-      return this.heroForm.get('pets').value;
+      return this.heroForm.controls.pets.value;
     }
   }
 
   get allProblems(): string[] {
     if (this.heroForm.get('problems_other_enable').value) {
-      return (this.heroForm.get('problems').value).concat(this.heroForm.get('problems_other').value);
+      return (this.heroForm.controls.problems.value).concat(this.heroForm.controls.problems_other.value);
     } else {
-      return this.heroForm.get('problems').value;
+      return this.heroForm.controls.problems.value;
     }
   }
 
   get allSolutions(): string[] {
     if (this.heroForm.get('solutions_other_enable').value) {
-      return (this.heroForm.get('solutions').value).concat(this.heroForm.get('solutions_other').value);
+      return (this.heroForm.controls.solutions.value).concat(this.heroForm.controls.solutions_other.value);
     } else {
-      return this.heroForm.get('solutions').value;
+      return this.heroForm.controls.solutions.value;
     }
   }
 
   formIsValid(): boolean {
-    const hobbiesAdded = this.heroForm.get('no_hobbies').value || (this.heroForm.get('hobbies').value.length > 0);
+    // const hobbiesAdded = this.heroForm.get('no_hobbies').value || (this.heroForm.get('hobbies').value.length > 0);
     const petsAdded =  this.allPets.length > 0;
     const problemsAdded =  this.allProblems.length > 0;
     const solutionsAdded =  this.allSolutions.length > 0;
     const appearanceDirty = this.heroForm.get('appearance').dirty;
 
-    return this.heroForm.valid && hobbiesAdded && petsAdded && problemsAdded && solutionsAdded && appearanceDirty;
+    return this.heroForm.valid && petsAdded && problemsAdded && solutionsAdded && appearanceDirty;
   }
 
   onSubmit(){
     this.httpError = undefined;
 
     const heroFormData = {
-      name: this.heroForm.get('name').value,
+      name: this.heroForm.controls.name.value,
       work: this.work.id,
 
-      role: this.heroForm.get('role').value,
-      narrator: this.heroForm.get('narrator').value,
-      focaliser: this.heroForm.get('focaliser').value,
+      role: this.heroForm.controls.role.value,
+      narrator: this.heroForm.controls.narrator.value,
+      focaliser: this.heroForm.controls.focaliser.value,
 
-      gender: this.heroForm.get('gender').value,
-      age: this.heroForm.get('age').value,
-      country_origin: this.heroForm.get('country_origin').value.name,
-      country_live: this.heroForm.get('country_live').value.name,
-      country_growup: this.heroForm.get('country_growup').value.name,
+      gender: this.heroForm.controls.gender.value,
+      age: this.heroForm.controls.age.value,
+      country_origin: this.heroForm.controls.country_origin.value.name,
+      country_live: this.heroForm.controls.country_live.value.name,
+      country_growup: this.heroForm.controls.country_growup.value.name,
 
-      education: this.heroForm.get('education').value,
-      profession: this.heroForm.get('profession').value,
+      education: this.heroForm.controls.education.value,
+      profession: this.heroForm.controls.profession.value,
       hobbies: this.allHobbies,
       pets: this.allPets,
 
-      appearance: this.heroForm.get('appearance').value,
-      sex: this.heroForm.get('sex').value,
-      relatives: this.heroForm.get('relatives').value,
-      wealth: this.heroForm.get('wealth').value,
+      appearance: this.heroForm.controls.appearance.value,
+      sex: this.heroForm.controls.sex.value,
+      relatives: this.heroForm.controls.relatives.value,
+      wealth: this.heroForm.controls.wealth.value,
 
       problems: this.allProblems,
       solutions: this.allSolutions,

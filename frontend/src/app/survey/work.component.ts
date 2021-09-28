@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { faQuestion } from '@fortawesome/free-solid-svg-icons';
 import { Restangular } from 'ngx-restangular';
 import { Subscription } from 'rxjs';
 import { COUNTRIES } from '../models/countries';
@@ -15,9 +16,16 @@ export class WorkComponent implements OnInit, OnDestroy {
   subscriptions$: Subscription[] = [];
   httpError: HttpErrorResponse = undefined;
 
+  displayHelp = {
+    adaptation_of: false,
+  };
+
+  faQuestion = faQuestion;
+
   works: IWork[];
 
   existingWorksOptions = [];
+  filteredWorks = [];
   mediumOptions = MEDIUM_OPTIONS.map(m => ({ label: m, value: m }));
   environmentOptions = ENVIRONMENT_OPTIONS.map(m => ({ label: m, value: m }));
   countryOptions = COUNTRIES.concat([{name: 'Other', code: 'OTHER'}, {name: 'Unknown', code: 'UNKNOWN'}]);
@@ -28,7 +36,8 @@ export class WorkComponent implements OnInit, OnDestroy {
   workForm = new FormGroup({
     title: new FormControl('', [Validators.required]),
     author: new FormControl('', [Validators.required]),
-    medium: new FormControl(undefined, [Validators.required]),
+    medium: new FormControl('', [Validators.required]),
+    mediumOther: new FormControl({value: '', disabled: true}),
     pub_year: new FormControl('', [Validators.required]),
     pub_country: new FormControl('', [Validators.required]),
     is_source: new FormControl(true, [Validators.required]),
@@ -58,6 +67,14 @@ export class WorkComponent implements OnInit, OnDestroy {
       this.workForm.controls.is_source.valueChanges
         .subscribe(change => this.onAdaptationChange(change))
     );
+    this.subscriptions$.push(
+      this.workForm.controls.medium.valueChanges
+        .subscribe(change => this.onMediumChange(change))
+    );
+    this.subscriptions$.push(
+      this.workForm.controls.environment.valueChanges
+        .subscribe(change => this.onEnvironmentChange(change))
+    );
   }
 
   filterCountry(event) {
@@ -72,21 +89,44 @@ export class WorkComponent implements OnInit, OnDestroy {
     this.filteredCountries = filtered;
   }
 
-  onAdaptationChange(change: boolean) {
-    this.showAdaptationOf = !change;
+  filterWork(event) {
+    let filtered : any[] = [];
+    const query = event.query;
+
+    for (const work of this.existingWorksOptions) {
+        if (work.label.toLowerCase().indexOf(query.toLowerCase()) === 0) {
+            filtered.push(work);
+        }
+    }
+    this.filteredWorks = filtered;
   }
 
-  updateEnvironmentOther(): void {
-    const control = this.workForm.get('environmentOther');
-    if (this.selectedEnvironment === 'other') {
+  onAdaptationChange(change: boolean) {
+    this.showAdaptationOf = !change;
+    if (!change) {
+      this.workForm.controls.adaptation_of.setValidators([Validators.required]);
+    } else {
+      this.workForm.controls.adaptation_of.clearValidators();
+    }
+    this.workForm.controls.adaptation_of.updateValueAndValidity();
+  }
+
+  onMediumChange(change: string): void {
+    const control = this.workForm.get('mediumOther');
+    if (change === 'other') {
       control.enable();
     } else {
       control.disable();
     }
   }
 
-  get selectedEnvironment(): string {
-    return this.workForm.get('environment').value;
+  onEnvironmentChange(change: string): void {
+    const control = this.workForm.get('environmentOther');
+    if (change === 'other') {
+      control.enable();
+    } else {
+      control.disable();
+    }
   }
 
   ngOnDestroy() {
@@ -96,9 +136,13 @@ export class WorkComponent implements OnInit, OnDestroy {
   onSubmit() {
     this.httpError = undefined;
     const workFormData = this.workForm.value as IWork;
+    workFormData.adaptation_of = this.workForm.controls.adaptation_of.value.id;
     workFormData.pub_country = workFormData.pub_country['name'];
+    if (workFormData.medium === 'other') {
+      workFormData.medium = this.workForm.controls.mediumOther.value;
+    }
     if (workFormData.environment === 'other') {
-      workFormData.environment = this.workForm.get('environmentOther').value;
+      workFormData.environment = this.workForm.controls.environmentOther.value;
     }
     console.log(workFormData);
     this.restangular.all('works')

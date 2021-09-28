@@ -16,9 +16,22 @@
   <div class="field">
     <label class="label" for="medium-dropdown">Medium*</label>
     <div class="control">
-      <p-dropdown id="medium-dropdown" [options]="mediumOptions" editable="true" formControlName="medium"
-        placeholder="Pick one or type" showClear="true">
-      </p-dropdown>
+      <div *ngFor="let medium of mediumOptions">
+        <label class="radio" [for]="medium.value">
+        <input type="radio" name="medium" [value]="medium.value" formControlName="medium">
+        {{medium.label}}</label>
+      </div>
+      <div class="columns is-vcentered">
+        <div class="column is-narrow">
+          <label class="radio" [for]="'other'">
+            <input type="radio" name="medium" [value]="'other'" formControlName="medium">
+            other:
+          </label>
+        </div>
+        <div class="column">
+          <input class="input" id="mediumother" type="text" formControlName="mediumOther" placeholder="Specify" style="width:20em">
+        </div>
+      </div>
     </div>
   </div>
 
@@ -44,7 +57,7 @@
   </div>
 
   <div class="field">
-    <label class="label" for="pubcountry">Is this a source text or an adaptation?*</label>
+    <label class="label" for="is_source">Is this a source text or an adaptation?*</label>
     <div class="control">
       <label class="radio">
         <input type="radio" formControlName="is_source" [value]="true">
@@ -58,11 +71,34 @@
   </div>
 
   <div class="field" *ngIf="showAdaptationOf">
-    <label class="label" for="adaptionof-dropdown">Of which work is this an adaptation?</label>
+    <div class="columns is-vcentered" style="margin-bottom:0px">
+      <div class="column">
+        <label class="label" for="adaptionof-dropdown">
+          Of which work is this an adaptation? 
+        </label>
+      </div>
+      <div class="column is-narrow">
+        <button class="button is-info is-inverted" type="button" (click)="displayHelp.adaptation_of = !displayHelp.adaptation_of">
+          <span class="icon"><fa-icon [icon]="faQuestion"></fa-icon></span>
+        </button>
+      </div>
+    </div>
+    
+    <div class="message is-info" *ngIf="displayHelp.adaptation_of">
+      <div class="message-body">
+        The menu below shows all works that are registered in the project: pick the source work from this list. If your source work is listed, add it first (using this form), and then add your adaptation. When adding the source work, you do not need to add heroes or fill in the rest of the survey.
+      </div>
+    </div>
+
     <div class="control">
-      <p-dropdown id="adaptationof-dropdown" [options]="existingWorksOptions" formControlName="adaptation_of"
-        showClear="true" optionValue="value.id" optionLabel="label" placeholder="pick a work">
-      </p-dropdown>
+      <p-autoComplete id="adaptationof-dropdown" formControlName="adaptation_of" placeholder="Pick or type"
+      [suggestions]="filteredWorks" (completeMethod)="filterWork($event)" field="label" [dropdown]="true">
+        <ng-template let-work pTemplate="item">
+            <div class="work-item">
+                <div>{{work.label}}</div>
+            </div>
+        </ng-template>
+      </p-autoComplete>
     </div>
   </div>
 
@@ -71,15 +107,19 @@
     <div class="control">
       <div *ngFor="let environment of environmentOptions">
         <label class="radio" [for]="environment.value">
-        <input type="radio" name="environment" [value]="environment.value" formControlName="environment" (change)="updateEnvironmentOther()">
+        <input type="radio" name="environment" [value]="environment.value" formControlName="environment">
         {{environment.label}}</label>
       </div>
-      <div>
-        <label class="radio" [for]="'other'">
-          <input type="radio" name="environment" [value]="'other'" formControlName="environment" (change)="updateEnvironmentOther()">
-          other:
-          <input class="input" id="environmentOther" type="text" formControlName="environmentOther" placeholder="Specify">
-        </label>
+      <div class="columns is-vcentered">
+        <div class="column is-narrow">
+          <label class="radio" [for]="'other'">
+            <input type="radio" name="environment" [value]="'other'" formControlName="environment">
+            other:
+          </label>
+        </div>
+        <div class="column">
+          <input class="input" id="environmentOther" type="text" formControlName="environmentOther" placeholder="Specify" style="width:20em">
+        </div>
       </div>
     </div>
   </div>
