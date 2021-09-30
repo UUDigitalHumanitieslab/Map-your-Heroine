@@ -148,7 +148,7 @@ class Plots:
 
         min_year = min(counts.keys())
         this_year = timezone.now().year
-        step = int((this_year - min_year) / 10)
+        step = min(1, int((this_year - min_year) / 10))
         labels = list(range(min_year - (2*step) + 1, this_year - step + 1, step))
 
         value = lambda year: sum(counts[y] for y in range(year, year+step) if y in counts)
@@ -202,13 +202,7 @@ class Plots:
         return data
 
     def gender_plotdata(works, heroes, responses):
-        nice_strings = {
-            'MALE': 'male',
-            'FEMALE': 'female',
-            'OTHER': 'other'
-        }
-
-        gender_counts = Counter(nice_strings[hero.gender] for hero in heroes)
+        gender_counts = Counter(hero.get_gender_display().lower() for hero in heroes)
         labels = ['male', 'female', 'other']
 
         data = {
@@ -222,14 +216,8 @@ class Plots:
         return data
     
     def role_plotdata(works, heroes, responses):
-        nice_strings = {
-            'MAIN': 'main character',
-            'MINOR': 'minor character',
-            'PROTAGONIST': 'protagonist'
-        }
-
-        counts = Counter(nice_strings[hero.role] for hero in heroes)
-        labels = ['protagonist', 'main character', 'minor character']
+        counts = Counter(hero.get_role_display().lower() for hero in heroes)
+        labels = ['major character', 'minor character']
 
         data = {
             'labels': labels,
@@ -280,14 +268,7 @@ class Plots:
         return data
 
     def education_plotdata(works, heroes, responses):
-        nice_strings = {
-            'HIGH': 'high',
-            'LOW': 'low',
-            'NONE': 'none',
-            'UNKNOWN': 'unknown'
-        }
-
-        counts = Counter(nice_strings[hero.education] for hero in heroes)
+        counts = Counter(hero.get_education_display().lower() for hero in heroes)
         labels = ['high', 'low', 'none', 'unknown']
 
         data = {
@@ -301,14 +282,7 @@ class Plots:
         return data
     
     def wealth_plotdata(works, heroes, responses):
-        nice_strings = {
-            'RICH': 'rich',
-            'INBETWEEN': 'in between',
-            'POOR': 'poor',
-            'UNKNOWN': 'unknown'
-        }
-
-        counts = Counter(nice_strings[hero.wealth] for hero in heroes)
+        counts = Counter(hero.get_wealth_display().lower() for hero in heroes)
         labels = ['rich', 'in between', 'poor', 'unknown']
 
         data = {
@@ -361,7 +335,7 @@ class Plots:
         return data
 
     def profession_plotdata(works, heroes, responses):
-        labels, counts = Plots._top_10_counts_with_other(hero.profession.lower() for hero in heroes)
+        labels, counts = Plots._top_10_counts_with_other(hero.get_profession_display() for hero in heroes)
 
         data = {
             'labels': labels,

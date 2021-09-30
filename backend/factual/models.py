@@ -64,7 +64,7 @@ class Hero(models.Model):
     pets = ArrayField(models.CharField(max_length=200), default=list)
 
     education = models.TextField(max_length=7, choices=EDUCATION_CHOICES, default='unknown')
-    profession = models.TextField(max_length=200, default='unknown')
+    profession = models.TextField(max_length=200, default='unknown', choices = PROFESSION_CHOICES)
 
     appearance = models.BooleanField(null=True)
     sex = models.BooleanField(null=True)
