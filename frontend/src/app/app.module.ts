@@ -17,6 +17,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { DropdownModule } from 'primeng/dropdown';
 import {ChipsModule} from 'primeng/chips';
+import {AutoCompleteModule} from 'primeng/autocomplete';
 import { DialogModule } from 'primeng/dialog';
 import { PanelModule } from 'primeng/panel';
 import {ChartModule} from 'primeng/chart';
@@ -81,6 +82,7 @@ export function RestangularConfigFactory(RestangularProvider) {
         RestangularModule.forRoot(RestangularConfigFactory),
         DropdownModule,
         ChipsModule,
+        AutoCompleteModule,
         DialogModule,
         PanelModule,
         ReactiveFormsModule,

@@ -1,7 +1,9 @@
-from django.db.models.base import Model
+from django.conf import settings
+from django.http.response import JsonResponse
 from rest_framework.viewsets import ModelViewSet
-from .serializers import HeroSerializer, ResponseSerializer, WorkSerializer
+
 from .models import Hero, Response, Work
+from .serializers import HeroSerializer, ResponseSerializer, WorkSerializer
 
 
 class WorkViewSet(ModelViewSet):
@@ -17,3 +19,7 @@ class HeroViewSet(ModelViewSet):
 class ResponseViewSet(ModelViewSet):
     serializer_class = ResponseSerializer
     queryset = Response.objects.all()
+
+
+def voyant_url_view(request):
+    return JsonResponse({'url': settings.VOYANT_URL})

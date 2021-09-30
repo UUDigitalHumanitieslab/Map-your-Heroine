@@ -1,5 +1,6 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { animations, showState } from '../animations';
+import { BackendService } from '../services/backend.service';
 
 @Component({
     animations,
@@ -10,10 +11,12 @@ import { animations, showState } from '../animations';
 export class MenuComponent implements OnInit {
     burgerShow: showState;
     burgerActive = false;
+    voyantUrl: string;
 
-    constructor(private ngZone: NgZone) { }
+    constructor(private ngZone: NgZone, private backend: BackendService) { }
 
     ngOnInit() {
+        this.backend.get('voyant-url').then(res => this.voyantUrl = res.url);
     }
 
     toggleBurger() {

@@ -129,3 +129,4 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = []
 PROXY_FRONTEND = None
+VOYANT_URL = 'https://voyant.map-your-hero.hum.uu.nl'
