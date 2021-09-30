@@ -5,8 +5,7 @@ from django.db.models.fields.json import JSONField
 
 class Hero(models.Model):
     ROLE_CHOICES = (
-        ('PROTAGONIST', 'protagonist'),
-        ('MAIN', 'main character'),
+        ('MAJOR', 'major character'),
         ('MINOR', 'minor character'),
     )
     GENDER_CHOICES =   (('MALE', 'Male'),('FEMALE', 'Female'),('OTHER','Other'),('UNKNOWN','Unknown'))
@@ -19,11 +18,30 @@ class Hero(models.Model):
         ('NONE', 'none'),
         ('UNKNOWN', 'unknown'),
     )
+    PROFESSION_CHOICES = [
+    ('ARCHITECTURE', 'Architecture and engineering'),
+    ('ARTS', 'Arts, culture, and entertainment'),
+    ('BUSINESS', 'Business, management, and administration'),
+    ('COMMUNICATIONS', 'Communications'),
+    ('COMMUNITY', 'Community and social services'),
+    ('EDUCATION', 'Education'),
+    ('FARMING', 'Farming, fishing, and forestry'),
+    ('GOVERNMENT', 'Government'),
+    ('HEALTH', 'Health and medicine'),
+    ('INSTALLATION', 'Installation, repair, and maintenance'),
+    ('LAW', 'Law and public policy'),
+    ('SALES', 'Sales'),
+    ('SCIENCE', 'Science and technology'),
+    ('OTHER', 'Other'),
+    ('NONE', 'None'),
+    ('UNKNOWN', 'Unknown')
+]
     RELATIVES_CHOICES = (
         ('PARENTS_PRESENT', 'parents present'), 
         ('PARENTS_ABSENT', 'parents absent'), 
         ('SIBLINGS_PRESENT', 'siblings present'), 
         ('SIBLINGS_ABSENT', 'siblings absent'), 
+        ('NONE', 'none'),
         ('UNKNOWN', 'unknown'),
     )
     
