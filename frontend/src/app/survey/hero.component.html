@@ -10,7 +10,7 @@
       <label class="label" for="role">Is this hero/heroine a protagonist or minor character in the story?</label>
       <div class="control">
         <div *ngFor="let role of roleOptions" class="p-field-checkbox">
-          <label class="radio" [for]="role.value">
+          <label class="radio">
           <input type="radio" name="role" [value]="role.value" formControlName="role">
           {{role.label}}</label>
         </div>
@@ -37,7 +37,7 @@
 
       <div class="control">
         <div *ngFor="let narrator of yesnoOptions" class="p-field-checkbox">
-          <label class="radio" [for]="narrator.value">
+          <label class="radio">
           <input type="radio" name="narrator" [value]="narrator.value" formControlName="narrator">
           {{narrator.label}}</label>
       </div>
@@ -64,7 +64,7 @@
 
     <div class="control">
       <div *ngFor="let focaliser of yesnoOptions" class="p-field-checkbox">
-        <label class="radio" [for]="focaliser.value">
+        <label class="radio">
         <input type="radio" name="focaliser" [value]="focaliser.value" formControlName="focaliser">
         {{focaliser.label}}</label>
       </div>
@@ -75,7 +75,7 @@
     <label class="label" for="gender">What is the gender identity of this hero(ine)?</label>
     <div class="control">
       <div *ngFor="let gender of genderOptions" class="p-field-checkbox">
-        <label class="radio" [for]="gender.value">
+        <label class="radio">
         <input type="radio" name="gender" [value]="gender.value" formControlName="gender">
         {{gender.label}}</label>
       </div>
@@ -86,7 +86,7 @@
     <label class="label" for="age-dropdown">What is the age of this hero(ine) for most of the story?</label>
     <div class="control">
       <div *ngFor="let age of ageOptions" class="p-field-checkbox">
-        <label class="radio" [for]="age">
+        <label class="radio">
         <input type="radio" name="age" [value]="age" formControlName="age">
         {{age}}</label>
       </div>
@@ -139,7 +139,7 @@
     <label class="label" for="education">What is the level of education of this hero/heroine?</label>
     <div class="control">
       <div *ngFor="let education of educationOptions" class="p-field-checkbox">
-        <label class="radio" [for]="education.value">
+        <label class="radio">
         <input type="radio" name="education" [value]="education.value" formControlName="education">
         {{education.label}}</label>
     </div>
@@ -151,7 +151,7 @@
     <label class="label" for="profession">Which of these options best describes the profession or main occupation of this hero/heroine?</label>
     <div class="control">
       <div *ngFor="let profession of professionOptions" class="p-field-checkbox">
-        <label class="radio" [for]="profession.value">
+        <label class="radio">
         <input type="radio" name="profession" [value]="profession.value" formControlName="profession">
         {{profession.label}}</label>
       </div>
@@ -177,7 +177,7 @@
     <label class="label" for="pets">What kind of pets does this hero(ine) have?</label>
     <div class="control">
       <div *ngFor="let response of petsOptions" class="p-field-checkbox">
-        <label class="checkbox" [for]="response">
+        <label class="checkbox">
         <input type="checkbox" name="pets" [value]="response" (change)="onCheckboxChange('pets', response, $event)">
         {{response}}</label>
       </div>
@@ -193,7 +193,7 @@
     <label class="label" for="appearance">Is this hero(ine) physically attractive within the context of the work / according to the other characters?</label>
     <div class="control">
       <div *ngFor="let response of yesnounkOptions" class="p-field-checkbox">
-        <label class="radio" [for]="response.value">
+        <label class="radio">
         <input type="radio" name="appearance" [value]="response.value" formControlName="appearance">
         {{response.label}}</label>
     </div>
@@ -204,7 +204,7 @@
     <label class="label" for="role">Are the hero(ine)'s sexual relations described in the text?</label>
     <div class="control">
       <div *ngFor="let response of yesnoOptions" class="p-field-checkbox">
-        <label class="radio" [for]="response.value">
+        <label class="radio">
         <input type="radio" name="sex" [value]="response.value" formControlName="sex">
         {{response.label}}</label>
     </div>
@@ -215,7 +215,7 @@
     <label class="label" for="wealth">How wealthy is this hero(ine) in the most significant parts of the story?</label>
     <div class="control">
       <div *ngFor="let wealth of wealthOptions" class="p-field-checkbox">
-        <label class="radio" [for]="wealth.value">
+        <label class="radio">
         <input type="radio" name="wealth" [value]="wealth.value" formControlName="wealth">
         {{wealth.label}}</label>
       </div>
@@ -243,7 +243,7 @@
     
     <div class="control">
       <div *ngFor="let response of relativesOptions" class="p-field-checkbox">
-        <label class="checkbox" [for]="response.value">
+        <label class="checkbox">
         <input type="checkbox" name="relatives" [value]="response.value" (change)="onCheckboxChange('relatives', response.value, $event)">
         {{response.label}}</label>
       </div>
@@ -254,7 +254,7 @@
     <label class="label" for="problems">What is the nature of the main problem this hero(ine) encounters?</label>
     <div class="control">
       <div *ngFor="let response of problemOptions" class="p-field-checkbox">
-        <label class="checkbox" [for]="response">
+        <label class="checkbox">
         <input type="checkbox" name="problems" [value]="response" (change)="onCheckboxChange('problems', response, $event)">
         {{response}}</label>
       </div>
@@ -270,7 +270,7 @@
     <label class="label" for="solutions">How does this hero(ine) overcome problems? The most important tools for this hero(ine) are...</label>
     <div class="control">
       <div *ngFor="let response of solutionOptions" class="p-field-checkbox">
-        <label class="checkbox" [for]="response">
+        <label class="checkbox">
         <input type="checkbox" name="solutions" [value]="response" (change)="onCheckboxChange('solutions', response, $event)">
         {{response}}</label>
       </div>
