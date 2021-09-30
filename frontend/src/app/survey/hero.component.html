@@ -18,7 +18,23 @@
   </div>
 
   <div class="field">
-    <label class="label" for="narrator">Is this hero(ine) the narrator for the story?</label>
+    <div class="columns is-vcentered" style="margin-bottom:0px">
+      <div class="column">
+        <label class="label" for="narrator">Is this hero(ine) the narrator for the story?</label>
+      </div>
+      <div class="column is-narrow">
+        <button class="button is-info is-inverted" type="button" (click)="displayHelp.narrator = !displayHelp.narrator">
+          <span class="icon"><fa-icon [icon]="faQuestion"></fa-icon></span>
+        </button>
+      </div>
+    </div>
+    
+    <div class="message is-info" *ngIf="displayHelp.narrator">
+      <div class="message-body">
+        <p><strong>Narrator:</strong> the person who tells the story</p>
+      </div>
+    </div>
+
       <div class="control">
         <div *ngFor="let narrator of yesnoOptions" class="p-field-checkbox">
           <label class="radio" [for]="narrator.value">
@@ -29,7 +45,23 @@
   </div>
 
   <div class="field">
-    <label class="label" for="focaliser">Is this hero(ine) the focaliser?</label>
+    <div class="columns is-vcentered" style="margin-bottom:0px">
+      <div class="column">
+        <label class="label" for="focaliser">Is this hero(ine) the focaliser?</label>
+      </div>
+      <div class="column is-narrow">
+        <button class="button is-info is-inverted" type="button" (click)="displayHelp.focaliser = !displayHelp.focaliser">
+          <span class="icon"><fa-icon [icon]="faQuestion"></fa-icon></span>
+        </button>
+      </div>
+    </div>
+    
+    <div class="message is-info" *ngIf="displayHelp.focaliser">
+      <div class="message-body">
+        <p><strong>Focaliser:</strong> the perspective through which the story is presented</p>
+      </div>
+    </div>
+
     <div class="control">
       <div *ngFor="let focaliser of yesnoOptions" class="p-field-checkbox">
         <label class="radio" [for]="focaliser.value">
@@ -112,13 +144,17 @@
         {{education.label}}</label>
     </div>
     </div>
-    </div>
+  </div>
 
 
   <div class="field">
-    <label class="label" for="profession">What is the profession or main occupation of this hero/heroine?</label>
+    <label class="label" for="profession">Which of these options best describes the profession or main occupation of this hero/heroine?</label>
     <div class="control">
-      <input class="input" id="profession" type="text" formControlName="profession" placeholder="Profession of the hero(ine)">
+      <div *ngFor="let profession of professionOptions" class="p-field-checkbox">
+        <label class="radio" [for]="profession.value">
+        <input type="radio" name="profession" [value]="profession.value" formControlName="profession">
+        {{profession.label}}</label>
+      </div>
     </div>
   </div>
 
@@ -187,7 +223,24 @@
   </div>
 
   <div class="field">
-    <label class="label" for="relatives-dropdown">For the most important parts of the story, does this hero(ine) have one or more relatives?</label>
+    <div class="columns is-vcentered" style="margin-bottom:0px">
+      <div class="column">
+        <label class="label" for="relatives-dropdown">For the most important parts of the story, does this hero(ine) have one or more relatives?</label>
+      </div>
+      <div class="column is-narrow">
+        <button class="button is-info is-inverted" type="button" (click)="displayHelp.relatives = !displayHelp.relatives">
+          <span class="icon"><fa-icon [icon]="faQuestion"></fa-icon></span>
+        </button>
+      </div>
+    </div>
+    
+    <div class="message is-info" *ngIf="displayHelp.relatives">
+      <div class="message-body">
+        <p><strong>Relative:</strong> family member</p>
+      </div>
+    </div>
+
+    
     <div class="control">
       <div *ngFor="let response of relativesOptions" class="p-field-checkbox">
         <label class="checkbox" [for]="response.value">

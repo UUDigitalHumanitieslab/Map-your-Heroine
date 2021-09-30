@@ -8,14 +8,6 @@ export interface IResponse {
 export const SURVEY = {
     "pages":[
       {
-        "name":"About you",
-        "elements":[
-          {"type":"radiogroup","name":"participant_gender","title":"What is your gender identity?","isRequired":true,"choices":[{"value":"Male","text":"Male"},{"value":"Female","text":"Female"},{"value":"Other","text":"Other"}]},
-          {"type":"radiogroup","name":"participant_age","title":"What is your age?","isRequired":true,"choices":[{"value":"0-25","text":"0-25"},{"value":"26-35","text":"26-35"},{"value":"36-45","text":"36-45"},{"value":"46-55","text":"46-55"},{"value":"56-55","text":"56-55"},{"value":"65+","text":"65+"}]},
-          {"type":"text","name":"participant_nationality","title":"What is your nationality?","isRequired":true}
-        ],
-        "title":"About you","description":"Please answer the following questions about yourself."
-      },{
         "name":"Identification",
         "elements":[
           {"type":"rating","name":"identification_personality","title":"You identify with your hero(ine) because you find common qualities between your personality and that of the character.","isRequired":true,"rateMax":7,"minRateDescription":"Strongly disagree","maxRateDescription":"Strongly agree"},
@@ -42,7 +34,7 @@ export const SURVEY = {
             {"type":"rating","name":"gender_attempts_expectations","title":"Your hero(ine) attempts to fulfill social expectations derived from their gender.","isRequired":true,"rateMax":7,"minRateDescription":"Strongly disagree","maxRateDescription":"Strongly agree"},
             {"type":"rating","name":"gender_struggles_expectations","title":"Your hero(ine) struggles to fulfill social expectations regarding their gender.","isRequired":true,"rateMax":7,"minRateDescription":"Strongly disagree","maxRateDescription":"Strongly agree"}],
           "title":"Gender identity",
-          "description":"Read the following statements and decide to what extend you agree or disagree."
+          "description":"These questions about the gender your hero identifies with (not to be confused with biological sex). Read the following statements and decide to what extend you agree or disagree."
         },{
           "name":"Agency",
           "elements":[
@@ -52,7 +44,7 @@ export const SURVEY = {
             {"type":"rating","name":"agency_environment","title":"Your hero(ine) considers the best interest of the people in their environment.","isRequired":true,"rateMax":7,"minRateDescription":"Strongly disagree","maxRateDescription":"Strongly agree"},
             {"type":"rating","name":"agency_development","title":"Your hero(ine) changes, develops, or learns throughout their challenges.","isRequired":true,"rateMax":7,"minRateDescription":"Strongly disagree","maxRateDescription":"Strongly agree"}],
           "title":"Agency",
-          "description":"Read the following statements and decide to what extend you agree or disagree."
+          "description":"Agency is the extent to which a person is in control and can exert power. Read the following statements and decide to what extend you agree or disagree."
         },{
           "name":"Profession",
           "elements":[
@@ -74,6 +66,14 @@ export const SURVEY = {
             {"type":"rating","name":"personality_cooperative","title":"Your hero(ine) is cooperative.","isRequired":true,"rateMax":7,"minRateDescription":"Strongly disagree","maxRateDescription":"Strongly agree"}],
           "title":"Personality traits",
           "description":"Read the following statements and decide to what extend you agree or disagree."
+        },{
+          "name":"About you",
+          "elements":[
+            {"type":"radiogroup","name":"participant_gender","title":"What is your gender identity?","isRequired":true,"choices":[{"value":"Male","text":"Male"},{"value":"Female","text":"Female"},{"value":"Other","text":"Other"}]},
+            {"type":"radiogroup","name":"participant_age","title":"What is your age?","isRequired":true,"choices":[{"value":"0-25","text":"0-25"},{"value":"26-35","text":"26-35"},{"value":"36-45","text":"36-45"},{"value":"46-55","text":"46-55"},{"value":"56-55","text":"56-55"},{"value":"65+","text":"65+"}]},
+            {"type":"text","name":"participant_nationality","title":"What is your nationality?","isRequired":true}
+          ],
+          "title":"About you","description":"Please answer the following questions about yourself."
         }
       ]
     };

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Restangular } from 'ngx-restangular';
-import { IHero } from '../models/hero';
+import { IHero, PROFESSION_OPTIONS } from '../models/hero';
 import { IWork } from '../models/work';
 import { YESNOUNK_OPTIONS, YESNO_OPTIONS, ROLE_OPTIONS,
   EDUCATION_OPTIONS, PETS_OPTIONS, AGE_OPTIONS, GENDER_OPTIONS,
@@ -9,6 +9,7 @@ import { YESNOUNK_OPTIONS, YESNO_OPTIONS, ROLE_OPTIONS,
 import { HttpErrorResponse } from '@angular/common/http';
 import { COUNTRIES } from '../models/countries';
 import { Subscription } from 'rxjs';
+import { faQuestion } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'mh-hero',
@@ -19,10 +20,13 @@ export class HeroComponent implements OnInit {
   subscriptions$: Subscription[] = [];
   httpError: HttpErrorResponse = undefined;
 
+  faQuestion = faQuestion;
+
   yesnounkOptions = YESNOUNK_OPTIONS;
   yesnoOptions = YESNO_OPTIONS;
   roleOptions = ROLE_OPTIONS;
   educationOptions = EDUCATION_OPTIONS;
+  professionOptions = PROFESSION_OPTIONS;
   petsOptions = PETS_OPTIONS;
   ageOptions = AGE_OPTIONS;
   genderOptions = GENDER_OPTIONS;
@@ -65,7 +69,15 @@ export class HeroComponent implements OnInit {
     solutions_other: new FormControl({value: [], disabled: true}),
   });
 
-  @Input() 
+  displayHelp = {
+    narrator: false,
+    focaliser: false,
+    hobbies: false,
+    relatives: false,
+  }
+  ;
+
+  @Input()
   work: IWork;
 
   @Output()

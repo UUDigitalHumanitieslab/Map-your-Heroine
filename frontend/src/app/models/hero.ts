@@ -32,12 +32,29 @@ export interface IHero {
 
 export const YESNOUNK_OPTIONS = [{label: 'Yes', value: true}, {label: 'No', value: false}, {label: 'Unknown', value: null}];
 export const YESNO_OPTIONS = [{label: 'Yes', value: true}, {label: 'No', value: false}]
-export const ROLE_OPTIONS = [{ label: 'Protagonist', value: 'PROTAGONIST' }, { label: 'Main character', value: 'MAIN' }, { label: 'Minor character', value: 'MINOR' }];
+export const ROLE_OPTIONS = [{ label: 'Major character', value: 'MAJOR' }, { label: 'Minor character', value: 'MINOR' }];
 export const EDUCATION_OPTIONS = [
     {label: 'High (university, university of applied sciences)', value: 'HIGH' },
     {label: 'Low (primary or secondary school, vocational training)', value: 'LOW' },
     {label: 'None', value: 'NONE' },
     {label: 'Unknown', value: 'UNKNOWN'}];
+export const PROFESSION_OPTIONS = [
+    {label: 'Architecture and engineering', value: 'ARCHITECTURE' },
+    {label: 'Arts, culture, and entertainment', value: 'ARTS' },
+    {label: 'Business, management, and administration', value: 'BUSINESS' },
+    {label: 'Communications', value: 'COMMUNICATIONS' },
+    {label: 'Community and social services', value: 'COMMUNITY' },
+    {label: 'Education', value: 'EDUCATION' },
+    {label: 'Farming, fishing, and forestry', value: 'FARMING' },
+    {label: 'Government', value: 'GOVERNMENT' },
+    {label: 'Health and medicine', value: 'HEALTH' },
+    {label: 'Installation, repair, and maintenance', value: 'INSTALLATION' },
+    {label: 'Law and public policy', value: 'LAW' },
+    {label: 'Sales', value: 'SALES' },
+    {label: 'Science and technology', value: 'SCIENCE' },
+    {label: 'Other', value: 'OTHER' },
+    {label: 'This hero has profession', value: 'NONE' },
+    {label: 'Unknown', value: 'UNKNOWNHIGH' }];
 export const PETS_OPTIONS = ['None', 'Dog', 'Cat', 'Horse', 'Fish', 'Bird', 'Rodent'];
 export const AGE_OPTIONS = ['0-25', '26-35', '36-45', '46-55', '56-65', '65+', 'Unknown'];
 export const GENDER_OPTIONS = [{ label: 'Male', value: 'MALE' }, { label: 'Female', value: 'FEMALE' }, { label: 'Other', value: 'OTHER' }];

@@ -1,20 +1,20 @@
 <form [formGroup]="workForm" (ngSubmit)="onSubmit()" novalidate>
   <div class="field">
-    <label class="label" for="title">Title*</label>
+    <label class="label" for="title">Title</label>
     <div class="control">
       <input class="input" id="title" type="text" formControlName="title" placeholder="Title of the work">
     </div>
   </div>
 
   <div class="field">
-    <label class="label" for="author">Author*</label>
+    <label class="label" for="author">Author</label>
     <div class="control">
       <input class="input" id="author" type="text" formControlName="author" placeholder="Author of the work">
     </div>
   </div>
 
   <div class="field">
-    <label class="label" for="medium-dropdown">Medium*</label>
+    <label class="label" for="medium-dropdown">Medium</label>
     <div class="control">
       <div *ngFor="let medium of mediumOptions">
         <label class="radio" [for]="medium.value">
@@ -36,14 +36,14 @@
   </div>
 
   <div class="field">
-    <label class="label" for="pubyear">Year of publication*</label>
+    <label class="label" for="pubyear">Year of (first) publication</label>
     <div class="control">
-      <input class="input" id="pubyear" type="number" formControlName="pub_year" placeholder="1990">
+      <input class="input" id="pubyear" type="number" formControlName="pub_year" placeholder="2021">
     </div>
   </div>
 
   <div class="field">
-    <label class="label" for="pubcountry">Country of publication*</label>
+    <label class="label" for="pubcountry">Country of publication</label>
     <div class="control">
       <p-autoComplete id="pubcountry" formControlName="pub_country" placeholder="Pick or type"
       [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [dropdown]="true">
@@ -57,7 +57,24 @@
   </div>
 
   <div class="field">
-    <label class="label" for="is_source">Is this a source text or an adaptation?*</label>
+    <div class="columns is-vcentered" style="margin-bottom:0px">
+      <div class="column">
+        <label class="label" for="is_source">Is this a source text or an adaptation?</label>
+      </div>
+      <div class="column is-narrow">
+        <button class="button is-info is-inverted" type="button" (click)="displayHelp.is_source = !displayHelp.is_source">
+          <span class="icon"><fa-icon [icon]="faQuestion"></fa-icon></span>
+        </button>
+      </div>
+    </div>
+    
+    <div class="message is-info" *ngIf="displayHelp.is_source">
+      <div class="message-body">
+        <strong>Source text:</strong> an original work
+      </div>
+    </div>
+
+    
     <div class="control">
       <label class="radio">
         <input type="radio" formControlName="is_source" [value]="true">
@@ -103,7 +120,24 @@
   </div>
 
   <div class="field">
-    <label class="label" for="environment-dropdown">In what environment does the most of the action take place?*</label>
+    <div class="columns is-vcentered" style="margin-bottom:0px">
+      <div class="column">
+        <label class="label" for="environment-dropdown">In what environment does the most of the action take place?</label>
+      </div>
+      <div class="column is-narrow">
+        <button class="button is-info is-inverted" type="button" (click)="displayHelp.environment = !displayHelp.environment">
+          <span class="icon"><fa-icon [icon]="faQuestion"></fa-icon></span>
+        </button>
+      </div>
+    </div>
+    
+    <div class="message is-info" *ngIf="displayHelp.environment">
+      <div class="message-body">
+        <p>Pick which environment is best describes the setting of your work. If none apply, you can fill in your own (brief) description.</p>
+        <p><strong>Extra-terrestial:</strong> outer space</p>
+      </div>
+    </div>
+    
     <div class="control">
       <div *ngFor="let environment of environmentOptions">
         <label class="radio" [for]="environment.value">

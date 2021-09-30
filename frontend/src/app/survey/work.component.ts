@@ -17,7 +17,9 @@ export class WorkComponent implements OnInit, OnDestroy {
   httpError: HttpErrorResponse = undefined;
 
   displayHelp = {
+    is_source: false,
     adaptation_of: false,
+    environment: false,
   };
 
   faQuestion = faQuestion;
