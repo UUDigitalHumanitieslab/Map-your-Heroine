@@ -1,3 +1,5 @@
+import { COUNTRIES } from "./countries";
+
 export interface IResponse {
     id?: number; // id exists only when retrieving from backend, so make it optional
     work: any;
@@ -5,6 +7,7 @@ export interface IResponse {
     responses: any;
 }
 
+const countries = COUNTRIES.concat({name: 'Other', code: 'OTHER'});
 export const SURVEY = {
     "pages":[
       {
@@ -71,7 +74,7 @@ export const SURVEY = {
           "elements":[
             {"type":"radiogroup","name":"participant_gender","title":"What is your gender identity?","isRequired":true,"choices":[{"value":"Male","text":"Male"},{"value":"Female","text":"Female"},{"value":"Other","text":"Other"}]},
             {"type":"radiogroup","name":"participant_age","title":"What is your age?","isRequired":true,"choices":[{"value":"0-25","text":"0-25"},{"value":"26-35","text":"26-35"},{"value":"36-45","text":"36-45"},{"value":"46-55","text":"46-55"},{"value":"56-55","text":"56-55"},{"value":"65+","text":"65+"}]},
-            {"type":"text","name":"participant_nationality","title":"What is your nationality?","isRequired":true}
+            {"type":"dropdown","name":"participant_nationality","title":"What is your nationality?","isRequired":true, "choices": countries.map(country => country.name)}
           ],
           "title":"About you","description":"Please answer the following questions about yourself."
         }
