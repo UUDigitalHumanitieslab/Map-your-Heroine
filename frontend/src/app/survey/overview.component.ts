@@ -91,13 +91,16 @@ export class OverviewComponent implements OnInit {
       work: this.existingWork.id,
       hero: this.existingHero.id,
       responses: data,
-    } as unknown as IResponse
+    } as unknown as IResponse;
 
     this.restangular.all('responses')
       .post(response).subscribe(
         res => {},
-        err => this.httpError = err
-      )
+        err => {
+          this.httpError = err;
+          console.log(this.httpError.message);
+        }
+      );
   }
 
 }

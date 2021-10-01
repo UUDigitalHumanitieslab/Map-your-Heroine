@@ -16,10 +16,8 @@ import { RestangularModule } from 'ngx-restangular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { DropdownModule } from 'primeng/dropdown';
-import {MultiSelectModule} from 'primeng/multiselect';
 import {ChipsModule} from 'primeng/chips';
-import {CheckboxModule} from 'primeng/checkbox';
-import {RadioButtonModule} from 'primeng/radiobutton';
+import {AutoCompleteModule} from 'primeng/autocomplete';
 import { DialogModule } from 'primeng/dialog';
 import { OverviewComponent } from './survey/overview.component';
 import { HeroComponent } from './survey/hero.component';
@@ -63,10 +61,8 @@ export function RestangularConfigFactory(RestangularProvider) {
         }),
         RestangularModule.forRoot(RestangularConfigFactory),
         DropdownModule,
-        MultiSelectModule,
-        CheckboxModule,
         ChipsModule,
-        RadioButtonModule,
+        AutoCompleteModule,
         DialogModule,
         ReactiveFormsModule,
     ],
