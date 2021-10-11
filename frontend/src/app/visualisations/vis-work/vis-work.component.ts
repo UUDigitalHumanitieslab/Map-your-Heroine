@@ -9,11 +9,29 @@ import { Component, Input, OnChanges, OnInit } from '@angular/core';
 export class VisWorkComponent implements OnInit, OnChanges {
   @Input() plotData: any;
 
-  mediumPlotData: any;
-  pubcountryPlotData: any;
-  pubyearPlotData: any;
-  environmentPlotData: any;
-  adaptationPlotData: any;
+  plotNames = ['work_medium', 'work_pub_country', 'work_pub_year', 'work_environment', 'work_adaptation'];
+  plots = {
+    work_medium: {
+      title: 'Media',
+      data: undefined
+    },
+    work_pub_country: {
+      title: 'Country of publication',
+      data: undefined
+    },
+    work_pub_year: {
+      title: 'Year of publication',
+      data: undefined,
+    },
+    work_adaptation: {
+      title: 'Source works and adaptations',
+      data: undefined
+    },
+    work_environment: {
+      title: 'Where does the action take place?',
+      data: undefined
+    }
+  };
 
   pubyearPlotOptions = {
     legend: {
@@ -29,14 +47,11 @@ export class VisWorkComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    if (this.plotData) {
-      this.numberOfWorks = this.plotData.n_works;
-      this.mediumPlotData = this.plotData.work_medium;
-      this.pubcountryPlotData = this.plotData.work_pub_country;
-      this.pubyearPlotData = this.plotData.work_pub_year;
-      this.environmentPlotData = this.plotData.work_environment;
-      this.adaptationPlotData = this.plotData.work_adaptation;
-    }
+    this.numberOfWorks = this.plotData.n_works;
+
+    this.plotNames.forEach( name => {
+      this.plots[name].data = this.plotData[name];
+    });
   }
 
 }

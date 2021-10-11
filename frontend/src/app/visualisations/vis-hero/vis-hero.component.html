@@ -7,11 +7,11 @@
             <div class="card">
                 <header class="card-header">
                     <p class="card-header-title">
-                        Gender of the hero(ine)
+                        {{plots['hero_gender']['title']}}
                     </p>
                 </header>
                 <div class="card-content">
-                    <p-chart type="doughnut" [data]="genderPlotData"></p-chart>
+                    <p-chart type="doughnut" [data]="plots['hero_gender']['data']"></p-chart>
                 </div>
             </div>
         </div>
@@ -19,11 +19,11 @@
             <div class="card">
                 <header class="card-header">
                     <p class="card-header-title">
-                        Age of the hero(ine)
+                        {{plots['hero_age']['title']}}
                     </p>
                 </header>
                 <div class="card-content">
-                    <p-chart type="bar" [data]="agePlotData" [options]=agePlotOptions></p-chart>
+                    <p-chart type="bar" [data]="plots['hero_age']['data']" [options]=agePlotOptions></p-chart>
                 </div>
             </div>
         </div>
@@ -31,11 +31,11 @@
             <div class="card">
                 <header class="card-header">
                     <p class="card-header-title">
-                        What is the role of the hero(ine)?
+                        {{plots['hero_role']['title']}}
                     </p>
                 </header>
                 <div class="card-content">
-                    <p-chart type="doughnut" [data]="rolePlotData" [options]="smallPlotOptions"></p-chart>
+                    <p-chart type="doughnut" [data]="plots['hero_role']['data']" [options]="smallPlotOptions"></p-chart>
                 </div>
             </div>
         </div>
@@ -43,11 +43,11 @@
             <div class="card">
                 <header class="card-header">
                     <p class="card-header-title">
-                        Is the hero(ine) the narrator?
+                        {{plots['hero_narrator']['title']}}
                     </p>
                 </header>
                 <div class="card-content">
-                    <p-chart type="doughnut" [data]="narratorPlotData" [options]="smallPlotOptions"></p-chart>
+                    <p-chart type="doughnut" [data]="plots['hero_narrator']['data']" [options]="smallPlotOptions"></p-chart>
                 </div>
             </div>
         </div>
@@ -55,11 +55,11 @@
             <div class="card">
                 <header class="card-header">
                     <p class="card-header-title">
-                        Is the hero(ine) the focaliser?
+                        {{plots['hero_focaliser']['title']}}
                     </p>
                 </header>
                 <div class="card-content">
-                    <p-chart type="doughnut" [data]="focaliserPlotData" [options]="smallPlotOptions"></p-chart>
+                    <p-chart type="doughnut" [data]="plots['hero_focaliser']['data']" [options]="smallPlotOptions"></p-chart>
                 </div>
             </div>
         </div>
@@ -67,11 +67,11 @@
             <div class="card">
                 <header class="card-header">
                     <p class="card-header-title">
-                        Education
+                        {{plots['hero_education']['title']}}
                     </p>
                 </header>
                 <div class="card-content">
-                    <p-chart type="doughnut" [data]="educationPlotData"></p-chart>
+                    <p-chart type="doughnut" [data]="plots['hero_education']['data']"></p-chart>
                 </div>
             </div>
         </div>
@@ -79,11 +79,11 @@
             <div class="card">
                 <header class="card-header">
                     <p class="card-header-title">
-                        Wealth
+                        {{plots['hero_wealth']['title']}}
                     </p>
                 </header>
                 <div class="card-content">
-                    <p-chart type="doughnut" [data]="wealthPlotData"></p-chart>
+                    <p-chart type="doughnut" [data]="plots['hero_wealth']['data']"></p-chart>
                 </div>
             </div>
         </div>
@@ -91,11 +91,11 @@
             <div class="card">
                 <header class="card-header">
                     <p class="card-header-title">
-                        Common professions
+                        {{plots['hero_profession']['title']}}
                     </p>
                 </header>
                 <div class="card-content">
-                    <p-chart type="doughnut" [data]="professionPlotData" [options]="widePlotOptions"></p-chart>
+                    <p-chart type="doughnut" [data]="plots['hero_profession']['data']" [options]="widePlotOptions"></p-chart>
                 </div>
             </div>
         </div>
@@ -103,11 +103,11 @@
             <div class="card">
                 <header class="card-header">
                     <p class="card-header-title">
-                        Where was the hero(ine) born?
+                        {{plots['hero_country_origin']['title']}}
                     </p>
                 </header>
                 <div class="card-content">
-                    <p-chart type="doughnut" [data]="countryOriginPlotData" [options]="countryPlotOptions"></p-chart>
+                    <p-chart type="doughnut" [data]="plots['hero_country_origin']['data']" [options]="countryPlotOptions"></p-chart>
                 </div>
             </div>
         </div>
@@ -115,11 +115,11 @@
             <div class="card">
                 <header class="card-header">
                     <p class="card-header-title">
-                        Where did the hero(ine) grow up?
+                        {{plots['hero_country_growup']['title']}}
                     </p>
                 </header>
                 <div class="card-content">
-                    <p-chart type="doughnut" [data]="countryGrowupPlotData" [options]="countryPlotOptions"></p-chart>
+                    <p-chart type="doughnut" [data]="plots['hero_country_growup']['data']" [options]="countryPlotOptions"></p-chart>
                 </div>
             </div>
         </div>
@@ -127,11 +127,11 @@
             <div class="card">
                 <header class="card-header">
                     <p class="card-header-title">
-                        Where does the hero(ine) live?
+                        {{plots['hero_country_live']['title']}}
                     </p>
                 </header>
                 <div class="card-content">
-                    <p-chart type="doughnut" [data]="countryLivePlotData" [options]="countryPlotOptions"></p-chart>
+                    <p-chart type="doughnut" [data]="plots['hero_country_live']['data']" [options]="countryPlotOptions"></p-chart>
                 </div>
             </div>
         </div>

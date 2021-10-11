@@ -4,71 +4,23 @@
             <div class="card">
                 <header class="card-header">
                     <p class="card-header-title">
-                        Is the hero(ine) physically attractive within the context of the work / according to the other characters? 
+                        {{plots['hero_attractive']['title']}}
                     </p>
                 </header>
                 <div class="card-content">
-                    <p-chart type="doughnut" [data]="attractivePlotData" [options]="attractivePlotOptions"></p-chart>
+                    <p-chart type="doughnut" [data]="plots['hero_attractive']['data']" [options]="attractivePlotOptions"></p-chart>
                 </div>
             </div>
         </div>
-        <div class="column is-half">
+        <div *ngFor="let plot of likertPlotNames" class="column is-half">
             <div class="card">
                 <header class="card-header">
                     <p class="card-header-title">
-                        You consider your hero(ine) beautiful
+                        {{plots[plot]['title']}}
                     </p>
                 </header>
                 <div class="card-content">
-                    <p-chart type="bar" [data]="appearanceBeautifulPlotData" [options]="likertPlotOptions"></p-chart>
-                </div>
-            </div>
-        </div>
-        <div class="column is-half">
-            <div class="card">
-                <header class="card-header">
-                    <p class="card-header-title">
-                        You wish you looked like your hero(ine)
-                    </p>
-                </header>
-                <div class="card-content">
-                    <p-chart type="bar" [data]="appearanceWishlookedlikePlotData" [options]="likertPlotOptions"></p-chart>
-                </div>
-            </div>
-        </div>
-        <div class="column is-half">
-            <div class="card">
-                <header class="card-header">
-                    <p class="card-header-title">
-                        The appearance of your hero(ine) influences your feelings towards them
-                    </p>
-                </header>
-                <div class="card-content">
-                    <p-chart type="bar" [data]="appearanceInfluencefeelingsPlotData" [options]="likertPlotOptions"></p-chart>
-                </div>
-            </div>
-        </div>
-        <div class="column is-half">
-            <div class="card">
-                <header class="card-header">
-                    <p class="card-header-title">
-                        Your hero(ine)'s appearance impacts their experience in the story
-                    </p>
-                </header>
-                <div class="card-content">
-                    <p-chart type="bar" [data]="appearanceImpactPlotData" [options]="likertPlotOptions"></p-chart>
-                </div>
-            </div>
-        </div>
-        <div class="column is-half">
-            <div class="card">
-                <header class="card-header">
-                    <p class="card-header-title">
-                        Your hero(ine) is aware of the effects of their appearance
-                    </p>
-                </header>
-                <div class="card-content">
-                    <p-chart type="bar" [data]="appearanceAwarePlotData" [options]="likertPlotOptions"></p-chart>
+                    <p-chart type="bar" [data]="plots[plot]['data']" [options]="likertPlotOptions"></p-chart>
                 </div>
             </div>
         </div>

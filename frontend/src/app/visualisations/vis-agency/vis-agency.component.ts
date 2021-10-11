@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { LIKERTPLOTOPTIONS } from 'src/app/models/plotdata';
+import { SURVEY } from 'src/app/models/response';
 
 @Component({
   selector: 'mh-vis-agency',
@@ -10,25 +11,33 @@ import { LIKERTPLOTOPTIONS } from 'src/app/models/plotdata';
 export class VisAgencyComponent implements OnInit, OnChanges {
   @Input() plotData: any;
 
-  agencyResponsiblePlotData: any;
-  agencyIndependentPlotData: any;
-  agencyHinderedPlotData: any;
-  agencyEnvironmentPlotData: any;
-  agencyDevelopmentPlotData: any;
+  survey = SURVEY;
+  surveyPage = 3;
+
+  plotNames: string[] = [];
+  plots = {};
 
   likertPlotOptions = LIKERTPLOTOPTIONS;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.survey.pages[this.surveyPage].elements.forEach(question => {
+        if (question.type === 'rating') {
+          this.plotNames = this.plotNames.concat(['response_' + question.name]);
+          this.plots['response_' + question.name] = {
+            title: question.title,
+            data: undefined,
+          };
+        }
+      });
+  }
 
   ngOnInit(): void {
   }
 
   ngOnChanges(): void {
-    this.agencyResponsiblePlotData = this.plotData.response_agency_responsible;
-    this.agencyIndependentPlotData = this.plotData.response_agency_independent;
-    this.agencyHinderedPlotData = this.plotData.response_agency_hindered;
-    this.agencyEnvironmentPlotData = this.plotData.response_agency_environment;
-    this.agencyDevelopmentPlotData = this.plotData.response_agency_development;
+      this.plotNames.forEach( name => {
+          this.plots[name].data = this.plotData[name];
+        });
   }
 
 }

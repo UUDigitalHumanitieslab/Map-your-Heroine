@@ -7,11 +7,11 @@
             <div class="card">
                 <header class="card-header">
                     <p class="card-header-title">
-                        Media
+                        {{plots['work_medium']['title']}}
                     </p>
                 </header>
                 <div class="card-content">
-                    <p-chart type="doughnut" [data]="mediumPlotData"></p-chart>
+                    <p-chart type="doughnut" [data]="plots['work_medium']['data']"></p-chart>
                 </div>
             </div>
         </div>
@@ -19,11 +19,11 @@
             <div class="card">
                 <header class="card-header">
                     <p class="card-header-title">
-                        Source works and adaptations
+                        {{plots['work_adaptation']['title']}}
                     </p>
                 </header>
                 <div class="card-content">
-                    <p-chart type="doughnut" [data]="adaptationPlotData"></p-chart>
+                    <p-chart type="doughnut" [data]="plots['work_adaptation']['data']"></p-chart>
                 </div>
             </div>
         </div>
@@ -31,11 +31,11 @@
             <div class="card">
                 <header class="card-header">
                     <p class="card-header-title">
-                        Country of publication
+                        {{plots['work_pub_country']['title']}}
                     </p>
                 </header>
                 <div class="card-content">
-                    <p-chart type="doughnut" [data]="pubcountryPlotData"></p-chart>
+                    <p-chart type="doughnut" [data]="plots['work_pub_country']['data']"></p-chart>
                 </div>
             </div>
         </div>
@@ -43,11 +43,11 @@
             <div class="card">
                 <header class="card-header">
                     <p class="card-header-title">
-                        Year of publication
+                        {{plots['work_pub_year']['title']}}
                     </p>
                 </header>
                 <div class="card-content">
-                    <p-chart type="line" [data]="pubyearPlotData" [options]="pubyearPlotOptions"></p-chart>
+                    <p-chart type="line" [data]="plots['work_pub_year']['data']" [options]="pubyearPlotOptions"></p-chart>
                 </div>
             </div>
         </div>
@@ -55,11 +55,11 @@
             <div class="card">
                 <header class="card-header">
                     <p class="card-header-title">
-                        Where does the action take place?
+                        {{plots['work_environment']['title']}}
                     </p>
                 </header>
                 <div class="card-content">
-                    <p-chart type="doughnut" [data]="environmentPlotData"></p-chart>
+                    <p-chart type="doughnut" [data]="plots['work_environment']['data']"></p-chart>
                 </div>
             </div>
         </div>

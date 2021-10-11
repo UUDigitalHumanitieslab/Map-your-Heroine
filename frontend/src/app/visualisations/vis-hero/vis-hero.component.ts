@@ -9,18 +9,59 @@ import { Component, Input, OnChanges, OnInit } from '@angular/core';
 export class VisHeroComponent implements OnInit, OnChanges {
   @Input() plotData: any;
 
+  plotNames = [
+      'hero_gender', 'hero_age', 'hero_role', 'hero_narrator', 'hero_focaliser',
+      'hero_education', 'hero_wealth', 'hero_profession',
+      'hero_country_origin', 'hero_country_growup', 'hero_country_live',
+    ];
+  plots = {
+        hero_gender: {
+          title: 'Gender of the hero(ine)',
+          data: undefined
+        },
+        hero_age: {
+            title: 'Age of the hero(ine)',
+            data: undefined
+        },
+        hero_role: {
+            title: 'What is the role of the hero(ine)?',
+            data: undefined,
+        },
+        hero_narrator: {
+            title: 'Is the hero(ine) the narrator?',
+            data: undefined
+        },
+        hero_focaliser: {
+            title: 'Is the hero(ine) the focaliser?',
+            data: undefined
+        },
+        hero_education: {
+            title: 'Education',
+            data: undefined
+        },
+        hero_wealth: {
+            title: 'Wealth',
+            data: undefined
+        },
+        hero_profession: {
+            title: 'Common professions',
+            data: undefined
+        },
+        hero_country_origin: {
+            title: 'Where was the hero(ine) born?',
+            data: undefined
+        },
+        hero_country_growup: {
+            title: 'Where did the hero(ine) grow up?',
+            data: undefined
+        },
+        hero_country_live: {
+            title: 'Where does the hero(ine) live?',
+            data: undefined
+        },
+  };
+
   numberOfHeroes: number;
-  genderPlotData: any;
-  agePlotData: any;
-  rolePlotData: any;
-  narratorPlotData: any;
-  focaliserPlotData: any;
-  educationPlotData: any;
-  wealthPlotData: any;
-  professionPlotData: any;
-  countryOriginPlotData: any;
-  countryGrowupPlotData: any;
-  countryLivePlotData: any;
 
   agePlotOptions = {
     legend: {
@@ -49,18 +90,10 @@ export class VisHeroComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    this.numberOfHeroes = this.plotData.n_heroes;
-    this.genderPlotData = this.plotData.hero_gender;
-    this.agePlotData = this.plotData.hero_age;
-    this.rolePlotData = this.plotData.hero_role;
-    this.narratorPlotData = this.plotData.hero_narrator;
-    this.focaliserPlotData = this.plotData.hero_focaliser;
-    this.educationPlotData = this.plotData.hero_education;
-    this.wealthPlotData = this.plotData.hero_wealth;
-    this.professionPlotData = this.plotData.hero_profession;
-    this.countryOriginPlotData = this.plotData.hero_country_origin;
-    this.countryGrowupPlotData = this.plotData.hero_country_growup;
-    this.countryLivePlotData = this.plotData.hero_country_live;
+      this.numberOfHeroes = this.plotData.n_heroes;
+      this.plotNames.forEach( name => {
+          this.plots[name].data = this.plotData[name];
+      });
   }
 
 }

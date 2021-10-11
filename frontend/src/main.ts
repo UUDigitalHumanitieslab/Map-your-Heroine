@@ -11,7 +11,3 @@ if (environment.production) {
 
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.error(err));
-
-
-// register_models(Widgets);
-// register_models(Tables);

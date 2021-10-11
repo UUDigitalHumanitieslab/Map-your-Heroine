@@ -23,6 +23,14 @@ STANDARD_MEDIA = ['novel', 'film', 'tv-series', 'vlog', 'comic', 'fan fiction', 
 STANDARD_ENVIRONMENTS = ['countryside', 'village', 'city', 'extra-terrestrial', 'unknown']
 
 class Plots:
+    """
+    Defines the plots that are generated in the frontend. The method `all_plotdata` is called to retrieve (all)
+    plotdata. This function can take some filters on the dataset (see below). 
+    
+    Each plot is returned as a dict with the relevant data, which can be used as input for primeNG charts or 
+    charts.js in the frontend. The dict for each plot includes data labels (x-values) and datasets (y-values 
+    and colours).
+    """
     def _work_qualifies(work, filters):
         # has responses
         if not len(work.responses.all()):
@@ -412,9 +420,31 @@ class Plots:
         return data
 
     def all_plotdata(filters=dict()):
+        """
+        Returns data for all plots.
+
+        Parameters:
+        filters (dict): optional specification of filters to be applied to the data. An example of the format is
+            `{ 'hero_gender' : ['Male', 'Other'], ... }`
+        This will select on the `gender` property of heroes, so that only 'male' and 'other' heroes are 
+        included. A filter for a hero property will also affect works and responses, who, in this example,
+        would need to be linked to a hero of the selected genders.
+        Currently implemented filters are 'hero_gender' and 'work_medium'.
+
+        Returns:
+        A dict. Includes the keys 'n_works', 'n_heroes', and 'n_responses', which state
+        how many works/heroes/responses match the filters. If there are any, the dict will
+        also have a key for each plot. The value is also a dict, specifying the dataset. This specifies 
+        data labels (x-values) and datasets (y-values and colours).
+        """
         works = Plots._all_works(filters)
         heroes = Plots._all_heroes(filters)
         responses = Plots._all_responses(filters)
+
+        # skip plots if there are no responses
+        if len(responses) == 0:
+            all_data = { 'n_works': len(works), 'n_heroes': len(heroes), 'n_responses': len(responses) }
+            return all_data
 
         plot_names = {
             'work_medium': Plots.medium_plotdata,

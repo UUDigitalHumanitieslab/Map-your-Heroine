@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { LIKERTPLOTOPTIONS } from 'src/app/models/plotdata';
+import { SURVEY } from 'src/app/models/response';
 
 @Component({
   selector: 'mh-vis-identification',
@@ -10,21 +11,33 @@ import { LIKERTPLOTOPTIONS } from 'src/app/models/plotdata';
 export class VisIdentificationComponent implements OnInit, OnChanges {
   @Input() plotData: any;
 
-  identificationPersonalityPlotData: any;
-  identificationIntruigingPlotData: any;
-  identificationWishbelikePlotData: any;
+  survey = SURVEY;
+  surveyPage = 0;
+
+  plotNames: string[] = [];
+  plots = {};
 
   likertPlotOptions = LIKERTPLOTOPTIONS;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    this.survey.pages[this.surveyPage].elements.forEach(question => {
+      if (question.type === 'rating') {
+        this.plotNames = this.plotNames.concat(['response_' + question.name]);
+        this.plots['response_' + question.name] = {
+          title: question.title,
+          data: undefined,
+        };
+      }
+    });
+   }
 
   ngOnInit(): void {
   }
 
   ngOnChanges(): void {
-    this.identificationPersonalityPlotData = this.plotData.response_identification_personality;
-    this.identificationIntruigingPlotData = this.plotData.response_identification_intruiging;
-    this.identificationWishbelikePlotData = this.plotData.response_identification_wishbelike;
+    this.plotNames.forEach( name => {
+      this.plots[name].data = this.plotData[name];
+    });
   }
 
 }

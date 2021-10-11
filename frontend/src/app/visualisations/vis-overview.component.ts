@@ -10,6 +10,7 @@ import { GENDER_OPTIONS } from '../models/hero';
   styleUrls: ['./vis-overview.component.scss']
 })
 export class VisOverviewComponent implements OnInit {
+  activeTab = 'work';
   plots = ['genderplot', 'ageplot', 'roleplot', 'narratorplot', 'focaliserplot'];
 
   mediumOptions = [...MEDIUM_OPTIONS, 'other'];
@@ -38,20 +39,6 @@ export class VisOverviewComponent implements OnInit {
 
   }
 
-  openTab(event: any, tabName) {
-    var i, x, tablinks;
-    x = document.getElementsByClassName('content-tab');
-    for (i = 0; i < x.length; i++) {
-        x[i].style.display = 'none';
-    }
-    tablinks = document.getElementsByClassName('tab');
-    for (i = 0; i < x.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(' is-active', '');
-    }
-    document.getElementById(tabName).style.display = 'block';
-    event.currentTarget.className += ' is-active';
-  }
-
   onCheckboxChange(name, value, event) {
     const checkArray: FormArray = this.filterForm.get(name) as FormArray;
     if (event.target.checked) {
@@ -59,12 +46,11 @@ export class VisOverviewComponent implements OnInit {
     }
     else {
       let i: number = 0;
-      checkArray.controls.forEach((item: FormControl) => {
+      checkArray.controls.forEach((item: FormControl, i: number) => {
         if (item.value === value) {
           checkArray.removeAt(i);
           return;
         }
-        i++;
       });
     }
   }

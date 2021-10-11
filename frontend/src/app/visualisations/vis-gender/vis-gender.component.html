@@ -4,11 +4,11 @@
             <div class="card">
                 <header class="card-header">
                     <p class="card-header-title">
-                        Gender of the hero(ine)
+                        {{plots['hero_gender']['title']}}
                     </p>
                 </header>
                 <div class="card-content">
-                    <p-chart type="doughnut" [data]="heroGenderPlotData"></p-chart>
+                    <p-chart type="doughnut" [data]="plots['hero_gender']['data']"></p-chart>
                 </div>
             </div>
         </div>
@@ -16,59 +16,23 @@
             <div class="card">
                 <header class="card-header">
                     <p class="card-header-title">
-                        Gender of the participant
+                        {{plots['response_gender']['title']}}
                     </p>
                 </header>
                 <div class="card-content">
-                    <p-chart type="doughnut" [data]="responseGenderPlotData"></p-chart>
+                    <p-chart type="doughnut" [data]="plots['response_gender']['data']"></p-chart>
                 </div>
             </div>
         </div>
-        <div class="column is-half">
+        <div *ngFor="let plot of likertPlotNames" class="column is-half">
             <div class="card">
                 <header class="card-header">
                     <p class="card-header-title">
-                        Your hero(ine)'s gender identity defines their personality
+                        {{plots[plot]['title']}}
                     </p>
                 </header>
                 <div class="card-content">
-                    <p-chart type="bar" [data]="genderDefinesPersonalityPlotData" [options]="likertPlotOptions"></p-chart>
-                </div>
-            </div>
-        </div>
-        <div class="column is-half">
-            <div class="card">
-                <header class="card-header">
-                    <p class="card-header-title">
-                        Your hero(ine) embraces their gender identity
-                    </p>
-                </header>
-                <div class="card-content">
-                    <p-chart type="bar" [data]="genderEmbracesPlotData" [options]="likertPlotOptions"></p-chart>
-                </div>
-            </div>
-        </div>
-        <div class="column is-half">
-            <div class="card">
-                <header class="card-header">
-                    <p class="card-header-title">
-                        Your hero(ine) attempts to fulfill social expectations derived from their gender
-                    </p>
-                </header>
-                <div class="card-content">
-                    <p-chart type="bar" [data]="genderAttemptsExpectationsPlotData" [options]="likertPlotOptions"></p-chart>
-                </div>
-            </div>
-        </div>
-        <div class="column is-half">
-            <div class="card">
-                <header class="card-header">
-                    <p class="card-header-title">
-                        Your hero(ine) struggles to fulfill social expectations regarding their gender
-                    </p>
-                </header>
-                <div class="card-content">
-                    <p-chart type="bar" [data]="genderStrugglesExpectationsPlotData" [options]="likertPlotOptions"></p-chart>
+                    <p-chart type="bar" [data]="plots[plot]['data']" [options]="likertPlotOptions"></p-chart>
                 </div>
             </div>
         </div>

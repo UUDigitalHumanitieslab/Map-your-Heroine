@@ -3,11 +3,11 @@ export const LIKERTPLOTOPTIONS = {
     responsive: true,
     scales: {
         xAxes: [{
-        display: true,
+            display: true,
         }],
         yAxes: [{
-        display: false,
-        ticks: {min: 0}
+            display: false,
+            ticks: { min: 0 }
         }]
     },
     legend: {

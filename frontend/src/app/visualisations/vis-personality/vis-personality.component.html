@@ -1,98 +1,14 @@
 <div class="block">
     <div class="columns is-vcentered is-multiline is-centered">
-        <div class="column is-half">
+        <div *ngFor="let plot of likertPlotNames" class="column is-half">
             <div class="card">
                 <header class="card-header">
                     <p class="card-header-title">
-                        Your hero(ine) is assertive
+                        {{plots[plot]['title']}}
                     </p>
                 </header>
                 <div class="card-content">
-                    <p-chart type="bar" [data]="personalityAssertivePlotData" [options]="likertPlotOptions"></p-chart>
-                </div>
-            </div>
-        </div>
-        <div class="column is-half">
-            <div class="card">
-                <header class="card-header">
-                    <p class="card-header-title">
-                        Your hero(ine) is independent
-                    </p>
-                </header>
-                <div class="card-content">
-                    <p-chart type="bar" [data]="personalityIndependentPlotData" [options]="likertPlotOptions"></p-chart>
-                </div>
-            </div>
-        </div>
-        <div class="column is-half">
-            <div class="card">
-                <header class="card-header">
-                    <p class="card-header-title">
-                        Your hero(ine) is vain
-                    </p>
-                </header>
-                <div class="card-content">
-                    <p-chart type="bar" [data]="personalityVainPlotData" [options]="likertPlotOptions"></p-chart>
-                </div>
-            </div>
-        </div>
-        <div class="column is-half">
-            <div class="card">
-                <header class="card-header">
-                    <p class="card-header-title">
-                        Your hero(ine) is confident
-                    </p>
-                </header>
-                <div class="card-content">
-                    <p-chart type="bar" [data]="personalityConfidentPlotData" [options]="likertPlotOptions"></p-chart>
-                </div>
-            </div>
-        </div>
-        <div class="column is-half">
-            <div class="card">
-                <header class="card-header">
-                    <p class="card-header-title">
-                        Your hero(ine) is well-rounded
-                    </p>
-                </header>
-                <div class="card-content">
-                    <p-chart type="bar" [data]="personalityWellroundedPlotData" [options]="likertPlotOptions"></p-chart>
-                </div>
-            </div>
-        </div>
-        <div class="column is-half">
-            <div class="card">
-                <header class="card-header">
-                    <p class="card-header-title">
-                        Your hero(ine) is honest
-                    </p>
-                </header>
-                <div class="card-content">
-                    <p-chart type="bar" [data]="personalityHonestPlotData" [options]="likertPlotOptions"></p-chart>
-                </div>
-            </div>
-        </div>
-        <div class="column is-half">
-            <div class="card">
-                <header class="card-header">
-                    <p class="card-header-title">
-                        Your hero(ine) is loyal
-                    </p>
-                </header>
-                <div class="card-content">
-                    <p-chart type="bar" [data]="personalityLoyalPlotData" [options]="likertPlotOptions"></p-chart>
-                </div>
-            </div>
-        </div>
-        <div class="column is-half">
-            <div class="card">
-                <header class="card-header">
-                    <p class="card-header-title">
-                        Your hero(ine) is cooperative
-                    </p>
-                </header>
-                <div class="card-content">
-                    <p-chart type="bar" [data]="personalityCooperativePlotData" [options]="likertPlotOptions"></p-chart>
+                    <p-chart type="bar" [data]="plots[plot]['data']" [options]="likertPlotOptions"></p-chart>
                 </div>
             </div>
         </div>

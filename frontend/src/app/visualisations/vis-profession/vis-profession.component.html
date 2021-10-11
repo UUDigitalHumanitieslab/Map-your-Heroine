@@ -4,59 +4,23 @@
             <div class="card">
                 <header class="card-header">
                     <p class="card-header-title">
-                        The most common professions
+                        {{plots['hero_profession']['title']}}
                     </p>
                 </header>
                 <div class="card-content">
-                    <p-chart type="doughnut" [data]="professionPlotData" [options]="professionPlotOptions"></p-chart>
+                    <p-chart type="doughnut" [data]="plots['hero_profession']['data']" [options]="professionPlotOptions"></p-chart>
                 </div>
             </div>
         </div>
-        <div class="column is-half">
+        <div *ngFor="let plot of likertPlotNames" class="column is-half">
             <div class="card">
                 <header class="card-header">
                     <p class="card-header-title">
-                        The profession of your hero(ine) reveals aspects relevant to their personality
+                        {{plots[plot]['title']}}
                     </p>
                 </header>
                 <div class="card-content">
-                    <p-chart type="bar" [data]="professionRelevantToPersonalityPlotData" [options]="likertPlotOptions"></p-chart>
-                </div>
-            </div>
-        </div>
-        <div class="column is-half">
-            <div class="card">
-                <header class="card-header">
-                    <p class="card-header-title">
-                        The profession of your hero(ine) reveals reflects their social status 
-                    </p>
-                </header>
-                <div class="card-content">
-                    <p-chart type="bar" [data]="professionSocialStatusPlotData" [options]="likertPlotOptions"></p-chart>
-                </div>
-            </div>
-        </div>
-        <div class="column is-half">
-            <div class="card">
-                <header class="card-header">
-                    <p class="card-header-title">
-                        The profession of your hero(ine) enables their character to grow
-                    </p>
-                </header>
-                <div class="card-content">
-                    <p-chart type="bar" [data]="professionGrowthPlotData" [options]="likertPlotOptions"></p-chart>
-                </div>
-            </div>
-        </div>
-        <div class="column is-half">
-            <div class="card">
-                <header class="card-header">
-                    <p class="card-header-title">
-                        The profession of your hero(ine) defines their life in a significant way
-                    </p>
-                </header>
-                <div class="card-content">
-                    <p-chart type="bar" [data]="professionDefinesLifePlotData" [options]="likertPlotOptions"></p-chart>
+                    <p-chart type="bar" [data]="plots[plot]['data']" [options]="likertPlotOptions"></p-chart>
                 </div>
             </div>
         </div>
