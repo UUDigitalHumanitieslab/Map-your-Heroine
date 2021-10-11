@@ -156,7 +156,7 @@ class Plots:
 
         min_year = min(counts.keys())
         this_year = timezone.now().year
-        step = min(1, int((this_year - min_year) / 10))
+        step = max(1, int((this_year - min_year) / 10))
         labels = list(range(min_year - (2*step) + 1, this_year - step + 1, step))
 
         value = lambda year: sum(counts[y] for y in range(year, year+step) if y in counts)

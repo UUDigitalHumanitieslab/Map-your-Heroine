@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'revproxy',
     'example',
     'factual',
-#    'visualisations',
+   'visualisations',
 ]
 
 MIDDLEWARE = [
