@@ -25,6 +25,7 @@ from .proxy_frontend import proxy_frontend
 
 from example.views import hooray as ExampleView # DELETEME, see below
 from factual import views as factual_views
+from visualisations import views as vis_views
 
 api_router = routers.DefaultRouter()  # register viewsets with this router
 api_router.register('heroes', factual_views.HeroViewSet)
@@ -48,5 +49,9 @@ urlpatterns = [
         'rest_framework.urls',
         namespace='rest_framework',
     )),
+
+    #plots
+    path('api/results/<name>', vis_views.PlotView.as_view()),
+
     spa_url,  # catch-all; unknown paths to be handled by a SPA
 ]

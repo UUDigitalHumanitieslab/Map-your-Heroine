@@ -37,7 +37,9 @@
                         "styles": [
                             "src/styles.scss"
                         ],
-                        "scripts": [],
+                        "scripts": [
+                            "./node_modules/chart.js/dist/Chart.js"
+                        ],
                         "deployUrl": "/static/",
                         "vendorChunk": true,
                         "extractLicenses": false,
@@ -145,7 +147,9 @@
                         "styles": [
                             "src/styles.scss"
                         ],
-                        "scripts": []
+                        "scripts": [
+                            "./node_modules/chart.js/dist/Chart.js"
+                        ]
                     }
                 },
                 "lint": {

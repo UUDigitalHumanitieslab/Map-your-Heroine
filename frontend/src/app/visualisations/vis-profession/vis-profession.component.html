@@ -1,0 +1,28 @@
+<div class="block">
+    <div class="columns is-vcentered is-multiline is-centered">
+        <div class="column is-full">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        {{plots['hero_profession']['title']}}
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="doughnut" [data]="plots['hero_profession']['data']" [options]="professionPlotOptions"></p-chart>
+                </div>
+            </div>
+        </div>
+        <div *ngFor="let plot of likertPlotNames" class="column is-half">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        {{plots[plot]['title']}}
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="bar" [data]="plots[plot]['data']" [options]="likertPlotOptions"></p-chart>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

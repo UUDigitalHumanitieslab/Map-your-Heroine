@@ -1,0 +1,67 @@
+<div class="block">
+    There are <strong>{{numberOfWorks}}</strong> works matching your selection
+</div>
+<div class="block">
+    <div class="columns is-vcentered is-multiline is-centered">
+        <div class="column is-half">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        {{plots['work_medium']['title']}}
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="doughnut" [data]="plots['work_medium']['data']"></p-chart>
+                </div>
+            </div>
+        </div>
+        <div class="column is-half">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        {{plots['work_adaptation']['title']}}
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="doughnut" [data]="plots['work_adaptation']['data']"></p-chart>
+                </div>
+            </div>
+        </div>
+        <div class="column is-half">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        {{plots['work_pub_country']['title']}}
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="doughnut" [data]="plots['work_pub_country']['data']"></p-chart>
+                </div>
+            </div>
+        </div>
+        <div class="column is-half">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        {{plots['work_pub_year']['title']}}
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="line" [data]="plots['work_pub_year']['data']" [options]="pubyearPlotOptions"></p-chart>
+                </div>
+            </div>
+        </div>
+        <div class="column is-half">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        {{plots['work_environment']['title']}}
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="doughnut" [data]="plots['work_environment']['data']"></p-chart>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

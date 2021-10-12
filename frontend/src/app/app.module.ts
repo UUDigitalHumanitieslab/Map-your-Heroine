@@ -19,9 +19,20 @@ import { DropdownModule } from 'primeng/dropdown';
 import {ChipsModule} from 'primeng/chips';
 import {AutoCompleteModule} from 'primeng/autocomplete';
 import { DialogModule } from 'primeng/dialog';
+import { PanelModule } from 'primeng/panel';
+import {ChartModule} from 'primeng/chart';
 import { OverviewComponent } from './survey/overview.component';
 import { HeroComponent } from './survey/hero.component';
 import { ResponseComponent } from './survey/response.component';
+import { VisOverviewComponent } from './visualisations/vis-overview.component';
+import { VisHeroComponent } from './visualisations/vis-hero/vis-hero.component';
+import { VisWorkComponent } from './visualisations/vis-work/vis-work.component';
+import { VisGenderComponent } from './visualisations/vis-gender/vis-gender.component';
+import { VisAgencyComponent } from './visualisations/vis-agency/vis-agency.component';
+import { VisIdentificationComponent } from './visualisations/vis-identification/vis-identification.component';
+import { VisPersonalityComponent } from './visualisations/vis-personality/vis-personality.component';
+import { VisAppearanceComponent } from './visualisations/vis-appearance/vis-appearance.component';
+import { VisProfessionComponent } from './visualisations/vis-profession/vis-profession.component';
 
 export function RestangularConfigFactory(RestangularProvider) {
     RestangularProvider.setBaseUrl('/api');
@@ -46,7 +57,16 @@ export function RestangularConfigFactory(RestangularProvider) {
         WorkComponent,
         OverviewComponent,
         HeroComponent,
-        ResponseComponent
+        ResponseComponent,
+        VisOverviewComponent,
+        VisHeroComponent,
+        VisWorkComponent,
+        VisGenderComponent,
+        VisAgencyComponent,
+        VisIdentificationComponent,
+        VisPersonalityComponent,
+        VisAppearanceComponent,
+        VisProfessionComponent
     ],
     imports: [
         AppRoutingModule,
@@ -64,7 +84,9 @@ export function RestangularConfigFactory(RestangularProvider) {
         ChipsModule,
         AutoCompleteModule,
         DialogModule,
+        PanelModule,
         ReactiveFormsModule,
+        ChartModule,
     ],
     providers: [],
     bootstrap: [AppComponent]
