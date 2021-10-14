@@ -1,4 +1,5 @@
 import { Component, NgZone, OnInit } from '@angular/core';
+import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
 import { animations, showState } from '../animations';
 import { BackendService } from '../services/backend.service';
 
@@ -12,6 +13,7 @@ export class MenuComponent implements OnInit {
     burgerShow: showState;
     burgerActive = false;
     voyantUrl: string;
+    faExternalLink = faExternalLinkAlt;
 
     constructor(private ngZone: NgZone, private backend: BackendService) { }
 

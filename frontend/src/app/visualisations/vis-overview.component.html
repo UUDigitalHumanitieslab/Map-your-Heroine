@@ -1,0 +1,130 @@
+
+<div class="columns">
+    <div class="column is-narrow">
+        <div class="block">
+            <form>
+                <div class="field">
+                    <div class="block">
+                        <label class="label" for="work_medium">Medium of the work:</label>
+                        <div class="control">
+                            <div *ngFor="let response of mediumOptions">
+                                <label class="checkbox" [for]="response">
+                                    <input type="checkbox" name="work_medium" checked="checked" (change)="onCheckboxChange('work_medium', response, $event)">
+                                    {{response}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="block">
+                        <label class="label" for="hero_gender">Gender of the hero(ine):</label>
+                        <div class="control">
+                            <div *ngFor="let response of genderOptions">
+                                <label class="checkbox" [for]="response.value">
+                                    <input type="checkbox" name="hero_gender" checked="checked" (change)="onCheckboxChange('hero_gender', response.value, $event)">
+                                    {{response.label}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="field">
+                    <div class="control">
+                      <button class="button is-link" type="submit" [disabled]="!formIsValid()" (click)="submitFilters()">View results</button>
+                    </div>
+                  </div>
+            </form>
+        </div>
+    </div>
+    <div class="column ">
+        <div class="block">
+            <nav class="tabs is-fullwidth">
+                <ul>
+                    <li class="tab" (click)="activeTab = 'work'" [ngClass]="{ 'is-active': activeTab == 'work'}">
+                        <a>Works</a></li>
+                    <li class="tab" (click)="activeTab = 'heroes'" [ngClass]="{ 'is-active': activeTab == 'heroes'}">
+                        <a>Heroes</a></li>
+                    <li class="tab" (click)="activeTab = 'identification'" [ngClass]="{ 'is-active': activeTab == 'identification'}">
+                        <a>Identification</a></li>
+                    <li class="tab" (click)="activeTab = 'appearance'" [ngClass]="{ 'is-active': activeTab == 'appearance'}">
+                        <a>Appearance</a></li>
+                    <li class="tab" (click)="activeTab = 'gender'" [ngClass]="{ 'is-active': activeTab == 'gender'}">
+                        <a>Gender Identity</a></li>
+                    <li class="tab" (click)="activeTab = 'profession'" [ngClass]="{ 'is-active': activeTab == 'profession'}">
+                        <a>Profession</a></li>
+                    <li class="tab" (click)="activeTab = 'agency'" [ngClass]="{ 'is-active': activeTab == 'agency'}">
+                        <a>Agency</a></li>
+                    <li class="tab" (click)="activeTab = 'personality'" [ngClass]="{ 'is-active': activeTab == 'personality'}">
+                        <a>Personality</a></li>
+                </ul>
+            </nav>    
+            <div class="container section">
+                <div *ngIf="activeTab == 'work'">
+                    <div *ngIf="numberOfResponses != 0">
+                        <mh-vis-work [plotData]="plotData"></mh-vis-work>
+                    </div>
+                    <div *ngIf="numberOfResponses == 0" class="content">
+                        There are no responses matching your selection.
+                    </div>
+                </div>
+                <div *ngIf="activeTab == 'heroes'">
+                    <div *ngIf="numberOfResponses != 0">
+                        <mh-vis-hero [plotData]="plotData"></mh-vis-hero>
+                    </div>
+                    <div *ngIf="numberOfResponses == 0" class="content">
+                        There are no responses matching your selection.
+                    </div>
+                </div>
+                <div *ngIf="activeTab == 'identification'">
+                    <div *ngIf="numberOfResponses != 0">
+                        <mh-vis-identification [plotData]="plotData"></mh-vis-identification>
+                    </div>
+                    <div *ngIf="numberOfResponses == 0" class="content">
+                        There are no responses matching your selection.
+                    </div>
+                </div>
+                <div *ngIf="activeTab == 'appearance'">
+                    <div *ngIf="numberOfResponses != 0">
+                        <mh-vis-appearance [plotData]="plotData"></mh-vis-appearance>
+                    </div>
+                    <div *ngIf="numberOfResponses == 0" class="content">
+                        There are no responses matching your selection.
+                    </div>
+                </div>
+                <div *ngIf="activeTab == 'gender'">
+                    <div *ngIf="numberOfResponses != 0">
+                        <mh-vis-gender [plotData]="plotData"></mh-vis-gender>
+                    </div>
+                    <div *ngIf="numberOfResponses == 0" class="content">
+                        There are no responses matching your selection.
+                    </div>
+                </div>
+                <div *ngIf="activeTab == 'profession'">
+                    <div *ngIf="numberOfResponses != 0">
+                        <mh-vis-profession [plotData]="plotData"></mh-vis-profession>
+                    </div>
+                    <div *ngIf="numberOfResponses == 0" class="content">
+                        There are no responses matching your selection.
+                    </div>
+                </div>
+                <div *ngIf="activeTab == 'agency'">
+                    <div *ngIf="numberOfResponses != 0">
+                        <mh-vis-agency [plotData]="plotData"></mh-vis-agency>
+                    </div>
+                    <div *ngIf="numberOfResponses == 0" class="content">
+                        There are no responses matching your selection.
+                    </div>
+                </div>
+                <div *ngIf="activeTab == 'personality'">
+                    <div *ngIf="numberOfResponses != 0">
+                        <mh-vis-personality [plotData]="plotData"></mh-vis-personality>
+                    </div>
+                    <div *ngIf="numberOfResponses == 0" class="content">
+                        There are no responses matching your selection.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

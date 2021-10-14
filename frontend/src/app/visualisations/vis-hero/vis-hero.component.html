@@ -1,0 +1,139 @@
+<div class="block">
+    There are <strong>{{numberOfHeroes}}</strong> heroes matching your selection.
+</div>
+<div class="block">
+    <div class="columns is-vcentered is-multiline">
+        <div class="column is-half">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        {{plots['hero_gender']['title']}}
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="doughnut" [data]="plots['hero_gender']['data']"></p-chart>
+                </div>
+            </div>
+        </div>
+        <div class="column is-half">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        {{plots['hero_age']['title']}}
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="bar" [data]="plots['hero_age']['data']" [options]=agePlotOptions></p-chart>
+                </div>
+            </div>
+        </div>
+        <div class="column is-one-third">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        {{plots['hero_role']['title']}}
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="doughnut" [data]="plots['hero_role']['data']" [options]="smallPlotOptions"></p-chart>
+                </div>
+            </div>
+        </div>
+        <div class="column is-one-third">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        {{plots['hero_narrator']['title']}}
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="doughnut" [data]="plots['hero_narrator']['data']" [options]="smallPlotOptions"></p-chart>
+                </div>
+            </div>
+        </div>
+        <div class="column is-one-third">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        {{plots['hero_focaliser']['title']}}
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="doughnut" [data]="plots['hero_focaliser']['data']" [options]="smallPlotOptions"></p-chart>
+                </div>
+            </div>
+        </div>
+        <div class="column is-half">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        {{plots['hero_education']['title']}}
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="doughnut" [data]="plots['hero_education']['data']"></p-chart>
+                </div>
+            </div>
+        </div>
+        <div class="column is-half">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        {{plots['hero_wealth']['title']}}
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="doughnut" [data]="plots['hero_wealth']['data']"></p-chart>
+                </div>
+            </div>
+        </div>
+        <div class="column is-full">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        {{plots['hero_profession']['title']}}
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="doughnut" [data]="plots['hero_profession']['data']" [options]="widePlotOptions"></p-chart>
+                </div>
+            </div>
+        </div>
+        <div class="column is-one-third">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        {{plots['hero_country_origin']['title']}}
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="doughnut" [data]="plots['hero_country_origin']['data']" [options]="countryPlotOptions"></p-chart>
+                </div>
+            </div>
+        </div>
+        <div class="column is-one-third">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        {{plots['hero_country_growup']['title']}}
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="doughnut" [data]="plots['hero_country_growup']['data']" [options]="countryPlotOptions"></p-chart>
+                </div>
+            </div>
+        </div>
+        <div class="column is-one-third">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        {{plots['hero_country_live']['title']}}
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="doughnut" [data]="plots['hero_country_live']['data']" [options]="countryPlotOptions"></p-chart>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
