@@ -26,6 +26,10 @@ def test_filters(fake_data):
     plots = Plots.all_plotdata({'work_medium': ['novel']})
     assert plots['n_works'] == 1
 
+    #source/adapatation filter
+    plots = Plots.all_plotdata({'work_is_source': [True]})
+    assert plots['n_works'] == 1
+
     # filter with no matches
     plots = Plots.all_plotdata({'work_medium': ['other']})
     assert plots['n_works'] == 0
@@ -50,8 +54,8 @@ def fake_data():
         author = 'Someone',
         pub_year = 2021,
         pub_country = 'The Netherlands',
-        is_source = True,
-        adaptation_of = None,
+        is_source = False,
+        adaptation_of = Work.objects.all()[0],
         environment = 'unknown'
     )
 

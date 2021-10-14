@@ -17,6 +17,18 @@
                     </div>
 
                     <div class="block">
+                        <label class="label" for="hero_gender">Sources or adaptations:</label>
+                        <div class="control">
+                            <div *ngFor="let response of isSourceOptions">
+                                <label class="checkbox" [for]="response.value">
+                                    <input type="checkbox" name="work_is_source" checked="checked" (change)="onCheckboxChange('work_is_source', response.value, $event)">
+                                    {{response.label}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="block">
                         <label class="label" for="hero_gender">Gender of the hero(ine):</label>
                         <div class="control">
                             <div *ngFor="let response of genderOptions">

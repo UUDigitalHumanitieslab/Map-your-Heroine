@@ -45,6 +45,11 @@ class Plots:
                 if not 'other' in filters['work_medium']:
                     return False
         
+        #source/adaptation
+        if 'work_is_source' in filters:
+            if not work.is_source in filters['work_is_source']:
+                return False
+        
         # has at least one qualifying hero
         hero_filters = {key: filters[key] for key in filters.keys() if key.startswith('hero')}
         if len(hero_filters) > 0:

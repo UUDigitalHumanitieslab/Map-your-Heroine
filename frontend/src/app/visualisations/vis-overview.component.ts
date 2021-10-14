@@ -14,6 +14,10 @@ export class VisOverviewComponent implements OnInit {
   plots = ['genderplot', 'ageplot', 'roleplot', 'narratorplot', 'focaliserplot'];
 
   mediumOptions = [...MEDIUM_OPTIONS, 'other'];
+  isSourceOptions = [
+    { label: 'Source works', value: true },
+    { label: 'Adaptations', value: false }
+  ];
   genderOptions = GENDER_OPTIONS;
   currentFilters: any;
   numberOfResponses: number;
@@ -21,6 +25,7 @@ export class VisOverviewComponent implements OnInit {
 
   filterForm = new FormGroup({
     work_medium: new FormArray([]),
+    work_is_source: new FormArray([]),
     hero_gender: new FormArray([])
   });
 
@@ -29,6 +34,9 @@ export class VisOverviewComponent implements OnInit {
   ngOnInit(): void {
     this.mediumOptions.forEach(response =>
       (this.filterForm.get('work_medium') as FormArray).push(new FormControl(response))
+    );
+    this.isSourceOptions.forEach(response =>
+      (this.filterForm.get('work_is_source') as FormArray).push(new FormControl(response.value))
     );
     this.genderOptions.forEach(response =>
       (this.filterForm.get('hero_gender') as FormArray).push(new FormControl(response.value))
