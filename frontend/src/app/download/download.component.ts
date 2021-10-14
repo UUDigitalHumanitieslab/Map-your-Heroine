@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
 import { saveAs } from 'file-saver';
@@ -9,6 +9,8 @@ import { saveAs } from 'file-saver';
   styleUrls: ['./download.component.scss']
 })
 export class DownloadComponent implements OnInit {
+  password: string;
+  message: string;
 
   faDownload = faDownload;
 
@@ -18,13 +20,24 @@ export class DownloadComponent implements OnInit {
   }
 
   downloadResults(category: string): void {
-    this.http.get(`/api/download/${category}`, { observe: 'response', responseType: 'blob' }).subscribe(
-      res => {
-        const blob = new Blob([res.body], { type: 'text/plain' });
-        saveAs(blob, `mapyourheroine_data_${category}.tsv`);
-      },
-      err => console.log(err)
-    );
+    if (!this.password) {
+      this.message = 'Please provide a password';
+    } else {
+      this.message = '';
+      const httpParams = new HttpParams().set('password', this.password);
+      this.http.get(`/api/download/${category}`, {params: httpParams, observe: 'response', responseType: 'blob' }).subscribe(
+        res => {
+          const blob = new Blob([res.body], { type: 'text/plain' });
+          saveAs(blob, `mapyourheroine_data_${category}.tsv`);
+        },
+        err => {
+          const reason = err.statusText;
+          if (reason === 'Incorrect password') {
+            this.message = 'Password is incorrect.';
+          }
+        }
+      );
+    }
   }
 
 }

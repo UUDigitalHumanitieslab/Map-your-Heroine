@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.http.response import HttpResponse, HttpResponseBadRequest, JsonResponse
+from django.http.response import HttpResponse, HttpResponseBadRequest, HttpResponseForbidden, JsonResponse
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.views import APIView
 from factual.download import download_works, download_heroes, download_responses
@@ -30,6 +30,13 @@ def voyant_url_view(request):
 
 class DownloadView(APIView):
     def get(self, request, name, format=None):
+        if not 'password' in request.GET:
+            return HttpResponseForbidden(reason='No password provided')
+        
+        password = request.GET['password']
+        if password != settings.DOWNLOAD_PWD:
+            return HttpResponseForbidden(reason='Incorrect password')
+
         data_funcs = {
             'works': download_works,
             'heroes': download_heroes,
