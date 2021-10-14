@@ -1,6 +1,224 @@
 from factual.models import Work, Hero, Response
 import re
 
+WORK_FIELDS = [
+    { 
+        'name': 'index',
+        'func': lambda work : work.id,
+    },{
+        'name': 'title',
+        'func': lambda work: work.title,
+    },{
+        'name': 'author',
+        'func':  lambda work: work.author,
+    },{
+        'name': 'medium',
+        'func': lambda work: work.medium,
+    },{
+        'name': 'publication year',
+        'func': lambda work: work.pub_year,
+    },{
+        'name': 'publication country',
+        'func': lambda work: work.pub_country,
+    },{
+        'name': 'source or adaptation',
+        'func': lambda work: 'source' if work.is_source else 'adaptation'
+    },{
+        'name': 'adaptation of',
+        'func': lambda work: work.adaptation_of,
+    },{
+        'name': 'adaptation of (index)',
+        'func': lambda work: work.adaptation_of.id if work.adaptation_of else ''
+    },{
+        'name': 'environment',
+        'func': lambda work: work.environment,
+    },{
+        'name': 'number of heroes',
+        'func': lambda work: len(work.heroes.all()),
+    },{
+        'name': 'number of responses',
+        'func': lambda work: len(work.responses.all()),
+    }]
+
+relative_format = {
+        'PARENTS_PRESENT': 'parents (present)',
+        'PARENTS_ABSENT': 'parents (absent)', 
+        'SIBLINGS_PRESENT': 'siblings (present)', 
+        'SIBLINGS_ABSENT': 'siblings (absent)', 
+        'UNKNOWN': 'unknown',
+        'NONE': 'none',
+    }
+
+HERO_FIELDS = [
+    {
+        'name': 'index',
+        'func': lambda hero: hero.id
+    },{
+        'name': 'name',
+        'func': lambda hero: hero.name
+    },{
+        'name': 'role',
+        'func': lambda hero: hero.get_role_display(),
+    },{
+        'name': 'is narrator',
+        'func': lambda hero: hero.narrator,
+    },{
+        'name': 'is focaliser',
+        'func': lambda hero: hero.focaliser,
+    },{
+        'name': 'gender',
+        'func': lambda hero:  hero.get_gender_display()
+    },{
+        'name': 'age',
+        'func': lambda hero: hero.age,
+    },{
+        'name': 'country (origin)',
+        'func': lambda hero: hero.country_origin,
+    },{
+        'name': 'country (growing up)',
+        'func': lambda hero: hero.country_growup,
+    },{
+        'name': 'country (living)',
+        'func': lambda hero: hero.country_live,
+    },{
+        'name': 'hobbies',
+        'func': lambda hero: ', '.join(hero.hobbies),
+    },{
+        'name': 'pets',
+        'func': lambda hero: ', '.join(hero.pets), 
+    },{
+        'name': 'education',
+        'func': lambda hero: hero.get_education_display(),
+    },{
+        'name': 'profession',
+        'func': lambda hero: hero.get_profession_display(),
+    },{
+        'name': 'considered beautiful',
+        'func': lambda hero: hero.appearance,
+    },{
+        'name': 'sexual relations described',
+        'func': lambda hero: hero.sex,
+    },{
+        'name': 'relatives',
+        'func': lambda hero: ', '.join(relative_format[relative] for relative in hero.relatives)
+    },{
+        'name': 'wealth',
+        'func': lambda hero: hero.get_wealth_display(),
+    },{
+        'name': 'problems',
+        'func': lambda hero: ', '.join(hero.problems), 
+    },{
+        'name': 'solutions',
+        'func': lambda hero: ', '.join(hero.solutions),
+    },{
+        'name': 'number of responses',
+        'func': lambda hero: len(hero.responses.all()),
+    }]
+
+
+RESPONSE_FIELDS = [
+    {
+        'name': 'index',
+        'func': lambda response: response.id
+    },{
+        'name': 'gender',
+        'func': lambda response: response.responses['participant_gender'],
+    },{
+        'name': 'age',
+        'func': lambda response: response.responses['participant_age'],
+    },{
+        'name': 'nationality',
+        'func': lambda response: response.responses['participant_nationality'],
+    },{
+        'name': 'identification: personality',
+        'func': lambda response: response.responses['identification_personality'],
+    },{
+        'name': 'identification: intruiging',
+        'func': lambda response: response.responses['identification_intruiging'],
+    },{
+        'name': 'identification:  wish to be like',
+        'func': lambda response: response.responses['identification_wishbelike'],
+    },{
+        'name': 'appearance: beautiful',
+        'func': lambda response: response.responses['appearance_beautiful'] if response.responses['appearance_enable'] else '',
+    },{
+        'name': 'appearance: wish to look like',
+        'func': lambda response: response.responses['appearance_wishlookedlike'] if response.responses['appearance_enable'] else '',
+    },{
+        'name': 'appearance: influence feelings',
+        'func': lambda response: response.responses['appearance_influencefeelings'] if response.responses['appearance_enable'] else '',
+    },{
+        'name': 'appearance: impact',
+        'func': lambda response: response.responses['appearance_impact'] if response.responses['appearance_enable'] else '',
+    },{
+        'name': 'appearance: aware',
+        'func': lambda response: response.responses['appearance_aware'] if response.responses['appearance_enable'] else '',
+    },{
+        'name': 'gender: defines personality',
+        'func': lambda response: response.responses['gender_definespersonality'],
+    },{
+        'name': 'gender: embraces',
+        'func': lambda response: response.responses['gender_embraces'],
+    },{
+        'name': 'gender: attempts expectations',
+        'func': lambda response: response.responses['gender_attempts_expectations'],
+    },{
+        'name': 'gender: struggles expectations',
+        'func': lambda response: response.responses['gender_struggles_expectations'],
+    },{
+        'name': 'agency: responsible',
+        'func': lambda response: response.responses['agency_responsible'],
+    },{
+        'name': 'agency: independent',
+        'func': lambda response: response.responses['agency_independent'],
+    },{
+        'name': 'agency: hindered',
+        'func': lambda response: response.responses['agency_hindered'],
+    },{
+        'name': 'agency: environment',
+        'func': lambda response: response.responses['agency_environment'],
+    },{
+        'name': 'agency: development',
+        'func': lambda response: response.responses['agency_development'],
+    },{
+        'name': 'profession: relevant to personality',
+        'func': lambda response: response.responses['profession_relevant_to_personality'] if response.responses['profession_enable'] else '',
+    },{
+        'name': 'profession: social status',
+        'func': lambda response: response.responses['profession_social_status'] if response.responses['profession_enable'] else '',
+    },{
+        'name': 'profession: growth',
+        'func': lambda response: response.responses['profession_growth'] if response.responses['profession_enable'] else '',
+    },{
+        'name': 'profession: defines life',
+        'func': lambda response: response.responses['profession_defines_life'] if response.responses['profession_enable'] else '',
+    },{
+        'name': 'personality: assertive',
+        'func': lambda response: response.responses['personality_assertive'],
+    },{
+        'name': 'personality: independent',
+        'func': lambda response: response.responses['personality_independent'],
+    },{
+        'name': 'personality: vain',
+        'func': lambda response: response.responses['personality_vain'],
+    },{
+        'name': 'personality: confident',
+        'func': lambda response: response.responses['personality_confident'],
+    },{
+        'name': 'personality: well-rounded',
+        'func': lambda response: response.responses['personality_wellrounded'],
+    },{
+        'name': 'personality: honest',
+        'func': lambda response: response.responses['personality_honest'],
+    },{
+        'name': 'personality: loyal',
+        'func': lambda response: response.responses['personality_loyal'],
+    },{
+        'name': 'personality: cooperative',
+        'func': lambda response: response.responses['personality_cooperative'],
+    },
+    ]
+
 def format_tsv(lines):
     format = lambda item: re.sub(r'\s+', ' ', str(item))
     formatted = '\n'.join(
@@ -9,95 +227,46 @@ def format_tsv(lines):
     return formatted
 
 def download_works():
-    header = [
-        'index', 'title', 'medium', 
-        'publication year', 'publication country', 
-        'is original', 'adaptation of', 
-        'environment'
-        ]
+    header = [field['name'] for field in WORK_FIELDS]
     lines = [header]
 
     works = Work.objects.all()
     for work in works:
-        items = [
-            work.id, work.title, work.medium, 
-            work.pub_year, work.pub_country, 
-            work.is_source, work.adaptation_of, 
-            work.environment
-            ]
+        items = [field['func'](work) for field in WORK_FIELDS]
         lines.append(items)
     
     data = format_tsv(lines)
     return data
 
 def download_heroes():
-    header = [
-        'index',
-        'name',
-        'work title', 'work index',
-        'role', 'is narrator', 'is focaliser',
-        'gender', 'age',
-        'country (origin)', 'country (growing up)', 'country (living)',
-        'hobbies', 'pets', 'education', 'profession',
-        'considered beautiful', 'sexual relations describes', 'relatives', 'wealth',
-        'problems', 'solutions'
-        ]
+    work_fields = ['work: ' + field['name'] for field in WORK_FIELDS]
+    hero_fields = [field['name'] for field in HERO_FIELDS]
+    header = hero_fields[:2] + work_fields + hero_fields[2:]
     lines = [header]
 
     heroes = Hero.objects.all()
     for hero in heroes:
-        relative_format = {
-            'PARENTS_PRESENT': 'parents (present)',
-            'PARENTS_ABSENT': 'parents (absent)', 
-            'SIBLINGS_PRESENT': 'siblings (present)', 
-            'SIBLINGS_ABSENT': 'siblings (absent)', 
-            'UNKNOWN': 'unknown',
-        }
-        items = [
-            hero.id,
-            hero.name,
-            hero.work.title, hero.work.id,
-            hero.get_role_display(), hero.narrator, hero.focaliser,
-            hero.get_gender_display(), hero.age,
-            hero.country_origin, hero.country_growup, hero.country_live,
-            ', '.join(hero.hobbies), ', '.join(hero.pets), hero.get_education_display(), hero.profession,
-            hero.appearance, hero.sex, ', '.join(relative_format[relative] for relative in hero.relatives), hero.get_wealth_display(),
-            ', '.join(hero.problems), ', '.join(hero.solutions),
-            ]
+        work_items = [field['func'](hero.work) for field in WORK_FIELDS]
+        items = [field['func'](hero) for field in HERO_FIELDS]
+        items = items[:2] + work_items + items[2:]
         lines.append(items)
     
     data = format_tsv(lines)
     return data
 
 def download_responses():
-    header = [
-        'index',
-        'work title', 'work index',
-        'hero name', 'hero index',
-        'gender', 'age', 'nationality',
-        'identification: personality', 'identification: intruiging', 'identification: wish to be like',
-        'appearance: beautiful', 'appearance: wish to look like', 'appearance: influence feelings', 'appearance: impact', 'appearance: aware',
-        'gender: defines personality', 'gender: embraces', 'gender: attempts expectations', 'gender: struggles expectations', 
-        'agency: responsible', 'agency: independent', 'agency: hindered', 'agency: environment', 'agency: development',
-        'profession: relevant to personality', 'profession: social status', 'profession: growth', 'profession: defines life',
-        'personality: assertive', 'personality: independent', 'personality: vain', 'personality: confident', 'personality: well-rounded', 'personality: honest', 'personality: loyal', 'personality: cooperative', 
-        ]
+    work_fields = ['work: ' + field['name'] for field in WORK_FIELDS]
+    hero_fields = [field['name'] for field in HERO_FIELDS]
+    response_fields = [field['name'] for field in RESPONSE_FIELDS]
+    header = response_fields[:1] + work_fields + hero_fields + response_fields[1:]
     lines = [header]
 
     responses = Response.objects.all()
     for response in responses:
-        items = [
-            response.id,
-            response.work.title, response.work.id,
-            response.hero.name, response.hero.id,
-            response.responses['participant_gender'], response.responses['participant_age'], response.responses['participant_nationality'],
-            response.responses['identification_personality'], response.responses['identification_intruiging'], response.responses['identification_wishbelike'],
-            response.responses['appearance_beautiful'], response.responses['appearance_wishlookedlike'], response.responses['appearance_influencefeelings'], response.responses['appearance_impact'], response.responses['appearance_aware'],
-            response.responses['gender_definespersonality'], response.responses['gender_embraces'], response.responses['gender_attempts_expectations'], response.responses['gender_struggles_expectations'],
-            response.responses['agency_responsible'], response.responses['agency_independent'], response.responses['agency_hindered'], response.responses['agency_environment'], response.responses['agency_development'], 
-            response.responses['profession_relevant_to_personality'], response.responses['profession_social_status'], response.responses['profession_growth'], response.responses['profession_defines_life'], 
-            response.responses['personality_assertive'], response.responses['personality_independent'], response.responses['personality_vain'], response.responses['personality_confident'], response.responses['personality_wellrounded'], response.responses['personality_honest'], response.responses['personality_loyal'], response.responses['personality_cooperative'], 
-        ]
+        work_items = [field['func'](response.work) for field in WORK_FIELDS]
+        hero_items = [field['func'](response.hero) for field in HERO_FIELDS]
+        items = [field['func'](response) for field in RESPONSE_FIELDS]
+        items = items[:2] + work_items + hero_items + items[2:]
         lines.append(items)
     
     data = format_tsv(lines)
