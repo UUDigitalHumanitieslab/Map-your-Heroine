@@ -21,7 +21,11 @@ export class VisOverviewComponent implements OnInit {
   genderOptions = GENDER_OPTIONS;
   currentFilters: any;
   numberOfResponses: number;
-  plotData: any;
+  plotData: any = {
+    n_works: undefined,
+    n_heroes: undefined,
+    n_responses: undefined,
+  };
 
   filterForm = new FormGroup({
     work_medium: new FormArray([]),
