@@ -4,7 +4,7 @@ import re
 WORK_FIELDS = [
     { 
         'name': 'index',
-        'func': lambda work : work.id,
+        'func': lambda work : 'work_' + str(work.id),
     },{
         'name': 'title',
         'func': lambda work: work.title,
@@ -52,7 +52,7 @@ relative_format = {
 HERO_FIELDS = [
     {
         'name': 'index',
-        'func': lambda hero: hero.id
+        'func': lambda hero: 'hero_' + str(hero.id)
     },{
         'name': 'name',
         'func': lambda hero: hero.name
@@ -119,7 +119,7 @@ HERO_FIELDS = [
 RESPONSE_FIELDS = [
     {
         'name': 'index',
-        'func': lambda response: response.id
+        'func': lambda response: 'response_' + str(response.id)
     },{
         'name': 'gender',
         'func': lambda response: response.responses['participant_gender'],
@@ -266,7 +266,7 @@ def download_responses():
         work_items = [field['func'](response.work) for field in WORK_FIELDS]
         hero_items = [field['func'](response.hero) for field in HERO_FIELDS]
         items = [field['func'](response) for field in RESPONSE_FIELDS]
-        items = items[:2] + work_items + hero_items + items[2:]
+        items = items[:1] + work_items + hero_items + items[1:]
         lines.append(items)
     
     data = format_tsv(lines)
