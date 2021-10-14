@@ -22,6 +22,18 @@ export class WorkComponent implements OnInit, OnDestroy {
     environment: false,
   };
 
+  authorStrings = {
+    novel: 'Author(s)',
+    film: 'Director(s)',
+    'tv-series': 'Director(s)',
+    vlog: 'Creator(s)',
+    comic: 'Author(s)',
+    'fan fiction': 'Author(s)',
+    music: 'Composer(s)',
+    ballet: 'Author(s)',
+    game: 'Writer(s)',
+  };
+
   faQuestion = faQuestion;
 
   works: IWork[];
@@ -138,7 +150,7 @@ export class WorkComponent implements OnInit, OnDestroy {
   onSubmit() {
     this.httpError = undefined;
     const workFormData = this.workForm.value as IWork;
-    workFormData.adaptation_of = this.workForm.controls.adaptation_of.value.id;
+    workFormData.adaptation_of = this.workForm.controls.adaptation_of.value.value.id;
     workFormData.pub_country = workFormData.pub_country['name'];
     if (workFormData.medium === 'other') {
       workFormData.medium = this.workForm.controls.mediumOther.value;
@@ -155,6 +167,14 @@ export class WorkComponent implements OnInit, OnDestroy {
           console.log(this.httpError.message);
         }
       );
+  }
+
+  get authorString() {
+    const selectedMedium = this.workForm.value.medium;
+    if (selectedMedium in this.authorStrings) {
+      return this.authorStrings[selectedMedium];
+    }
+    return 'Authors(s)';
   }
 
 }
