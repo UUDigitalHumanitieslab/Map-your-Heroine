@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { DownloadComponent } from './download/download.component';
 
 import { HomeComponent } from './home/home.component';
 import { OverviewComponent  } from './survey/overview.component';
@@ -17,6 +18,10 @@ const routes: Routes = [
     {
         path: 'results',
         component: VisOverviewComponent,
+    },
+    {
+        path: 'download',
+        component: DownloadComponent,
     },
     {
         path: '',

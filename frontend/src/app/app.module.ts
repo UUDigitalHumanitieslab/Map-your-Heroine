@@ -24,6 +24,7 @@ import {ChartModule} from 'primeng/chart';
 import { OverviewComponent } from './survey/overview.component';
 import { HeroComponent } from './survey/hero.component';
 import { ResponseComponent } from './survey/response.component';
+import { DownloadComponent } from './download/download.component';
 import { VisOverviewComponent } from './visualisations/vis-overview.component';
 import { VisHeroComponent } from './visualisations/vis-hero/vis-hero.component';
 import { VisWorkComponent } from './visualisations/vis-work/vis-work.component';
@@ -58,6 +59,7 @@ export function RestangularConfigFactory(RestangularProvider) {
         OverviewComponent,
         HeroComponent,
         ResponseComponent,
+        DownloadComponent,
         VisOverviewComponent,
         VisHeroComponent,
         VisWorkComponent,
