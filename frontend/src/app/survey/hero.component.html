@@ -161,7 +161,7 @@
   <div class="field">
     <label class="label" for="hobbies">What are the hobbies of this hero(ine)?</label>
     <div class="control">
-      <p-chips id="hobbies" formControlName="hobbies" placeholder="Hobbies (comma separated)" separator=","></p-chips>
+      <p-chips id="hobbies" formControlName="hobbies" placeholder="Hobbies (comma separated)" separator="," addOnBlur="true"></p-chips>
     </div>
   </div>
 
@@ -184,7 +184,7 @@
       <div class="p-field-checkbox">
         <label class="checkbox">
         <input type="checkbox" binary="true" formControlName="pets_other_enable">
-        Other: <p-chips placeholder="Pets (comma separated)" separator="," formControlName="pets_other"></p-chips></label>
+        Other: <p-chips placeholder="Pets (comma separated)" separator="," formControlName="pets_other"  addOnBlur="true"></p-chips></label>
       </div>
     </div>
   </div>
@@ -251,7 +251,7 @@
   </div>
 
   <div class="field">
-    <label class="label" for="problems">What is the nature of the main problem this hero(ine) encounters?</label>
+    <label class="label" for="problems">What is the nature of the main problem this hero(ine) encounters? You can select multiple options.</label>
     <div class="control">
       <div *ngFor="let response of problemOptions" class="p-field-checkbox">
         <label class="checkbox">
@@ -261,13 +261,13 @@
       <div class="p-field-checkbox">
         <label class="checkbox">
         <input type="checkbox" binary="true" formControlName="problems_other_enable">
-        Other: <p-chips placeholder="Problems (comma separated)" separator="," formControlName="problems_other"></p-chips></label>
+        Other: <p-chips placeholder="Problems (comma separated)" separator="," formControlName="problems_other"  addOnBlur="true"></p-chips></label>
       </div>
     </div>
   </div>
 
   <div class="field">
-    <label class="label" for="solutions">How does this hero(ine) overcome problems? The most important tools for this hero(ine) are...</label>
+    <label class="label" for="solutions">How does this hero(ine) overcome problems? You can select multiple options. The most important tools for this hero(ine) are...</label>
     <div class="control">
       <div *ngFor="let response of solutionOptions" class="p-field-checkbox">
         <label class="checkbox">
@@ -277,7 +277,7 @@
       <div class="p-field-checkbox">
         <label class="checkbox">
         <input type="checkbox" binary="true" formControlName="solutions_other_enable">
-        Other: <p-chips placeholder="Solutions (comma spearated)" separator="," formControlName="solutions_other"></p-chips></label>
+        Other: <p-chips placeholder="Solutions (comma spearated)" separator="," formControlName="solutions_other" addOnBlur="true"></p-chips></label>
       </div>
     </div>
   </div>

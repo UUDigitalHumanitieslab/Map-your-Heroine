@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { ThisReceiver } from '@angular/compiler';
 import { ANALYZE_FOR_ENTRY_COMPONENTS, Component, OnInit } from '@angular/core';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faArrowRight, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { Restangular } from 'ngx-restangular';
 import { Subject } from 'rxjs';
 import { IHero } from '../models/hero';
@@ -16,14 +16,22 @@ import { IWork } from '../models/work';
 export class OverviewComponent implements OnInit {
   httpError: HttpErrorResponse = undefined;
   faPlus = faPlus;
+  faArrowRight = faArrowRight;
+  faArrowLeft = faArrowLeft;
 
   works$: Subject<IWork[]>;
   heroes$: Subject<IHero[]>;
   existingWork: IWork;
   existingHero: IHero;
+  adaptedWork: IWork;
   displayCreateWork = false;
   displayCreateHero = false;
   heroChosen = false;
+
+  personalResponse: any;
+  createdNewWork = false;
+  createdNewHero = false;
+  formCompleted = false;
 
   constructor(private restangular: Restangular) { }
 
@@ -41,6 +49,7 @@ export class OverviewComponent implements OnInit {
   }
 
   onWorkAdded(work: IWork) {
+    this.createdNewWork = true;
     this.fetchWorks();
     this.works$.subscribe(
       works => {
@@ -53,6 +62,7 @@ export class OverviewComponent implements OnInit {
   onHeroAdded(hero: IHero) {
     // Refresh works, reset existingWork and set hero
     // Slightly hacky but it works
+    this.createdNewHero = true;
     this.fetchWorks();
     this.works$.subscribe(
       works => {
@@ -70,6 +80,13 @@ export class OverviewComponent implements OnInit {
 
   onChooseHero() {
     this.heroChosen = true;
+
+    this.fetchWorks();
+    this.works$.subscribe(works => {
+      if (this.existingWork.adaptation_of) {
+        this.adaptedWork = works.find(w => w.id === this.existingWork.adaptation_of);
+      }
+    });
   }
 
   onGoBack() {
@@ -85,6 +102,8 @@ export class OverviewComponent implements OnInit {
   }
 
   onSurveyCompleted(data) {
+    this.personalResponse = data;
+
     this.httpError = undefined;
 
     const response = {
@@ -95,7 +114,9 @@ export class OverviewComponent implements OnInit {
 
     this.restangular.all('responses')
       .post(response).subscribe(
-        res => {},
+        res => {
+          this.formCompleted = true;
+        },
         err => {
           this.httpError = err;
           console.log(this.httpError.message);

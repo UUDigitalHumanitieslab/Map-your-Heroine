@@ -1410,6 +1410,11 @@
   resolved "https://registry.yarnpkg.com/@types/estree/-/estree-0.0.50.tgz#1e0caa9364d3fccd2931c3ed96fdbeaa5d4cca83"
   integrity sha512-C6N5s2ZFtuZRj54k2/zyRhNDjJwwcViAM3Nbm8zjBpbqAdZ00mr0CFxvSKeO8Y/e03WVFLpQMdHYVfUd6SB+Hw==
 
+"@types/file-saver@^2.0.1":
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/@types/file-saver/-/file-saver-2.0.3.tgz#b734c4f5a04d20615eaed3dc106e2ab321082009"
+  integrity sha512-MBIou8pd/41jkff7s97B47bc9+p0BszqqDJsO51yDm49uUxeKzrfuNl5fSLC6BpLEWKA8zlwyqALVmXrFwoBHQ==
+
 "@types/glob@^7.1.1":
   version "7.1.4"
   resolved "https://registry.yarnpkg.com/@types/glob/-/glob-7.1.4.tgz#ea59e21d2ee5c517914cb4bc8e4153b99e566672"
@@ -3591,6 +3596,11 @@ figures@^3.0.0:
   integrity sha512-yaduQFRKLXYOGgEn6AZau90j3ggSOyiqXU0F9JZfeXYhNa+Jk4X+s45A2zg5jns87GAFa34BBm2kXw4XpNcbdg==
   dependencies:
     escape-string-regexp "^1.0.5"
+
+file-saver@^2.0.5:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/file-saver/-/file-saver-2.0.5.tgz#d61cfe2ce059f414d899e9dd6d4107ee25670c38"
+  integrity sha512-P9bmyZ3h/PRG+Nzga+rbdI4OEpNDzAVyy74uVO9ATgzLK6VtAsYybF/+TOCvrc0MO793d6+42lLyZTw7/ArVzA==
 
 file-uri-to-path@1.0.0:
   version "1.0.0"

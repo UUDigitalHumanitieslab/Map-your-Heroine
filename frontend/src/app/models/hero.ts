@@ -54,7 +54,7 @@ export const PROFESSION_OPTIONS = [
     {label: 'Science and technology', value: 'SCIENCE' },
     {label: 'Other', value: 'OTHER' },
     {label: 'This hero has profession', value: 'NONE' },
-    {label: 'Unknown', value: 'UNKNOWNHIGH' }];
+    {label: 'Unknown', value: 'UNKNOWN' }];
 export const PETS_OPTIONS = ['None', 'Dog', 'Cat', 'Horse', 'Fish', 'Bird', 'Rodent'];
 export const AGE_OPTIONS = ['0-25', '26-35', '36-45', '46-55', '56-65', '65+', 'Unknown'];
 export const GENDER_OPTIONS = [{ label: 'Male', value: 'MALE' }, { label: 'Female', value: 'FEMALE' }, { label: 'Other', value: 'OTHER' }];

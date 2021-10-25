@@ -24,6 +24,7 @@ import {ChartModule} from 'primeng/chart';
 import { OverviewComponent } from './survey/overview.component';
 import { HeroComponent } from './survey/hero.component';
 import { ResponseComponent } from './survey/response.component';
+import { DownloadComponent } from './download/download.component';
 import { VisOverviewComponent } from './visualisations/vis-overview.component';
 import { VisHeroComponent } from './visualisations/vis-hero/vis-hero.component';
 import { VisWorkComponent } from './visualisations/vis-work/vis-work.component';
@@ -33,6 +34,7 @@ import { VisIdentificationComponent } from './visualisations/vis-identification/
 import { VisPersonalityComponent } from './visualisations/vis-personality/vis-personality.component';
 import { VisAppearanceComponent } from './visualisations/vis-appearance/vis-appearance.component';
 import { VisProfessionComponent } from './visualisations/vis-profession/vis-profession.component';
+import { ResultComponent } from './survey/result.component';
 
 export function RestangularConfigFactory(RestangularProvider) {
     RestangularProvider.setBaseUrl('/api');
@@ -58,6 +60,7 @@ export function RestangularConfigFactory(RestangularProvider) {
         OverviewComponent,
         HeroComponent,
         ResponseComponent,
+        DownloadComponent,
         VisOverviewComponent,
         VisHeroComponent,
         VisWorkComponent,
@@ -66,7 +69,8 @@ export function RestangularConfigFactory(RestangularProvider) {
         VisIdentificationComponent,
         VisPersonalityComponent,
         VisAppearanceComponent,
-        VisProfessionComponent
+        VisProfessionComponent,
+        ResultComponent
     ],
     imports: [
         AppRoutingModule,
