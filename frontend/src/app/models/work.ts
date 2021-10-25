@@ -29,4 +29,10 @@ export class Work implements IWork {
 }
 
 export const MEDIUM_OPTIONS = ['novel', 'film', 'tv-series', 'vlog', 'comic', 'fan fiction', 'music', 'ballet', 'game'];
-export const ENVIRONMENT_OPTIONS = ['countryside', 'village', 'city', 'extra-terrestrial', 'unknown'];
+export const ENVIRONMENT_OPTIONS = [
+    {value: 'countryside', label: 'countryside'},
+    {value: 'village', label: 'village'},
+    {value: 'city', label: 'city'},
+    {value: 'extra-terrestrial', label: 'extra-terrestrial (outer space)'},
+    {value: 'unknown', label: 'unknown'}
+];

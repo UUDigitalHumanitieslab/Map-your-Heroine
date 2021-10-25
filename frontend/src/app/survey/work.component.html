@@ -57,23 +57,12 @@
   </div>
 
   <div class="field">
-    <div class="columns is-vcentered" style="margin-bottom:0px">
-      <div class="column">
-        <label class="label" for="is_source">Is this a source text or an adaptation?</label>
-      </div>
-      <div class="column is-narrow">
-        <button class="button is-info is-inverted" type="button" (click)="displayHelp.is_source = !displayHelp.is_source">
-          <span class="icon"><fa-icon [icon]="faQuestion"></fa-icon></span>
-        </button>
-      </div>
-    </div>
-    
-    <div class="message is-info" *ngIf="displayHelp.is_source">
-      <div class="message-body">
-        <strong>Source text:</strong> an original work
-      </div>
-    </div>
-
+    <label class="label" for="is_source">
+      Is this a source text or an adaptation?
+      <p class="help has-text-grey has-text-weight-normal">
+        <i>Source text:</i> an original work
+      </p>
+    </label>
     
     <div class="control">
       <label class="radio">
@@ -88,24 +77,14 @@
   </div>
 
   <div class="field" *ngIf="showAdaptationOf">
-    <div class="columns is-vcentered" style="margin-bottom:0px">
-      <div class="column">
-        <label class="label" for="adaptionof-dropdown">
-          Of which work is this an adaptation? 
-        </label>
-      </div>
-      <div class="column is-narrow">
-        <button class="button is-info is-inverted" type="button" (click)="displayHelp.adaptation_of = !displayHelp.adaptation_of">
-          <span class="icon"><fa-icon [icon]="faQuestion"></fa-icon></span>
-        </button>
-      </div>
-    </div>
-    
-    <div class="message is-info" *ngIf="displayHelp.adaptation_of">
-      <div class="message-body">
-        The menu below shows all works that are registered in the project: pick the source work from this list. If your source work is listed, add it first (using this form), and then add your adaptation. When adding the source work, you do not need to add heroes or fill in the rest of the survey.
-      </div>
-    </div>
+    <label class="label" for="adaptionof-dropdown">
+      Of which work is this an adaptation? 
+      <p class="help has-text-grey has-text-weight-normal">
+        The menu below shows all works that are registered in the project: pick the source work from this list. 
+        If your source work is listed, add it first (using this form), and then add your adaptation. 
+        When adding the source work, you do not need to add heroes or fill in the rest of the survey.
+      </p>
+    </label>
 
     <div class="control">
       <p-autoComplete id="adaptationof-dropdown" formControlName="adaptation_of" placeholder="Pick or type"
@@ -120,23 +99,13 @@
   </div>
 
   <div class="field">
-    <div class="columns is-vcentered" style="margin-bottom:0px">
-      <div class="column">
-        <label class="label" for="environment-dropdown">In what environment does the most of the action take place?</label>
-      </div>
-      <div class="column is-narrow">
-        <button class="button is-info is-inverted" type="button" (click)="displayHelp.environment = !displayHelp.environment">
-          <span class="icon"><fa-icon [icon]="faQuestion"></fa-icon></span>
-        </button>
-      </div>
-    </div>
+    <label class="label" for="environment-dropdown">
+      In what environment does the most of the action take place?
+      <p class="help has-text-grey has-text-weight-normal">
+        Pick which environment is best describes the setting of your work. If none apply, you can fill in your own (brief) description.
+      </p>
+    </label>
     
-    <div class="message is-info" *ngIf="displayHelp.environment">
-      <div class="message-body">
-        <p>Pick which environment is best describes the setting of your work. If none apply, you can fill in your own (brief) description.</p>
-        <p><strong>Extra-terrestial:</strong> outer space</p>
-      </div>
-    </div>
     
     <div class="control">
       <div *ngFor="let environment of environmentOptions">

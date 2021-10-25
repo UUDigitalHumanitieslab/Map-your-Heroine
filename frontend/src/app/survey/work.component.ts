@@ -41,7 +41,7 @@ export class WorkComponent implements OnInit, OnDestroy {
   existingWorksOptions = [];
   filteredWorks = [];
   mediumOptions = MEDIUM_OPTIONS.map(m => ({ label: m, value: m }));
-  environmentOptions = ENVIRONMENT_OPTIONS.map(m => ({ label: m, value: m }));
+  environmentOptions = ENVIRONMENT_OPTIONS;
   countryOptions = COUNTRIES.concat([{name: 'Other', code: 'OTHER'}, {name: 'Unknown', code: 'UNKNOWN'}]);
   filteredCountries = [];
 
@@ -150,7 +150,7 @@ export class WorkComponent implements OnInit, OnDestroy {
   onSubmit() {
     this.httpError = undefined;
     const workFormData = this.workForm.value as IWork;
-    workFormData.adaptation_of = this.workForm.controls.adaptation_of.value.value.id;
+    workFormData.adaptation_of = this.workForm.controls.adaptation_of.value ? this.workForm.controls.adaptation_of.value.value.id : null;
     workFormData.pub_country = workFormData.pub_country['name'];
     if (workFormData.medium === 'other') {
       workFormData.medium = this.workForm.controls.mediumOther.value;
