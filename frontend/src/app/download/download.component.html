@@ -1,0 +1,61 @@
+<div class="block">
+    <div class="content">
+        <h3>Download results</h3>
+
+        <p>
+            On this page, you can download the results of the survey. 
+            The data are password protected. Enter the password and select which table you want to download.
+        </p>
+
+        <p>There are three tables for the results: an overview of works, heroes, or responses. Some notes:</p>
+
+        <ul>
+            <li>The tables of works and heroes respectively list <i>all</i> works or heroes that have been submitted in the form, 
+                including ones for which there are no personal responses.</li>
+            <li>The data is provided as a <i>.tsv</i> file. 
+                You should be able to import this in editors like Excel or SPSS without issue.
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="columns">
+    <div class="column is-half">
+        <div class="block">
+            <div class="field">
+                <label class="label">Password</label>
+                <div class="control" style="width: 20rem;">
+                    <input class="input" type="password" placeholder="***" [(ngModel)]="password">
+                </div>
+            </div>
+            <div class="message is-danger" *ngIf="message">
+                <div class="message-body">
+                    {{message}}
+                </div>
+            </div>
+        </div>
+        
+        <div class="block">
+            <div class="buttons">
+                <button class="button is-link" [disabled]="!(password.length)" (click)="downloadResults('works')">
+                    <span class="icon">
+                        <fa-icon [icon]="faDownload"></fa-icon>
+                      </span>
+                    <span>Download works</span>
+                </button>
+                <button class="button is-link" [disabled]="!(password.length)" (click)="downloadResults('heroes')">
+                    <span class="icon">
+                        <fa-icon [icon]="faDownload"></fa-icon>
+                      </span>
+                    <span>Download heroes</span>
+                </button>
+                <button class="button is-link" [disabled]="!(password.length)" (click)="downloadResults('responses')">
+                    <span class="icon">
+                        <fa-icon [icon]="faDownload"></fa-icon>
+                      </span>
+                    <span>Download responses</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

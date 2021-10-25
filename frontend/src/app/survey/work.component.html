@@ -7,13 +7,6 @@
   </div>
 
   <div class="field">
-    <label class="label" for="author">Author</label>
-    <div class="control">
-      <input class="input" id="author" type="text" formControlName="author" placeholder="Author of the work">
-    </div>
-  </div>
-
-  <div class="field">
     <label class="label" for="medium-dropdown">Medium</label>
     <div class="control">
       <div *ngFor="let medium of mediumOptions">
@@ -32,6 +25,13 @@
           <input class="input" id="mediumother" type="text" formControlName="mediumOther" placeholder="Specify" style="width:20em">
         </div>
       </div>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label" for="author">{{authorString}}</label>
+    <div class="control">
+      <input class="input" id="author" type="text" formControlName="author" placeholder="Author of the work">
     </div>
   </div>
 
