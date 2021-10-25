@@ -145,7 +145,7 @@ export class HeroComponent implements OnInit {
     const query = event.query;
 
     for (const country of this.countryOptions) {
-        if (country.name.toLowerCase().indexOf(query.toLowerCase()) === 0) {
+        if (country.name.toLowerCase().indexOf(query.toLowerCase()) >= 0) {
             filtered.push(country);
         }
     }
@@ -218,7 +218,7 @@ export class HeroComponent implements OnInit {
       focaliser: this.heroForm.controls.focaliser.value,
 
       gender: this.heroForm.controls.gender.value,
-      age: this.heroForm.controls.age.value,
+      age: (this.heroForm.controls.age.value as string).toUpperCase(),
       country_origin: this.heroForm.controls.country_origin.value.name,
       country_live: this.heroForm.controls.country_live.value.name,
       country_growup: this.heroForm.controls.country_growup.value.name,
@@ -244,7 +244,7 @@ export class HeroComponent implements OnInit {
         newHero => this.addHero.emit(newHero),
         errorResponse => {
           this.httpError = errorResponse;
-          console.log(this.httpError.message);
+          console.log(errorResponse);
         }
       );
   }

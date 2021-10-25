@@ -84,7 +84,7 @@ export class WorkComponent implements OnInit, OnDestroy {
     const query = event.query;
 
     for (const country of this.countryOptions) {
-        if (country.name.toLowerCase().indexOf(query.toLowerCase()) === 0) {
+        if (country.name.toLowerCase().indexOf(query.toLowerCase()) >= 0) {
             filtered.push(country);
         }
     }
@@ -96,7 +96,7 @@ export class WorkComponent implements OnInit, OnDestroy {
     const query = event.query;
 
     for (const work of this.existingWorksOptions) {
-        if (work.label.toLowerCase().indexOf(query.toLowerCase()) === 0) {
+        if (work.label.toLowerCase().indexOf(query.toLowerCase()) >= 0) {
             filtered.push(work);
         }
     }
