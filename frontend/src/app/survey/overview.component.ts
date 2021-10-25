@@ -19,8 +19,6 @@ export class OverviewComponent implements OnInit {
   faArrowRight = faArrowRight;
   faArrowLeft = faArrowLeft;
   faPlus = faPlus;
-  faArrowRight = faArrowRight;
-  faArrowLeft = faArrowLeft;
 
   works$: Subject<IWork[]>;
   heroes$: Subject<IHero[]>;
