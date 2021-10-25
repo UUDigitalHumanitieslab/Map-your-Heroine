@@ -15,6 +15,7 @@
                 </div>
             </div>
         </div>
+
         <div class="column is-half">
             <div class="card">
                 <header class="card-header">
@@ -27,6 +28,7 @@
                 </div>
             </div>
         </div>
+
         <div class="column is-one-third">
             <div class="card">
                 <header class="card-header">
@@ -39,6 +41,7 @@
                 </div>
             </div>
         </div>
+
         <div class="column is-one-third">
             <div class="card">
                 <header class="card-header">
@@ -51,6 +54,7 @@
                 </div>
             </div>
         </div>
+
         <div class="column is-one-third">
             <div class="card">
                 <header class="card-header">
@@ -63,6 +67,7 @@
                 </div>
             </div>
         </div>
+
         <div class="column is-half">
             <div class="card">
                 <header class="card-header">
@@ -75,6 +80,7 @@
                 </div>
             </div>
         </div>
+
         <div class="column is-half">
             <div class="card">
                 <header class="card-header">
@@ -87,6 +93,7 @@
                 </div>
             </div>
         </div>
+
         <div class="column is-full">
             <div class="card">
                 <header class="card-header">
@@ -99,6 +106,72 @@
                 </div>
             </div>
         </div>
+
+        <div class="column is-one-third">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        {{plots['hero_attractive']['title']}}
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="doughnut" [data]="plots['hero_attractive']['data']" [options]="smallPlotOptions"></p-chart>
+                </div>
+            </div>
+        </div>
+
+        <div class="column is-one-third">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        {{plots['hero_sex']['title']}}
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="doughnut" [data]="plots['hero_sex']['data']" [options]="smallPlotOptions"></p-chart>
+                </div>
+            </div>
+        </div>
+
+        <div class="column is-one-third">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        {{plots['hero_relatives']['title']}}
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="doughnut" [data]="plots['hero_relatives']['data']" [options]="smallPlotOptions"></p-chart>
+                </div>
+            </div>
+        </div>
+
+        <div class="column is-half">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        {{plots['hero_hobbies']['title']}}
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="doughnut" [data]="plots['hero_hobbies']['data']"></p-chart>
+                </div>
+            </div>
+        </div>
+
+        <div class="column is-half">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        {{plots['hero_pets']['title']}}
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="doughnut" [data]="plots['hero_pets']['data']"></p-chart>
+                </div>
+            </div>
+        </div>
+
         <div class="column is-one-third">
             <div class="card">
                 <header class="card-header">
@@ -111,6 +184,7 @@
                 </div>
             </div>
         </div>
+
         <div class="column is-one-third">
             <div class="card">
                 <header class="card-header">
@@ -123,6 +197,7 @@
                 </div>
             </div>
         </div>
+
         <div class="column is-one-third">
             <div class="card">
                 <header class="card-header">
@@ -132,6 +207,32 @@
                 </header>
                 <div class="card-content">
                     <p-chart type="doughnut" [data]="plots['hero_country_live']['data']" [options]="countryPlotOptions"></p-chart>
+                </div>
+            </div>
+        </div>
+
+        <div class="column is-half">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        {{plots['hero_problems']['title']}}
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="doughnut" [data]="plots['hero_problems']['data']"></p-chart>
+                </div>
+            </div>
+        </div>
+
+        <div class="column is-half">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        {{plots['hero_solutions']['title']}}
+                    </p>
+                </header>
+                <div class="card-content">
+                    <p-chart type="doughnut" [data]="plots['hero_solutions']['data']"></p-chart>
                 </div>
             </div>
         </div>

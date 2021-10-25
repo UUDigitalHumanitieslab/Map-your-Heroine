@@ -117,14 +117,17 @@ class Plots:
             return Response.objects.all()
 
     def medium_plotdata(works, heroes, responses):
-        medium_counts = Counter(work.medium if work.medium in STANDARD_MEDIA else 'other' for work in works )
-        labels = STANDARD_MEDIA + ['other']
+        counts = Counter(work.medium if work.medium in STANDARD_MEDIA else 'other' for work in works )
+        all_labels = STANDARD_MEDIA + ['other']
+
+        labels = [label for label in all_labels if label in counts]
+        colours = [DEFAULT_PALETTE[i] for (i, label) in enumerate(all_labels) if label in counts]
 
         data = {
             'labels': labels,
             'datasets': [{
-                'data': [medium_counts[medium] for medium in labels],
-                'backgroundColor': DEFAULT_PALETTE[:len(labels)],
+                'data': [counts[medium] for medium in labels],
+                'backgroundColor': colours,
             }]
         }
 
@@ -183,13 +186,16 @@ class Plots:
     
     def environment_plotdata(works, heroes, responses):
         counts = Counter(work.environment if work.environment in STANDARD_ENVIRONMENTS else 'other' for work in works )
-        labels = STANDARD_ENVIRONMENTS + ['other']
+        all_labels = STANDARD_ENVIRONMENTS + ['other']
+
+        labels = [label for label in all_labels if label in counts]
+        colours = [DEFAULT_PALETTE[i] for (i, label) in enumerate(all_labels) if label in counts]
 
         data = {
             'labels': labels,
             'datasets': [{
                 'data': [counts[label] for label in labels],
-                'backgroundColor': DEFAULT_PALETTE[:len(labels)],
+                'backgroundColor': colours,
             }]
         }
 
@@ -308,6 +314,33 @@ class Plots:
 
         return data
 
+    def hobbies_plotdata(works, heroes, responses):
+        labels, counts = Plots._top_10_counts_with_other(hobby for hero in heroes for hobby in hero.hobbies)
+
+        data = {
+            'labels': labels,
+            'datasets': [{
+                'data': [counts[label] for label in labels],
+                'backgroundColor': DEFAULT_PALETTE[:len(labels)],
+            }]
+        }
+        
+        return data
+
+    def pets_plotdata(works, heroes, responses):
+        labels, counts = Plots._top_10_counts_with_other(pet for hero in heroes for pet in hero.pets if pet != 'None')
+
+        data = {
+            'labels': labels,
+            'datasets': [{
+                'data': [counts[label] for label in labels],
+                'backgroundColor': DEFAULT_PALETTE[:len(labels)],
+            }]
+        }
+        
+        return data
+
+
     def country_origin_plotdata(works, heroes, responses):
         labels, counts = Plots._top_10_counts_with_other(hero.country_origin for hero in heroes)
 
@@ -348,13 +381,34 @@ class Plots:
         return data
 
     def profession_plotdata(works, heroes, responses):
-        labels, counts = Plots._top_10_counts_with_other(hero.get_profession_display() for hero in heroes)
+        counts = Counter(hero.get_profession_display() for hero in heroes)
+        all_labels = [
+            'Architecture and engineering',
+            'Arts, culture, and entertainment',
+            'Business, management, and administration',
+            'Communications',
+            'Community and social services',
+            'Education',
+            'Farming, fishing, and forestry',
+            'Government',
+            'Health and medicine',
+            'Installation, repair, and maintenance',
+            'Law and public policy',
+            'Sales',
+            'Science and technology',
+            'Other',
+            'None',
+            ]
+
+        palette = DEFAULT_PALETTE[:-1] + ['#8dd3c7', '#e5c494', '#e78ac3', '#80b1d3'] + DEFAULT_PALETTE[-1:]
+        labels = [label for label in all_labels if label in counts]
+        colours = [palette[i] for (i, label) in enumerate(all_labels) if label in counts]
 
         data = {
             'labels': labels,
             'datasets': [{
                 'data': [counts[label] for label in labels],
-                'backgroundColor': DEFAULT_PALETTE[:len(labels)],
+                'backgroundColor': colours,
             }]
         }
 
@@ -380,6 +434,50 @@ class Plots:
 
         return data
 
+    def sex_plotdata(works, heroes, responses):
+        nice_strings = {
+            False: 'no',
+            True: 'yes',
+        }
+
+        counts = Counter(nice_strings[hero.sex] for hero in heroes)
+        labels = ['yes', 'no']
+
+        data = {
+            'labels': labels,
+            'datasets': [{
+                'data': [counts[label] for label in labels],
+                'backgroundColor': YESNO_PALETTE[:len(labels)],
+            }]
+        }
+
+        return data
+
+    
+    def relatives_plotdata(works, heroes, responses):
+        nice_strings = {
+            'PARENTS_PRESENT': 'parents (present)',
+            'PARENTS_ABSENT': 'parents (absent)',
+            'SIBLINGS_PRESENT': 'siblings (present)',
+            'SIBLINGS_ABSENT': 'siblings (absent)',
+            'NONE': 'none',
+            'UNKNOWN': 'unknown',
+            }
+
+        labels, counts = Plots._top_10_counts_with_other(
+            nice_strings[relative] for hero in heroes for relative in hero.relatives)
+
+        data = {
+            'labels': labels,
+            'datasets': [{
+                'data': [counts[label] for label in labels],
+                'backgroundColor': DEFAULT_PALETTE[:len(labels)],
+            }]
+        }
+        
+        return data
+
+
     def age_plotdata(works, heroes, responses):
         age_counts = Counter(hero.age for hero in heroes if hero.age != 'UNKNOWN')
         ages = ['0-25', '26-35', '36-45', '46-55', '56-65', '65+']
@@ -393,6 +491,32 @@ class Plots:
                 'data': [round(100 * age_counts[age] / total) for age in ages]
             }]
         }
+        return data
+    
+    def problems_plotdata(works, heroes, responses):
+        labels, counts = Plots._top_10_counts_with_other(problem for hero in heroes for problem in hero.problems)
+
+        data = {
+            'labels': labels,
+            'datasets': [{
+                'data': [counts[label] for label in labels],
+                'backgroundColor': DEFAULT_PALETTE[:len(labels)],
+            }]
+        }
+        
+        return data
+    
+    def solutions_plotdata(works, heroes, responses):
+        labels, counts = Plots._top_10_counts_with_other(solution for hero in heroes for solution in hero.solutions)
+
+        data = {
+            'labels': labels,
+            'datasets': [{
+                'data': [counts[label] for label in labels],
+                'backgroundColor': DEFAULT_PALETTE[:len(labels)],
+            }]
+        }
+        
         return data
     
     def response_gender_plotdata(works, heroes, responses):
@@ -434,7 +558,7 @@ class Plots:
         This will select on the `gender` property of heroes, so that only 'male' and 'other' heroes are 
         included. A filter for a hero property will also affect works and responses, who, in this example,
         would need to be linked to a hero of the selected genders.
-        Currently implemented filters are 'hero_gender' and 'work_medium'.
+        Currently implemented filters are 'hero_gender', 'work_medium' and 'work_is_source'.
 
         Returns:
         A dict. Includes the keys 'n_works', 'n_heroes', and 'n_responses', which state
@@ -469,6 +593,12 @@ class Plots:
             'hero_country_live': Plots.country_live_plotdata,
             'hero_profession': Plots.profession_plotdata,
             'hero_attractive': Plots.attractive_plotdata,
+            'hero_sex': Plots.sex_plotdata,
+            'hero_relatives': Plots.relatives_plotdata,
+            'hero_hobbies': Plots.hobbies_plotdata,
+            'hero_pets': Plots.pets_plotdata,
+            'hero_problems': Plots.problems_plotdata,
+            'hero_solutions': Plots.solutions_plotdata,
             'response_gender': Plots.response_gender_plotdata,
         }
 
