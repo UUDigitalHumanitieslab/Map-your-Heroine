@@ -18,22 +18,12 @@
   </div>
 
   <div class="field">
-    <div class="columns is-vcentered" style="margin-bottom:0px">
-      <div class="column">
-        <label class="label" for="narrator">Is this hero(ine) the narrator for the story?</label>
-      </div>
-      <div class="column is-narrow">
-        <button class="button is-info is-inverted" type="button" (click)="displayHelp.narrator = !displayHelp.narrator">
-          <span class="icon"><fa-icon [icon]="faQuestion"></fa-icon></span>
-        </button>
-      </div>
-    </div>
-    
-    <div class="message is-info" *ngIf="displayHelp.narrator">
-      <div class="message-body">
-        <p><strong>Narrator:</strong> the person who tells the story</p>
-      </div>
-    </div>
+    <label class="label" for="narrator">
+      Is this hero(ine) the narrator for the story?
+      <p class="help has-text-grey has-text-weight-normal">
+        <i>Narrator:</i> the person who tells the story
+      </p>
+    </label>
 
       <div class="control">
         <div *ngFor="let narrator of yesnoOptions" class="p-field-checkbox">
@@ -45,22 +35,12 @@
   </div>
 
   <div class="field">
-    <div class="columns is-vcentered" style="margin-bottom:0px">
-      <div class="column">
-        <label class="label" for="focaliser">Is this hero(ine) the focaliser?</label>
-      </div>
-      <div class="column is-narrow">
-        <button class="button is-info is-inverted" type="button" (click)="displayHelp.focaliser = !displayHelp.focaliser">
-          <span class="icon"><fa-icon [icon]="faQuestion"></fa-icon></span>
-        </button>
-      </div>
-    </div>
-    
-    <div class="message is-info" *ngIf="displayHelp.focaliser">
-      <div class="message-body">
-        <p><strong>Focaliser:</strong> the perspective through which the story is presented</p>
-      </div>
-    </div>
+    <label class="label" for="focaliser">
+      Is this hero(ine) the focaliser?
+      <p class="help has-text-grey has-text-weight-normal">
+        <i>Focaliser:</i> the perspective through which the story is presented
+      </p>
+    </label>
 
     <div class="control">
       <div *ngFor="let focaliser of yesnoOptions" class="p-field-checkbox">
@@ -223,23 +203,12 @@
   </div>
 
   <div class="field">
-    <div class="columns is-vcentered" style="margin-bottom:0px">
-      <div class="column">
-        <label class="label" for="relatives-dropdown">For the most important parts of the story, does this hero(ine) have one or more relatives?</label>
-      </div>
-      <div class="column is-narrow">
-        <button class="button is-info is-inverted" type="button" (click)="displayHelp.relatives = !displayHelp.relatives">
-          <span class="icon"><fa-icon [icon]="faQuestion"></fa-icon></span>
-        </button>
-      </div>
-    </div>
-    
-    <div class="message is-info" *ngIf="displayHelp.relatives">
-      <div class="message-body">
-        <p><strong>Relative:</strong> family member</p>
-      </div>
-    </div>
-
+    <label class="label" for="relatives-dropdown">
+      For the most important parts of the story, does this hero(ine) have one or more relatives?
+      <p class="help has-text-grey has-text-weight-normal">
+        <i>Relative:</i> family member
+      </p>
+    </label>
     
     <div class="control">
       <div *ngFor="let response of relativesOptions" class="p-field-checkbox">
@@ -251,7 +220,11 @@
   </div>
 
   <div class="field">
-    <label class="label" for="problems">What is the nature of the main problem this hero(ine) encounters? You can select multiple options.</label>
+    <label class="label" for="problems">What is the nature of the main problem this hero(ine) encounters?
+      <p class="help has-text-grey has-text-weight-normal">
+        You can select multiple options. If important problems of this hero(ine) are not listed, you can add them.
+      </p>
+    </label>
     <div class="control">
       <div *ngFor="let response of problemOptions" class="p-field-checkbox">
         <label class="checkbox">
@@ -267,7 +240,12 @@
   </div>
 
   <div class="field">
-    <label class="label" for="solutions">How does this hero(ine) overcome problems? You can select multiple options. The most important tools for this hero(ine) are...</label>
+    <label class="label" for="solutions">
+      How does this hero(ine) overcome problems? You can select multiple options. The most important tools for this hero(ine) are...
+      <p class="help has-text-grey has-text-weight-normal">
+        You can select multiple options. If important tools of this hero(ine) are not listed, you can add them.
+      </p>
+    </label>
     <div class="control">
       <div *ngFor="let response of solutionOptions" class="p-field-checkbox">
         <label class="checkbox">
