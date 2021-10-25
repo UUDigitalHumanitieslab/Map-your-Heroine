@@ -15,9 +15,10 @@ import { IWork } from '../models/work';
 })
 export class OverviewComponent implements OnInit {
   httpError: HttpErrorResponse = undefined;
-  faPlus = faPlus;
+
   faArrowRight = faArrowRight;
   faArrowLeft = faArrowLeft;
+  faPlus = faPlus;
 
   works$: Subject<IWork[]>;
   heroes$: Subject<IHero[]>;
