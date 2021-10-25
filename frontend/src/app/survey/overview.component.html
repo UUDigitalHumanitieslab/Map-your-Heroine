@@ -1,4 +1,4 @@
-<div *ngIf="!heroChosen">
+<div *ngIf="!heroChosen && !formCompleted">
   <div class="block">
     <label class="label" for="work-dropdown">In which work does your hero(ine) occur?</label>
     <div class="field is-grouped">
@@ -55,6 +55,7 @@
       <div class="block">
         <div class="control">
           <button class="button is-link" (click)="onChooseHero()">
+            <span class="icon"><fa-icon [icon]="faArrowRight"></fa-icon></span>
             <span>Choose this hero</span>
           </button>
         </div>
@@ -63,10 +64,11 @@
   </div>
 </div>
 
-<div *ngIf="heroChosen">
+<div *ngIf="heroChosen && !formCompleted">
   <div class="block">
     <div class="control">
       <button class="button is-link" (click)="onGoBack()">
+        <span class="icon"><fa-icon [icon]="faArrowLeft"></fa-icon></span>
         <span>Go back</span>
       </button>
     </div>
@@ -85,6 +87,11 @@
       Something went wrong with submitting your form. If you keep seeing this error, please let us know.
     </div>
   </div>
+</div>
+
+<div *ngIf="formCompleted">
+  <mh-result [work]="existingWork" [hero]="existingHero" [response]="personalResponse" 
+    [createdWork]="createdNewWork" [createdHero]="createdNewHero" [adaptedWork]="adaptedWork"></mh-result>
 </div>
 
 <p-dialog header="Create a new work" [(visible)]="displayCreateWork" [style]="{width: '50vw'}">

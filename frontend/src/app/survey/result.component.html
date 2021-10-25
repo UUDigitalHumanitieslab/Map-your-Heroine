@@ -1,0 +1,74 @@
+<div class="block">
+    <div class="content">
+        <h1>Thank you for completing the survey!</h1>
+
+        <p>The overview below shows the information we have about the work and hero(ine) you chose, and your personal response to you hero(ine).</p>
+
+        <p>Once you close this page, you will <i>not</i> be able to go back! If you wish to save your answers, do it now.</p>
+    </div>
+    <div class="buttons">
+        <a class="button is-link" [routerLink]="['/results']" target="blank">
+            <span class="icon"><fa-icon [icon]="faChart"></fa-icon></span>
+            <span>View all results</span>
+        </a>
+        <a class="button is-link" [routerLink]="['/submit']" target="blank">
+            <span class="icon"><fa-icon [icon]="faUndo"></fa-icon></span>
+            <span>Take the survey again</span>
+        </a>        
+    </div>
+</div>
+
+<div class="block">
+    <h4 class="title is-4">Your work</h4>
+    <h6 class="subtitle is-6" *ngIf="!createdWork">This information was provided by the participant who first responded to <i>{{work.title}}</i>.</h6>
+    <table class="table is-striped is-fullwidth">
+        <colgroup>
+            <col span="1" style="width: 70%;">
+            <col span="1" style="width: 30%;">
+         </colgroup>
+        <tbody>
+            <tr *ngFor="let field of workFields">
+                <td>{{field.label}}</td>
+                <td>{{field.get_value(work)}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="block">
+    <h4 class="title is-4">Your hero</h4>
+    <h6 class="subtitle is-6" *ngIf="!createdWork">This information was provided by the participant who first responded to {{hero.name}}.</h6>
+    <table class="table is-striped is-fullwidth">
+        <colgroup>
+            <col span="1" style="width: 70%;">
+            <col span="1" style="width: 30%;">
+         </colgroup>
+        <tbody>
+            <tr *ngFor="let field of heroFields">
+                <td>{{field.label}}</td>
+                <td>{{field.get_value(hero)}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="block">
+    <h4 class="title is-4">Your personal response</h4>
+    <div class="block" *ngFor="let page of responseFields">
+        <h5 class="title is-5">{{page.title}}</h5>
+        <table class="table is-striped is-fullwidth">
+            <colgroup>
+                <col span="1" style="width: 70%;">
+                <col span="1" style="width: 30%;">
+             </colgroup>
+            <tbody>
+                <tr *ngFor="let field of page.questions">
+                    <td>{{field.label}}</td>
+                    <td>
+                        {{field.get_value(response)}}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
