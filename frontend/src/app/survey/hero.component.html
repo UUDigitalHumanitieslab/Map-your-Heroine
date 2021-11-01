@@ -1,13 +1,22 @@
+<div class="content">
+  <p>
+    Please fill in this questionnaire about the hero(ine) you wish to add. 
+  </p>
+  <p>
+    All questions are required. If you cannot answer a question, answer with "none" or "unknown".
+  </p>
+</div>
+
 <form [formGroup]="heroForm" (ngSubmit)="onSubmit()" novalidate>
   <div class="field">
-    <label class="label" for="name">What is the hero/heroine's name?</label>
+    <label class="label" for="name">What is the hero(ine)'s name?</label>
     <div class="control">
       <input class="input" id="name" type="text" formControlName="name" placeholder="Name of the hero(ine)">
     </div>
   </div>
 
   <div class="field">
-      <label class="label" for="role">Is this hero/heroine a protagonist or minor character in the story?</label>
+      <label class="label" for="role">Is this hero(ine) a protagonist or minor character in the story?</label>
       <div class="control">
         <div *ngFor="let role of roleOptions" class="p-field-checkbox">
           <label class="radio">
@@ -19,7 +28,7 @@
 
   <div class="field">
     <label class="label" for="narrator">
-      Is this hero(ine) the narrator for the story?
+      Is this hero(ine) the main narrator for the story?
       <p class="help has-text-grey has-text-weight-normal">
         <i>Narrator:</i> the person who tells the story
       </p>
@@ -36,7 +45,7 @@
 
   <div class="field">
     <label class="label" for="focaliser">
-      Is this hero(ine) the focaliser?
+      Is this hero(ine) the main focaliser?
       <p class="help has-text-grey has-text-weight-normal">
         <i>Focaliser:</i> the perspective through which the story is presented
       </p>
@@ -141,15 +150,30 @@
   <div class="field">
     <label class="label" for="hobbies">What are the hobbies of this hero(ine)?</label>
     <div class="control">
-      <p-chips id="hobbies" formControlName="hobbies" placeholder="Hobbies (comma separated)" separator="," addOnBlur="true"></p-chips>
-    </div>
-  </div>
-
-  <div class="field">
-    <div class="control">
-      <label class="checkbox">
-        <input type="checkbox" name="no_hobbies" (change)="onNoHobbiesChange($event)">
-        This hero has no (known) hobbies</label>
+      <div *ngFor="let response of hobbiesOptions" class="p-field-checkbox">
+        <label class="checkbox">
+          <input type="checkbox" name="hobbies" [value]="response" (change)="onCheckboxChange('hobbies', response, $event)">
+          {{response}}
+        </label>
+      </div>
+      <div class="p-field-checkbox">
+        <label class="checkbox">
+          <input type="checkbox" binary="true" formControlName="hobbies_other_enable">
+          Other: <p-chips placeholder="Hobbies (comma separated)" separator="," formControlName="hobbies_other"  addOnBlur="true"></p-chips>
+        </label>
+      </div>
+      <div class="p-field-checkbox">
+        <label class="checkbox">
+          <input type="checkbox" name="hobbies" value="None" (change)="onCheckboxChange('hobbies', 'None', $event)">
+          None
+        </label>
+      </div>
+      <div class="p-field-checkbox">
+        <label class="checkbox">
+          <input type="checkbox" name="hobbies" value="Unknown" (change)="onCheckboxChange('hobbies', 'Unknown', $event)">
+          Unknown
+        </label>
+      </div>
     </div>
   </div>
 
@@ -164,7 +188,13 @@
       <div class="p-field-checkbox">
         <label class="checkbox">
         <input type="checkbox" binary="true" formControlName="pets_other_enable">
-        Other: <p-chips placeholder="Pets (comma separated)" separator="," formControlName="pets_other"  addOnBlur="true"></p-chips></label>
+        Other: <p-chips placeholder="Pets (comma separated)" separator="," formControlName="pets_other" addOnBlur="true"></p-chips></label>
+      </div>
+      <div class="p-field-checkbox">
+        <label class="checkbox">
+          <input type="checkbox" name="pets" value="None" (change)="onCheckboxChange('pets', 'None', $event)">
+          None
+        </label>
       </div>
     </div>
   </div>

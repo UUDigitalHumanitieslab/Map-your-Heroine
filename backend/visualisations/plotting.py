@@ -290,7 +290,7 @@ class Plots:
 
     def education_plotdata(works, heroes, responses):
         counts = Counter(hero.get_education_display().lower() for hero in heroes)
-        labels = ['high', 'low', 'none', 'unknown']
+        labels = ['high', 'low', 'other', 'none', 'unknown']
 
         data = {
             'labels': labels,

@@ -15,6 +15,7 @@ class Hero(models.Model):
     EDUCATION_CHOICES = (
         ('HIGH', 'high'),
         ('LOW', 'low'),
+        ('OTHER', 'other'),
         ('NONE', 'none'),
         ('UNKNOWN', 'unknown'),
     )

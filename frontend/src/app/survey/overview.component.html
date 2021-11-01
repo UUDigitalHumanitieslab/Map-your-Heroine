@@ -1,4 +1,25 @@
 <div *ngIf="!heroChosen && !formCompleted">
+  <h1 class="title">Submit your response</h1>
+  <div class="content">
+    <p>
+      On this page, you can participate in the project by filling in the questionnaire about your hero(ine).
+    </p>
+
+    <p>
+      To begin the survey, you can select the work your hero(ine) is from, using the menu below. 
+      If your work is not listed, you can add it with the <i>Create new</i> button, which will ask you some factual questions about the work.
+      Future participants responding to the same work will not need to answer the factual questions.
+    </p>
+
+    <p>
+      <b>Important:</b> If you add an adaptation, you will be asked which work it is adapting. 
+      Therefore, make sure that the source work is already listed in the dropdown menu, 
+      or fill in the survey for the source work <i>before</i> adding your adaptation.
+    </p>
+  </div>
+
+  <hr>
+
   <div class="block">
     <label class="label" for="work-dropdown">
       In which work does your hero(ine) feature?
@@ -83,7 +104,7 @@
   </div>
 
   <div class="block">
-    These questions are about your personal response to {{existingHero.name}} from <i>{{existingWork.title}}</i>
+    The following questions councern your personal response to {{existingHero.name}} from <i>{{existingWork.title}}</i>
   </div>
 
   <div class="block">

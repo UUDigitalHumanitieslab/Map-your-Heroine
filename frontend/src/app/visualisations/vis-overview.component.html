@@ -1,3 +1,22 @@
+<div class="content">
+    <h1>Results</h1>
+
+    <p>
+        This page shows an overview of the results of the survey. 
+        You can explore the tabs to view visualisations related to various topics. 
+        <!-- The <i>Works</i> and <i>Hero(in)es</i> tabs focus on the factual questions in the survey, 
+        giving an impression of the works and heroes that participants responded to.
+        The other tabs focus on the personal responses that participants gave to their hero(ine.) -->
+    </p>
+    <p>
+        The menu on the left allows to make a selection of which results you would like to see.
+        Make your selection and use the <i>View results</i> button to see how it affects the results.
+        For example, if you want to compare source works and adaptations, you can make a comparison
+        between the results for source works, adaptations, or both.
+    </p>
+</div>
+
+<hr>
 
 <div class="columns">
     <div class="column is-narrow">
@@ -56,7 +75,7 @@
                     <li class="tab" (click)="activeTab = 'work'" [ngClass]="{ 'is-active': activeTab == 'work'}">
                         <a>Works</a></li>
                     <li class="tab" (click)="activeTab = 'heroes'" [ngClass]="{ 'is-active': activeTab == 'heroes'}">
-                        <a>Heroes</a></li>
+                        <a>Hero(in)es</a></li>
                     <li class="tab" (click)="activeTab = 'identification'" [ngClass]="{ 'is-active': activeTab == 'identification'}">
                         <a>Identification</a></li>
                     <li class="tab" (click)="activeTab = 'appearance'" [ngClass]="{ 'is-active': activeTab == 'appearance'}">

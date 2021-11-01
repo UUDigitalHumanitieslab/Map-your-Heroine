@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, FormArray, Validators } from '@angular/forms';
 import { Restangular } from 'ngx-restangular';
-import { IHero, PROFESSION_OPTIONS } from '../models/hero';
+import { HOBBIES_OPTIONS, IHero, PROFESSION_OPTIONS } from '../models/hero';
 import { IWork } from '../models/work';
 import { YESNOUNK_OPTIONS, YESNO_OPTIONS, ROLE_OPTIONS,
   EDUCATION_OPTIONS, PETS_OPTIONS, AGE_OPTIONS, GENDER_OPTIONS,
@@ -27,6 +27,7 @@ export class HeroComponent implements OnInit {
   roleOptions = ROLE_OPTIONS;
   educationOptions = EDUCATION_OPTIONS;
   professionOptions = PROFESSION_OPTIONS;
+  hobbiesOptions = HOBBIES_OPTIONS;
   petsOptions = PETS_OPTIONS;
   ageOptions = AGE_OPTIONS;
   genderOptions = GENDER_OPTIONS;
@@ -52,8 +53,9 @@ export class HeroComponent implements OnInit {
     country_growup: new FormControl('', [Validators.required]),
     education: new FormControl('', [Validators.required]),
     profession: new FormControl('', [Validators.required]),
-    hobbies: new FormControl('', [Validators.required]),
-    no_hobbies: new FormControl(false),
+    hobbies: new FormArray([]),
+    hobbies_other_enable: new FormControl(false),
+    hobbies_other: new FormControl({value: [], disabled: true}),
     pets: new FormArray([]),
     pets_other_enable: new FormControl(false),
     pets_other: new FormControl({value: [], disabled: true}),
@@ -68,14 +70,6 @@ export class HeroComponent implements OnInit {
     solutions_other_enable: new FormControl(false),
     solutions_other: new FormControl({value: [], disabled: true}),
   });
-
-  displayHelp = {
-    narrator: false,
-    focaliser: false,
-    hobbies: false,
-    relatives: false,
-  }
-  ;
 
   @Input()
   work: IWork;
@@ -97,6 +91,10 @@ export class HeroComponent implements OnInit {
     this.subscriptions$.push(
       this.heroForm.controls.pets_other_enable.valueChanges
         .subscribe(change => this.onOtherCheckboxChange(change, 'pets_other'))
+    );
+    this.subscriptions$.push(
+      this.heroForm.controls.hobbies_other_enable.valueChanges
+        .subscribe(change => this.onOtherCheckboxChange(change, 'hobbies_other'))
     );
   }
 
@@ -126,20 +124,6 @@ export class HeroComponent implements OnInit {
     }
   }
 
-  onNoHobbiesChange(event): void {
-    const hobbiesControl = this.heroForm.controls.hobbies;
-    const noHobbiesControl = this.heroForm.controls.no_hobbies;
-    if (event.target.checked) {
-      hobbiesControl.clearValidators();
-      hobbiesControl.disable();
-    } else {
-      hobbiesControl.enable();
-      hobbiesControl.setValidators([Validators.required]);
-    }
-    hobbiesControl.updateValueAndValidity();
-    noHobbiesControl.setValue(event.target.checked);
-  }
-
   filteredCountries(event) {
     let filtered : any[] = [];
     const query = event.query;
@@ -165,15 +149,15 @@ export class HeroComponent implements OnInit {
   }
 
   get allHobbies(): string[] {
-    if (this.heroForm.controls.no_hobbies.value) {
-      return [];
+    if (this.heroForm.controls.hobbies_other_enable.value) {
+      return (this.heroForm.controls.hobbies.value).concat(this.heroForm.controls.hobbies_other.value);
     } else {
       return this.heroForm.controls.hobbies.value;
     }
   }
 
   get allPets(): string[] {
-    if (this.heroForm.get('pets_other_enable').value) {
+    if (this.heroForm.controls.pets_other_enable.value) {
       return (this.heroForm.controls.pets.value).concat(this.heroForm.controls.pets_other.value);
     } else {
       return this.heroForm.controls.pets.value;
@@ -181,7 +165,7 @@ export class HeroComponent implements OnInit {
   }
 
   get allProblems(): string[] {
-    if (this.heroForm.get('problems_other_enable').value) {
+    if (this.heroForm.controls.problems_other_enable.value) {
       return (this.heroForm.controls.problems.value).concat(this.heroForm.controls.problems_other.value);
     } else {
       return this.heroForm.controls.problems.value;
@@ -189,7 +173,7 @@ export class HeroComponent implements OnInit {
   }
 
   get allSolutions(): string[] {
-    if (this.heroForm.get('solutions_other_enable').value) {
+    if (this.heroForm.controls.solutions_other_enable.value) {
       return (this.heroForm.controls.solutions.value).concat(this.heroForm.controls.solutions_other.value);
     } else {
       return this.heroForm.controls.solutions.value;
