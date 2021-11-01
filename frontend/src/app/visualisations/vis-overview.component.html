@@ -20,7 +20,7 @@
 
 <div class="columns">
     <div class="column is-narrow">
-        <div class="block">
+        <div class="box" style="height: 100%;">
             <form>
                 <div class="field">
                     <div class="block">
@@ -34,7 +34,9 @@
                             </div>
                         </div>
                     </div>
+                </div>
 
+                <div class="field">
                     <div class="block">
                         <label class="label" for="hero_gender">Sources or adaptations:</label>
                         <div class="control">
@@ -46,7 +48,9 @@
                             </div>
                         </div>
                     </div>
+                </div>
 
+                <div class="field">
                     <div class="block">
                         <label class="label" for="hero_gender">Gender of the hero(ine):</label>
                         <div class="control">
@@ -62,7 +66,7 @@
         
                 <div class="field">
                     <div class="control">
-                      <button class="button is-link" type="submit" [disabled]="!formIsValid()" (click)="submitFilters()">View results</button>
+                      <button class="button is-dark is-fullwidth" type="submit" [disabled]="!formIsValid()" (click)="submitFilters()">View results</button>
                     </div>
                   </div>
             </form>
