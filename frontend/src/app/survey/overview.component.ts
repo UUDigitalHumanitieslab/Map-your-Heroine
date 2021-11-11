@@ -34,6 +34,9 @@ export class OverviewComponent implements OnInit {
   createdNewHero = false;
   formCompleted = false;
 
+  displayConsentStatement = false;
+  consentGiven = true;
+
   constructor(private restangular: Restangular) { }
 
   ngOnInit() {
