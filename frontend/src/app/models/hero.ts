@@ -60,7 +60,7 @@ export const RELATIVES_OPTIONS = [
     {label: 'Sibling(s) alive and present', value: 'SIBLINGS_PRESENT'},
     {label: 'Sibling(s) alive but not present', value: 'SIBLINGS_ABSENT'},
     {label: 'This hero has no relatives', value: 'NONE'},
-    {label: 'Unknown', value: 'unknown'}]
+    {label: 'Unknown', value: 'UNKNOWN'}]
 export const WEALTH_OPTIONS = [
     {label: 'Rich', value: 'RICH'}, {label: 'In between', value: 'INBETWEEN'}, {label: 'Poor', value: 'POOR'}, {label: 'Unknown', value: 'UNKNOWN'}];
 export const PROBLEM_OPTIONS = ['Financial', 'Psychological', 'Physical', 'Social', 'Ethnic', 'Sexual'];
