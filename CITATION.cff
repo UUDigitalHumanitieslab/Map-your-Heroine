@@ -1,0 +1,48 @@
+cff-version: 1.2.0
+title: Map your Hero(ine)
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Roselinde G. J. L.
+    family-names: Supheert
+    email: r.g.j.l.supheert@uu.nl
+    affiliation: Utrecht University
+  - name: 'Research Software Lab, Centre for Digital Humanities, Utrecht University'
+    website: 'https://cdh.uu.nl/centre-for-digital-humanities/research-software-lab/'
+    email: cdh@uu.nl
+    city: Utrecht
+    country: NL
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.8123693
+  - type: url
+    value: >-
+      https://github.com/UUDigitalHumanitieslab/Map-your-Heroine
+preferred-citation:
+  authors:
+    - given-names: Roselinde G. J. L.
+      family-names: Supheert
+      email: r.g.j.l.supheert@uu.nl
+      affiliation: Utrecht University
+  title: Map your Hero(ine)
+  type: software
+  url: https://mapyourhero.com/
+repository-code: 'https://github.com/UUDigitalHumanitieslab/Map-your-Heroine'
+url: 'https://map-your-hero.hum.uu.nl/'
+abstract: >-
+  This project aims to map the representation of heroes and
+  heroines in fiction and their adaptations. Literary
+  characters, or adaptations, provide important role models
+  for readers or viewers, shaping their view of society and
+  themselves, and by extension shaping their lives. How,
+  then, are these crucial characters represented? And how
+  are they adjusted across cultures and media? Map Your
+  Hero(ine) aims to create a website and database that makes
+  these representations and their changes, or lack thereof,
+  insightful and invites students and general readers to
+  contribute by mapping their favourite heroes or heroines.
+license: BSD-3-Clause
+commit: 7e4ea26
+version: '1.0'
