@@ -1,9 +1,12 @@
-# Map your Heroine
+# Map Your Hero(ine)
 
-[![Build Status](https://travis-ci.org/UUDigitalHumanitieslab/map_your_heroine.svg?branch=develop)](https://travis-ci.org/UUDigitalHumanitieslab/map_your_heroine)
+This repository contains a survey application developed for the the Map Your Hero(ine) project, led by Roselinde Supheert. More information can be found at the [project website](https://mapyourhero.com/)
 
-Map your Heroine will humanize all your digits!
+The survey asks participants about fictional characters they admire. Participants fill in basic factual information about the character and the work they appeared in, and then answer questions about their personal impression of the character. Once an entry for a character has been created, multiple participants can answer the personal impression questions for that character.
 
+The survey is intended to pay particular attention to how representations of characters change (or do not change) in adaptations. As such, the survey allows linking works as adaptations.
+
+The documentation below is intended for developers. For more information about the project's goals and findings, visit the project website linked above.
 
 ## Before you start
 
@@ -27,9 +30,7 @@ You need to install the following software:
 This project integrates three isolated subprojects, each inside its own subdirectory with its own code, package dependencies and tests:
 
  - **backend**: the server side web application based on [Django][3] and [DRF][4]
- 
  - **frontend**: the client side web application based on [Angular](https://angular.io)
- 
  - **functional-tests**: the functional test suite based on [Selenium][6] and [pytest][7]
 
 [3]: https://www.djangoproject.com
