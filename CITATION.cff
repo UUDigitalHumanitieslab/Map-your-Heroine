@@ -18,15 +18,15 @@ authors:
 identifiers:
   - type: doi
     value: 10.5281/zenodo.8123693
-preferred-citation:
-  authors:
-    - given-names: Roselinde G. J. L.
-      family-names: Supheert
-      email: r.g.j.l.supheert@uu.nl
-      affiliation: Utrecht University
-  title: Map your Hero(ine)
-  type: software
-  url: https://mapyourhero.com/
+references:
+  - authors:
+      - given-names: Roselinde G. J. L.
+        family-names: Supheert
+        email: r.g.j.l.supheert@uu.nl
+        affiliation: Utrecht University
+    title: Map your Hero(ine)
+    type: software
+    url: https://mapyourhero.com/
 repository-code: 'https://github.com/UUDigitalHumanitieslab/Map-your-Heroine'
 url: 'https://map-your-hero.hum.uu.nl/'
 abstract: >-
