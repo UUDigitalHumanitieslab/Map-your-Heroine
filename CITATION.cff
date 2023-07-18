@@ -9,6 +9,7 @@ authors:
     family-names: Supheert
     email: r.g.j.l.supheert@uu.nl
     affiliation: Utrecht University
+    orcid: 'https://orcid.org/0000-0001-9663-1023'
   - name: 'Research Software Lab, Centre for Digital Humanities, Utrecht University'
     website: 'https://cdh.uu.nl/centre-for-digital-humanities/research-software-lab/'
     email: cdh@uu.nl
@@ -17,9 +18,6 @@ authors:
 identifiers:
   - type: doi
     value: 10.5281/zenodo.8123693
-  - type: url
-    value: >-
-      https://github.com/UUDigitalHumanitieslab/Map-your-Heroine
 preferred-citation:
   authors:
     - given-names: Roselinde G. J. L.
@@ -44,5 +42,4 @@ abstract: >-
   insightful and invites students and general readers to
   contribute by mapping their favourite heroes or heroines.
 license: BSD-3-Clause
-commit: 7e4ea26
 version: '1.0'
