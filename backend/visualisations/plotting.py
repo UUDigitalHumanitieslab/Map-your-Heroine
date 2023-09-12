@@ -6,10 +6,10 @@ UU_COLOURS = {
     'yellow': '#FFCD00',
     'red': '#C00A35',
     'cream': '#FFE6AB',
-    'orange': '#F3965E', 
+    'orange': '#F3965E',
     'burgundy': '#AA1555',
     'brown': '#6E3B23',
-    'green': '#24A793',  
+    'green': '#24A793',
     'blue': '#5287C6',
     'dark blue': '#001240',
     'purple': '#5B2182'
@@ -25,17 +25,17 @@ STANDARD_ENVIRONMENTS = ['countryside', 'village', 'city', 'extra-terrestrial', 
 class Plots:
     """
     Defines the plots that are generated in the frontend. The method `all_plotdata` is called to retrieve (all)
-    plotdata. This function can take some filters on the dataset (see below). 
-    
-    Each plot is returned as a dict with the relevant data, which can be used as input for primeNG charts or 
-    charts.js in the frontend. The dict for each plot includes data labels (x-values) and datasets (y-values 
+    plotdata. This function can take some filters on the dataset (see below).
+
+    Each plot is returned as a dict with the relevant data, which can be used as input for primeNG charts or
+    charts.js in the frontend. The dict for each plot includes data labels (x-values) and datasets (y-values
     and colours).
     """
     def _work_qualifies(work, filters):
         # has responses
         if not len(work.responses.all()):
             return False
-        
+
         # medium
         if 'work_medium' in filters:
             if work.medium in STANDARD_MEDIA:
@@ -44,12 +44,12 @@ class Plots:
             else:
                 if not 'other' in filters['work_medium']:
                     return False
-        
+
         #source/adaptation
         if 'work_is_source' in filters:
             if not work.is_source in filters['work_is_source']:
                 return False
-        
+
         # has at least one qualifying hero
         hero_filters = {key: filters[key] for key in filters.keys() if key.startswith('hero')}
         if len(hero_filters) > 0:
@@ -71,12 +71,12 @@ class Plots:
         #has responses
         if not len(hero.responses.all()):
             return False
-        
+
         #gender
         if 'hero_gender' in filters:
             if not hero.gender in filters['hero_gender']:
                 return False
-        
+
         #work matches
         work_keys = {key: filters[key] for key in filters.keys() if key.startswith('work')}
         if len(work_keys) > 0:
@@ -87,7 +87,7 @@ class Plots:
 
     def _all_heroes(filters = dict()):
         if filters:
-            heroes = Hero.objects.all()            
+            heroes = Hero.objects.all()
             filtered_heroes = [hero for hero in heroes if Plots._hero_qualifies(hero, filters)]
             return filtered_heroes
         else:
@@ -99,7 +99,7 @@ class Plots:
         if len(work_keys) > 0:
             if not Plots._work_qualifies(response.work, work_keys):
                 return False
-        
+
         #hero matches
         hero_keys = {key: filters[key] for key in filters.keys() if key.startswith('hero')}
         if len(work_keys) > 0:
@@ -110,7 +110,7 @@ class Plots:
 
     def _all_responses(filters = dict()):
         if filters:
-            responses = Response.objects.all()            
+            responses = Response.objects.all()
             filtered_responses = [response for response in responses if Plots._response_qualifies(response, filters)]
             return filtered_responses
         else:
@@ -143,9 +143,9 @@ class Plots:
         else:
             labels = [value for (value, count) in counts_all.most_common(10)]
             counts = top10
-        
+
         return labels, counts
-    
+
     def pubcountry_plotdata(works, heroes, responses):
         labels, counts = Plots._top_10_counts_with_other(work.pub_country for work in works)
 
@@ -185,7 +185,7 @@ class Plots:
         return data
 
 
-    
+
     def environment_plotdata(works, heroes, responses):
         counts = Counter(work.environment if work.environment in STANDARD_ENVIRONMENTS else 'other' for work in works )
         all_labels = STANDARD_ENVIRONMENTS + ['other']
@@ -202,7 +202,7 @@ class Plots:
         }
 
         return data
-    
+
     def adaptation_plotdata(works, heroes, responses):
         nice_strings = {
             True: 'source text',
@@ -235,7 +235,7 @@ class Plots:
         }
 
         return data
-    
+
     def role_plotdata(works, heroes, responses):
         counts = Counter(hero.get_role_display().lower() for hero in heroes)
         labels = ['major character', 'minor character']
@@ -249,7 +249,7 @@ class Plots:
         }
 
         return data
-    
+
     def narrator_plotdata(works, heroes, responses):
         nice_strings = {
             False: 'no',
@@ -268,7 +268,7 @@ class Plots:
         }
 
         return data
-    
+
     def focaliser_plotdata(works, heroes, responses):
         nice_strings = {
             False: 'no',
@@ -301,7 +301,7 @@ class Plots:
         }
 
         return data
-    
+
     def wealth_plotdata(works, heroes, responses):
         counts = Counter(hero.get_wealth_display().lower() for hero in heroes)
         labels = ['rich', 'in between', 'poor', 'unknown']
@@ -326,7 +326,7 @@ class Plots:
                 'backgroundColor': DEFAULT_PALETTE[:len(labels)],
             }]
         }
-        
+
         return data
 
     def pets_plotdata(works, heroes, responses):
@@ -339,7 +339,7 @@ class Plots:
                 'backgroundColor': DEFAULT_PALETTE[:len(labels)],
             }]
         }
-        
+
         return data
 
 
@@ -368,7 +368,7 @@ class Plots:
         }
 
         return data
-    
+
     def country_live_plotdata(works, heroes, responses):
         labels, counts = Plots._top_10_counts_with_other(hero.country_live for hero in heroes)
 
@@ -415,7 +415,7 @@ class Plots:
         }
 
         return data
-    
+
     def attractive_plotdata(works, heroes, responses):
         nice_strings = {
             False: 'no',
@@ -455,7 +455,7 @@ class Plots:
 
         return data
 
-    
+
     def relatives_plotdata(works, heroes, responses):
         nice_strings = {
             'PARENTS_PRESENT': 'parents (present)',
@@ -476,7 +476,7 @@ class Plots:
                 'backgroundColor': DEFAULT_PALETTE[:len(labels)],
             }]
         }
-        
+
         return data
 
 
@@ -494,7 +494,7 @@ class Plots:
             }]
         }
         return data
-    
+
     def problems_plotdata(works, heroes, responses):
         labels, counts = Plots._top_10_counts_with_other(problem for hero in heroes for problem in hero.problems)
 
@@ -505,9 +505,9 @@ class Plots:
                 'backgroundColor': DEFAULT_PALETTE[:len(labels)],
             }]
         }
-        
+
         return data
-    
+
     def solutions_plotdata(works, heroes, responses):
         labels, counts = Plots._top_10_counts_with_other(solution for hero in heroes for solution in hero.solutions)
 
@@ -518,12 +518,12 @@ class Plots:
                 'backgroundColor': DEFAULT_PALETTE[:len(labels)],
             }]
         }
-        
+
         return data
-    
+
     def response_gender_plotdata(works, heroes, responses):
-        gender_counts = Counter(response.responses['participant_gender'].lower() for response in responses)
-        labels = ['male', 'female', 'other']
+        gender_counts = Counter(response.responses.get('participant_gender', 'Not specified').lower() for response in responses)
+        labels = ['male', 'female', 'other', 'not specified']
 
         data = {
             'labels': labels,
@@ -534,7 +534,7 @@ class Plots:
         }
 
         return data
-    
+
     def likert_plotdata(field, works, heroes, responses):
         counts = Counter(response.responses[field] for response in responses if field in response.responses)
         labels = list(range(1,8))
@@ -557,7 +557,7 @@ class Plots:
         Parameters:
         filters (dict): optional specification of filters to be applied to the data. An example of the format is
             `{ 'hero_gender' : ['Male', 'Other'], ... }`
-        This will select on the `gender` property of heroes, so that only 'male' and 'other' heroes are 
+        This will select on the `gender` property of heroes, so that only 'male' and 'other' heroes are
         included. A filter for a hero property will also affect works and responses, who, in this example,
         would need to be linked to a hero of the selected genders.
         Currently implemented filters are 'hero_gender', 'work_medium' and 'work_is_source'.
@@ -565,7 +565,7 @@ class Plots:
         Returns:
         A dict. Includes the keys 'n_works', 'n_heroes', and 'n_responses', which state
         how many works/heroes/responses match the filters. If there are any, the dict will
-        also have a key for each plot. The value is also a dict, specifying the dataset. This specifies 
+        also have a key for each plot. The value is also a dict, specifying the dataset. This specifies
         data labels (x-values) and datasets (y-values and colours).
         """
         works = Plots._all_works(filters)
