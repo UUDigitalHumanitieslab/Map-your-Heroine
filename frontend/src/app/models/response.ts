@@ -72,11 +72,40 @@ export const SURVEY = {
         },{
           "name":"About you",
           "elements":[
-            {"type":"radiogroup","name":"participant_gender","title":"What is your gender identity?","isRequired":true,"choices":[{"value":"Male","text":"Male"},{"value":"Female","text":"Female"},{"value":"Other","text":"Other"}]},
-            {"type":"radiogroup","name":"participant_age","title":"What is your age?","isRequired":true,"choices":[{"value":"0-25","text":"0-25"},{"value":"26-35","text":"26-35"},{"value":"36-45","text":"36-45"},{"value":"46-55","text":"46-55"},{"value":"56-55","text":"56-55"},{"value":"65+","text":"65+"}]},
-            {"type":"dropdown","name":"participant_nationality","title":"What country would you describe as your nationality?","isRequired":true, "choices": countries.map(country => country.name)}
+            {
+              "type": "radiogroup",
+              "name": "participant_gender",
+              "title": "What is your gender identity?",
+              "isRequired": false,
+              "choices": [
+                { "value": "Male", "text": "Male" },
+                { "value": "Female", "text": "Female" },
+                { "value": "Other", "text": "Other" },
+              ]
+            },
+            {
+              "type": "radiogroup",
+              "name": "participant_age",
+              "title": "What is your age?",
+              "isRequired": false,
+              "choices": [
+                { "value": "0-25", "text": "0-25" },
+                { "value": "26-35", "text": "26-35" },
+                { "value": "36-45", "text": "36-45" },
+                { "value": "46-55", "text": "46-55" },
+                { "value": "56-55", "text": "56-55" },
+                { "value": "65+", "text": "65+" }
+              ]
+            },
+            {
+              "type": "dropdown",
+              "name": "participant_nationality",
+              "title": "What country would you describe as your nationality?",
+              "isRequired": false,
+              "choices": countries.map(country => country.name)
+            }
           ],
-          "title":"About you","description":"Please answer the following questions about yourself."
+        "title": "About you", "description": "Please answer the following questions about yourself. These questions are optional."
         }
       ]
     };

@@ -2,7 +2,7 @@ from factual.models import Work, Hero, Response
 import re
 
 WORK_FIELDS = [
-    { 
+    {
         'name': 'index',
         'func': lambda work : 'work_' + str(work.id),
     },{
@@ -42,9 +42,9 @@ WORK_FIELDS = [
 
 relative_format = {
         'PARENTS_PRESENT': 'parents (present)',
-        'PARENTS_ABSENT': 'parents (absent)', 
-        'SIBLINGS_PRESENT': 'siblings (present)', 
-        'SIBLINGS_ABSENT': 'siblings (absent)', 
+        'PARENTS_ABSENT': 'parents (absent)',
+        'SIBLINGS_PRESENT': 'siblings (present)',
+        'SIBLINGS_ABSENT': 'siblings (absent)',
         'UNKNOWN': 'unknown',
         'NONE': 'none',
     }
@@ -85,7 +85,7 @@ HERO_FIELDS = [
         'func': lambda hero: ', '.join(hero.hobbies),
     },{
         'name': 'pets',
-        'func': lambda hero: ', '.join(hero.pets), 
+        'func': lambda hero: ', '.join(hero.pets),
     },{
         'name': 'education',
         'func': lambda hero: hero.get_education_display(),
@@ -106,7 +106,7 @@ HERO_FIELDS = [
         'func': lambda hero: hero.get_wealth_display(),
     },{
         'name': 'problems',
-        'func': lambda hero: ', '.join(hero.problems), 
+        'func': lambda hero: ', '.join(hero.problems),
     },{
         'name': 'solutions',
         'func': lambda hero: ', '.join(hero.solutions),
@@ -122,13 +122,13 @@ RESPONSE_FIELDS = [
         'func': lambda response: 'response_' + str(response.id)
     },{
         'name': 'gender',
-        'func': lambda response: response.responses['participant_gender'],
+        'func': lambda response: response.responses.get('participant_gender', None),
     },{
         'name': 'age',
-        'func': lambda response: response.responses['participant_age'],
+        'func': lambda response: response.responses.get('participant_age', None),
     },{
         'name': 'nationality',
-        'func': lambda response: response.responses['participant_nationality'],
+        'func': lambda response: response.responses.get('participant_nationality', None),
     },{
         'name': 'identification: personality',
         'func': lambda response: response.responses['identification_personality'],
@@ -234,7 +234,7 @@ def download_works():
     for work in works:
         items = [field['func'](work) for field in WORK_FIELDS]
         lines.append(items)
-    
+
     data = format_tsv(lines)
     return data
 
@@ -250,7 +250,7 @@ def download_heroes():
         items = [field['func'](hero) for field in HERO_FIELDS]
         items = items[:2] + work_items + items[2:]
         lines.append(items)
-    
+
     data = format_tsv(lines)
     return data
 
@@ -268,6 +268,6 @@ def download_responses():
         items = [field['func'](response) for field in RESPONSE_FIELDS]
         items = items[:1] + work_items + hero_items + items[1:]
         lines.append(items)
-    
+
     data = format_tsv(lines)
     return data
