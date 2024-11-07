@@ -1,4 +1,5 @@
 import { COUNTRIES } from "./countries";
+import { flatMap, filter, map } from "lodash";
 
 export interface IResponse {
     id?: number; // id exists only when retrieving from backend, so make it optional
@@ -109,3 +110,10 @@ export const SURVEY = {
         }
       ]
     };
+
+
+// For administrative purposes
+const RatingQuestions = filter(
+  flatMap(SURVEY["pages"], ({ elements, ...rest }) => elements),
+  { type: "rating" }
+);

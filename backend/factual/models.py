@@ -2,6 +2,37 @@ from django.db import models
 from django.contrib.postgres.fields import ArrayField
 from django.db.models.fields.json import JSONField
 
+RATING_QUESTIONS = [
+    "identification_personality",
+    "identification_intruiging",
+    "identification_wishbelike",
+    "appearance_beautiful",
+    "appearance_wishlookedlike",
+    "appearance_influencefeelings",
+    "appearance_impact",
+    "appearance_aware",
+    "gender_definespersonality",
+    "gender_embraces",
+    "gender_attempts_expectations",
+    "gender_struggles_expectations",
+    "agency_responsible",
+    "agency_independent",
+    "agency_hindered",
+    "agency_environment",
+    "agency_development",
+    "profession_relevant_to_personality",
+    "profession_social_status",
+    "profession_growth",
+    "profession_defines_life",
+    "personality_assertive",
+    "personality_independent",
+    "personality_vain",
+    "personality_confident",
+    "personality_wellrounded",
+    "personality_honest",
+    "personality_loyal",
+    "personality_cooperative"
+]
 
 class Hero(models.Model):
     ROLE_CHOICES = (
@@ -10,7 +41,7 @@ class Hero(models.Model):
     )
     GENDER_CHOICES =   (('MALE', 'Male'),('FEMALE', 'Female'),('OTHER','Other'),('UNKNOWN','Unknown'))
     AGE_CHOICES = (
-        ('0-25', '0-25'), ('26-35', '26-35'), ('36-45', '36-45'), ('46-55', '46-55'), ('56-65', '56-65'), ('65+', '65+'), 
+        ('0-25', '0-25'), ('26-35', '26-35'), ('36-45', '36-45'), ('46-55', '46-55'), ('56-65', '56-65'), ('65+', '65+'),
         ('UNKNOWN', 'Unknown'))
     EDUCATION_CHOICES = (
         ('HIGH', 'high'),
@@ -38,24 +69,24 @@ class Hero(models.Model):
     ('UNKNOWN', 'Unknown')
 ]
     RELATIVES_CHOICES = (
-        ('PARENTS_PRESENT', 'parents present'), 
-        ('PARENTS_ABSENT', 'parents absent'), 
-        ('SIBLINGS_PRESENT', 'siblings present'), 
-        ('SIBLINGS_ABSENT', 'siblings absent'), 
+        ('PARENTS_PRESENT', 'parents present'),
+        ('PARENTS_ABSENT', 'parents absent'),
+        ('SIBLINGS_PRESENT', 'siblings present'),
+        ('SIBLINGS_ABSENT', 'siblings absent'),
         ('NONE', 'none'),
         ('UNKNOWN', 'unknown'),
     )
-    
+
     WEALTH_CHOICES = (('RICH', 'Rich'), ('INBETWEEN', 'In between'), ('POOR', 'Poor'), ('UNKNOWN','Unknown'))
 
     name = models.CharField(max_length=200)
     work = models.ForeignKey(
         'Work', on_delete=models.CASCADE, related_name='heroes')
-    
+
     role = models.CharField(max_length=11, choices=ROLE_CHOICES)
     narrator = models.BooleanField(null=True)
     focaliser = models.BooleanField(null=True)
-    
+
     gender = models.TextField(max_length=7, choices=GENDER_CHOICES, default='UNKNOWN')
     age = models.TextField(max_length=7, choices=AGE_CHOICES, default='UNKNOWN')
     country_origin = models.CharField(max_length=100, default='unknown')
