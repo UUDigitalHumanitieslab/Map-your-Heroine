@@ -62,7 +62,7 @@ export class VisHeroComponent implements OnInit, OnChanges {
             data: undefined,
         },
         hero_sex: {
-            title: 'Are the hero(ine)\'s sexual relations described?',
+            title: 'Are the hero(ine)\'s sexual relations explicitly described?',
             data: undefined,
         },
         hero_relatives: {

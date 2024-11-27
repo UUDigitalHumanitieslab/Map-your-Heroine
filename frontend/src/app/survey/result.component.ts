@@ -146,7 +146,7 @@ export class ResultComponent implements OnInit {
                 label: 'Is the hero(ine) considered attractive within the work?',
                 get_value: hero => this.formatResponse(hero.appearance, 'boolean'),
             }, {
-                label: 'Are the hero(ine)\'s sexual relations described?',
+                label: 'Are the hero(ine)\'s sexual relations explicitly described?',
                 get_value: hero => this.formatResponse(hero.sex, 'boolean'),
             }, {
                 label: 'Relatives',
