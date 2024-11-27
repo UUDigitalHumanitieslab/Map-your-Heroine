@@ -5,17 +5,17 @@ from django.db import migrations
 from factual.models import RATING_QUESTIONS
 from functools import partial
 
-likert_5_7_mapping = {
+likert_7_to_5_mapping = {
     1: 1,
-    2: 2,
+    2: 1,
     3: 2,
     4: 3,
     5: 4,
-    6: 4,
+    6: 5,
     7: 5
 }
 
-likert_7_5_mapping = {
+likert_5_to_7_mapping = {
     1: 1,
     2: 3,
     3: 4,
@@ -45,6 +45,6 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.RunPython(
-            partial(likert_conversion, mapping=likert_5_7_mapping),
-            partial(likert_conversion, mapping=likert_7_5_mapping))
+            partial(likert_conversion, mapping=likert_7_to_5_mapping),
+            partial(likert_conversion, mapping=likert_5_to_7_mapping))
     ]
