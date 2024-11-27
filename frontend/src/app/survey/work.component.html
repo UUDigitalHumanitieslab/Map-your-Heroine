@@ -1,6 +1,6 @@
 <div class="content">
   <p>
-    Please fill in this questionnaire about the work you wish to add. 
+    Please fill in this questionnaire about the work you wish to add.
   </p>
   <p>
     All questions are required. If you cannot answer a question, answer with "none" or "unknown".
@@ -54,7 +54,7 @@
   <div class="field">
     <label class="label" for="pubcountry">Country of publication</label>
     <div class="control">
-      <p-autoComplete id="pubcountry" formControlName="pub_country" placeholder="Pick or type"
+      <p-autoComplete id="pubcountry" formControlName="pub_country" placeholder="select or type"
       [suggestions]="filteredCountries" (completeMethod)="filterCountry($event)" field="name" [dropdown]="true">
         <ng-template let-country pTemplate="item">
             <div class="country-item">
@@ -72,7 +72,7 @@
         <i>Source text:</i> an original work
       </p>
     </label>
-    
+
     <div class="control">
       <label class="radio">
         <input type="radio" formControlName="is_source" [value]="true">
@@ -87,16 +87,16 @@
 
   <div class="field" *ngIf="showAdaptationOf">
     <label class="label" for="adaptionof-dropdown">
-      Of which work is this an adaptation? 
+      Of which work is this an adaptation?
       <p class="help has-text-grey has-text-weight-normal">
-        The menu below shows all works that are registered in the project: pick the source work from this list. 
-        If your source work is listed, add it first (using this form), and then add your adaptation. 
+        The menu below shows all works that are registered in the project: select the source work from this list.
+        If your source work is listed, add it first (using this form), and then add your adaptation.
         When adding the source work, you do not need to add heroes or fill in the rest of the survey.
       </p>
     </label>
 
     <div class="control">
-      <p-autoComplete id="adaptationof-dropdown" formControlName="adaptation_of" placeholder="Pick or type"
+      <p-autoComplete id="adaptationof-dropdown" formControlName="adaptation_of" placeholder="Select or type"
       [suggestions]="filteredWorks" (completeMethod)="filterWork($event)" field="label" [dropdown]="true">
         <ng-template let-work pTemplate="item">
             <div class="work-item">
@@ -111,11 +111,12 @@
     <label class="label" for="environment-dropdown">
       In what environment does the most of the action take place?
       <p class="help has-text-grey has-text-weight-normal">
-        Pick which environment is best describes the setting of your work. If none apply, you can fill in your own (brief) description.
+        Select which environment is best describes the setting of your work. If none apply, you can fill in your own (brief)
+        description.
       </p>
     </label>
-    
-    
+
+
     <div class="control">
       <div *ngFor="let environment of environmentOptions">
         <label class="radio">
