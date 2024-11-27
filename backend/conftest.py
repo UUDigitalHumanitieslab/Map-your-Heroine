@@ -1,6 +1,7 @@
 import pytest
-from .plotting import Plots
+from visualisations.plotting import Plots
 from factual.models import Work, Hero, Response
+
 
 @pytest.mark.django_db
 def test_empty_dataset():
@@ -10,23 +11,24 @@ def test_empty_dataset():
     assert plots['n_responses'] == 0
     assert len(plots) == 3
 
+
 @pytest.mark.django_db
 def test_filters(fake_data):
-    #no filters
+    # no filters
     plots = Plots.all_plotdata()
     assert plots['n_works'] == len(Work.objects.all())
     assert plots['n_heroes'] == len(Hero.objects.all())
     assert plots['n_responses'] == len(Response.objects.all())
 
-    #gender filter
+    # gender filter
     plots = Plots.all_plotdata({'hero_gender': ['MALE']})
     assert plots['n_heroes'] == 1
 
-    #medium filter
+    # medium filter
     plots = Plots.all_plotdata({'work_medium': ['novel']})
     assert plots['n_works'] == 1
 
-    #source/adapatation filter
+    # source/adapatation filter
     plots = Plots.all_plotdata({'work_is_source': [True]})
     assert plots['n_works'] == 1
 
@@ -34,81 +36,82 @@ def test_filters(fake_data):
     plots = Plots.all_plotdata({'work_medium': ['other']})
     assert plots['n_works'] == 0
 
+
 @pytest.mark.django_db
 @pytest.fixture
 def fake_data():
     Work.objects.create(
-        medium = 'novel',
-        title = 'A book',
-        author = 'Someone',
-        pub_year = 2021,
-        pub_country = 'The Netherlands',
-        is_source = True,
-        adaptation_of = None,
-        environment = 'unknown'
+        medium='novel',
+        title='A book',
+        author='Someone',
+        pub_year=2021,
+        pub_country='The Netherlands',
+        is_source=True,
+        adaptation_of=None,
+        environment='unknown'
     )
 
     Work.objects.create(
-        medium = 'film',
-        title = 'A film',
-        author = 'Someone',
-        pub_year = 2021,
-        pub_country = 'The Netherlands',
-        is_source = False,
-        adaptation_of = Work.objects.all()[0],
-        environment = 'unknown'
+        medium='film',
+        title='A film',
+        author='Someone',
+        pub_year=2021,
+        pub_country='The Netherlands',
+        is_source=False,
+        adaptation_of=Work.objects.all()[0],
+        environment='unknown'
     )
 
     Hero.objects.create(
-        name = 'A hero',
-        work = Work.objects.all()[0],
-        role = 'MAJOR',
-        narrator = True,
-        focaliser= True,
-        gender = 'MALE',
-        age = '0-25',
-        country_origin = 'The Netherlands',
-        country_growup = 'The Netherlands',
-        country_live = 'The Netherlands',
-        hobbies = [],
-        pets = [],
-        education = 'UNKNOWN',
-        profession = 'UNKNOWN',
-        appearance = True,
-        sex = True,
-        relatives = [],
-        wealth = 'UNKNOWN',
-        problems = [],
-        solutions = [],
+        name='A hero',
+        work=Work.objects.all()[0],
+        role='MAJOR',
+        narrator=True,
+        focaliser=True,
+        gender='MALE',
+        age='0-25',
+        country_origin='The Netherlands',
+        country_growup='The Netherlands',
+        country_live='The Netherlands',
+        hobbies=[],
+        pets=[],
+        education='UNKNOWN',
+        profession='UNKNOWN',
+        appearance=True,
+        sex=True,
+        relatives=[],
+        wealth='UNKNOWN',
+        problems=[],
+        solutions=[],
     )
 
     Hero.objects.create(
-        name = 'A hero',
-        work = Work.objects.all()[1],
-        role = 'MAJOR',
-        narrator = True,
-        focaliser= True,
-        gender = 'FEMALE',
-        age = '0-25',
-        country_origin = 'The Netherlands',
-        country_growup = 'The Netherlands',
-        country_live = 'The Netherlands',
-        hobbies = [],
-        pets = [],
-        education = 'UNKNOWN',
-        profession = 'UNKNOWN',
-        appearance = True,
-        sex = True,
-        relatives = [],
-        wealth = 'UNKNOWN',
-        problems = [],
-        solutions = [],
+        name='A hero',
+        work=Work.objects.all()[1],
+        role='MAJOR',
+        narrator=True,
+        focaliser=True,
+        gender='FEMALE',
+        age='0-25',
+        country_origin='The Netherlands',
+        country_growup='The Netherlands',
+        country_live='The Netherlands',
+        hobbies=[],
+        pets=[],
+        education='UNKNOWN',
+        profession='UNKNOWN',
+        appearance=True,
+        sex=True,
+        relatives=[],
+        wealth='UNKNOWN',
+        problems=[],
+        solutions=[],
     )
 
     Response.objects.create(
-        work = Hero.objects.all()[0].work,
-        hero = Hero.objects.all()[0],
-        responses = {
+        work=Hero.objects.all()[0].work,
+        hero=Hero.objects.all()[0],
+        responses={
             "agency_hindered": 3,
             "gender_embraces": 6,
             "participant_age": "26-35",
@@ -147,9 +150,9 @@ def fake_data():
     )
 
     Response.objects.create(
-        work = Hero.objects.all()[1].work,
-        hero = Hero.objects.all()[1],
-        responses = {
+        work=Hero.objects.all()[1].work,
+        hero=Hero.objects.all()[1],
+        responses={
             "agency_hindered": 3,
             "gender_embraces": 5,
             "participant_age": "0-25",
