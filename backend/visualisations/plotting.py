@@ -537,7 +537,7 @@ class Plots:
 
     def likert_plotdata(field, works, heroes, responses):
         counts = Counter(response.responses[field] for response in responses if field in response.responses)
-        labels = list(range(1,8))
+        labels = list(range(1, 6))
 
         data = {
             'labels': labels,
