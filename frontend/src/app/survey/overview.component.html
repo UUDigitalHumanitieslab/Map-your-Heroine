@@ -6,14 +6,15 @@
     </p>
 
     <p>
-      To begin the survey, you can select the work your hero(ine) is from, using the menu below. 
+      To begin the survey, you can select the work your hero(ine) is from, using the menu below.
+      You can also decide on a villain for your hero(ine).<br>
       If your work is not listed, you can add it with the <i>Create new</i> button, which will ask you some factual questions about the work.
       Future participants responding to the same work will not need to answer the factual questions.
     </p>
 
     <p>
-      <b>Important:</b> If you add an adaptation, you will be asked which work it is adapting. 
-      Therefore, make sure that the source work is already listed in the dropdown menu, 
+      <b>Important:</b> If you add an adaptation, you will be asked which work it is adapting.
+      Therefore, make sure that the source work is already listed in the dropdown menu,
       or fill in the survey for the source work <i>before</i> adding your adaptation.
     </p>
   </div>
@@ -40,7 +41,7 @@
         <ng-container *ngIf="works$ | async as works">
           <p-dropdown #workDropdown [options]="works" [(ngModel)]="existingWork" (onChange)="onWorkChange()"
             showClear="true" [disabled]="!consentGiven"
-            placeholder="pick a work" filter="true" filterBy="title,pub_year,author,medium">
+            placeholder="select a work" filter="true" filterBy="title,pub_year,author,medium">
             <ng-template let-work pTemplate="item">{{work.title}} - {{work.medium}} ({{work.pub_year}})</ng-template>
             <ng-template let-work pTemplate="selectedItem">{{work.title}} - {{work.medium}} ({{work.pub_year}})
             </ng-template>
@@ -71,7 +72,7 @@
       <div class="control">
         <ng-container *ngIf="existingWork.heroes">
           <p-dropdown #herodropdown [options]="existingWork.heroes" [(ngModel)]="existingHero" showClear="true"
-            placeholder="pick a hero" [disabled]="existingWork?.heroes.length<1 || !consentGiven">
+            placeholder="select a hero" [disabled]="existingWork?.heroes.length<1 || !consentGiven">
             <ng-template let-hero pTemplate="item">{{hero.name}}</ng-template>
             <ng-template let-hero pTemplate="selectedItem">{{hero.name}}
             </ng-template>
@@ -92,7 +93,7 @@
       The dropdown menu on the left shows all hero(in)es that are already registered for this work.
       If your hero(ine) is not listed, you can add them using the button on the right.
     </p>
-  </div>  
+  </div>
 
   <div class="block" *ngIf="existingWork && existingHero">
     <button class="button is-link" (click)="onChooseHero()" [disabled]="!consentGiven">
@@ -130,7 +131,7 @@
 </div>
 
 <div *ngIf="formCompleted">
-  <mh-result [work]="existingWork" [hero]="existingHero" [response]="personalResponse" 
+  <mh-result [work]="existingWork" [hero]="existingHero" [response]="personalResponse"
     [createdWork]="createdNewWork" [createdHero]="createdNewHero" [adaptedWork]="adaptedWork"></mh-result>
 </div>
 
@@ -145,12 +146,14 @@
 <p-dialog header="Privacy statement" [(visible)]="displayConsentStatement" [style]="{width: '50vw'}">
   <div class="content">
     <p>
-      Responses to this survey will be used in the Map your Hero(ine) research project, analysing and visualising the representation of fictional characters in adaptations. 
+      Responses to this survey will be used in the Map your Hero(ine) research project, analysing and visualising the
+      representation of fictional characters in adaptations.
       More information about the project can be found on <a href="https://mapyourhero.com" target="blank">mapyourhero.com</a>
     </p>
     <p>
-      Participation is anonymous. 
-      The data collected are obtained for the purposes of research and education only and retained on a secure server of Utrecht University. 
+      Participation is anonymous.
+      The data collected are obtained for the purposes of research and education only and retained on a secure server of
+      Utrecht University.
       Visualisations of the data are publicly available on <a href="https://map-your-hero.hum.uu.nl/results" target="blank">map-your-hero.hum.uu.nl/results</a>.
     </p>
   </div>
