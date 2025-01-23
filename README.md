@@ -13,11 +13,11 @@ The documentation below is intended for developers. For more information about t
 You need to install the following software:
 
  - PostgreSQL >= 9.3, client, server and C libraries
- - Python >= 3.4, <= 3.7
+ - Python (tested on Python 3.9)
  - virtualenv
  - WSGI-compatible webserver (deployment only)
  - [Visual C++ for Python][1] (Windows only)
- - Node.js >= 8
+ - Node.js (tested on Node 20)
  - Yarn
  - [WebDriver][2] for at least one browser (only for functional testing)
 
