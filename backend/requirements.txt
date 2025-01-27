@@ -4,47 +4,53 @@
 #
 #    pip-compile
 #
-asgiref==3.8.1
+asgiref==3.4.1
     # via django
-backports-zoneinfo==0.2.1
-    # via djangorestframework
-django==3.2.25
+attrs==21.2.0
+    # via pytest
+beautifulsoup4==4.9.3
+    # via django-livereload-server
+django==3.1.13
     # via
     #   -r requirements.in
     #   django-livereload-server
     #   django-revproxy
     #   djangorestframework
-django-livereload-server==0.5.1
+django-livereload-server==0.3.2
     # via -r requirements.in
-django-revproxy==0.13.0
+django-revproxy==0.10.0
     # via -r requirements.in
-djangorestframework==3.15.1
+djangorestframework==3.12.4
     # via -r requirements.in
-exceptiongroup==1.2.2
+iniconfig==1.1.1
     # via pytest
-iniconfig==2.0.0
+packaging==21.0
     # via pytest
-packaging==24.2
+pluggy==0.13.1
     # via pytest
-pluggy==1.5.0
-    # via pytest
-psycopg2==2.9.10
+psycopg2==2.9.1
     # via -r requirements.in
-pytest==8.3.4
+py==1.10.0
+    # via pytest
+pyparsing==2.4.7
+    # via packaging
+pytest==6.2.4
     # via
     #   -r requirements.in
     #   pytest-django
-pytest-django==4.9.0
+pytest-django==4.4.0
     # via -r requirements.in
-pytz==2024.2
+pytz==2021.1
     # via django
-sqlparse==0.5.3
-    # via django
-tomli==2.2.1
-    # via pytest
-tornado==6.4.2
+six==1.16.0
     # via django-livereload-server
-typing-extensions==4.12.2
-    # via asgiref
-urllib3==2.2.3
+soupsieve==2.2.1
+    # via beautifulsoup4
+sqlparse==0.4.1
+    # via django
+toml==0.10.2
+    # via pytest
+tornado==6.1
+    # via django-livereload-server
+urllib3==1.26.6
     # via django-revproxy
