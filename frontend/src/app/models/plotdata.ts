@@ -1,24 +1,24 @@
-export const LIKERTPLOTOPTIONS = {
-  aspectRatio: 4,
-  responsive: true,
-  scales: {
-    xAxes: [
-      {
-        display: true,
-        scaleLabel: {
-          display: true,
-          labelString: "1 = Strongly Disagree, 5 = Strongly Agree",
+import { ChartOptions } from "chart.js";
+
+export const LIKERTPLOTOPTIONS: ChartOptions = {
+    aspectRatio: 4,
+    responsive: true,
+    scales: {
+        x: {
+            display: true,
+            title: {
+                display: true,
+                text: "1 = Strongly Disagree, 5 = Strongly Agree",
+            },
         },
-      },
-    ],
-    yAxes: [
-      {
-        display: false,
-        ticks: { min: 0 },
-      },
-    ],
-  },
-  legend: {
-    display: false,
-  },
+        y: {
+            display: false,
+            min: 0,
+        },
+    },
+    plugins: {
+        legend: {
+            display: false,
+        },
+    }
 };

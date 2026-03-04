@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { ChartOptions } from 'chart.js';
 
 @Component({
     selector: 'mh-vis-hero',
@@ -93,13 +94,15 @@ export class VisHeroComponent implements OnInit, OnChanges {
 
     numberOfHeroes: number;
 
-    agePlotOptions = {
-        legend: {
-            display: false
+    agePlotOptions: ChartOptions = {
+        plugins: {
+            legend: {
+                display: false
+            },
         },
-        yAxes: [{
-            ticks: { min: 0 }
-        }]
+        scales: {
+            y: { min: 0 },
+        }
     };
 
     smallPlotOptions = {

@@ -38,9 +38,6 @@
                             "src/styles.scss",
                             "./node_modules/survey-core/survey-core.min.css"
                         ],
-                        "scripts": [
-                            "./node_modules/chart.js/dist/Chart.js"
-                        ],
                         "deployUrl": "/static/",
                         "vendorChunk": true,
                         "extractLicenses": false,
@@ -146,9 +143,6 @@
                         ],
                         "styles": [
                             "src/styles.scss"
-                        ],
-                        "scripts": [
-                            "./node_modules/chart.js/dist/Chart.js"
                         ]
                     }
                 }
