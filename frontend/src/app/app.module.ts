@@ -34,6 +34,7 @@ import { VisPersonalityComponent } from './visualisations/vis-personality/vis-pe
 import { VisAppearanceComponent } from './visualisations/vis-appearance/vis-appearance.component';
 import { VisProfessionComponent } from './visualisations/vis-profession/vis-profession.component';
 import { ResultComponent } from './survey/result.component';
+import { SurveyModule } from 'survey-angular-ui';
 
 @NgModule({
     declarations: [
@@ -75,6 +76,7 @@ import { ResultComponent } from './survey/result.component';
         PanelModule,
         ReactiveFormsModule,
         ChartModule,
+        SurveyModule,
     ],
     providers: [],
     bootstrap: [AppComponent]
