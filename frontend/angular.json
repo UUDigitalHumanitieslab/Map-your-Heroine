@@ -38,7 +38,7 @@
                             "src/styles.scss",
                             "./node_modules/survey-core/survey-core.min.css"
                         ],
-                        "deployUrl": "/static/",
+                        "baseHref": "/",
                         "vendorChunk": true,
                         "extractLicenses": false,
                         "buildOptimizer": false,
