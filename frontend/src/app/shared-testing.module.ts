@@ -5,7 +5,6 @@ import { RouterTestingModule } from "@angular/router/testing";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { of } from "rxjs";
 import { BackendService } from "./services/backend.service";
-import { ConfigService } from "./services/config.service";
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { ChipsModule } from "primeng/chips";
 import { AutoCompleteModule } from "primeng/autocomplete";
@@ -22,12 +21,6 @@ class FakeBackend {
 
     post() {
         return of(undefined);
-    }
-}
-
-class FakeConfig {
-    get() {
-        return Promise.resolve('/api/');
     }
 }
 
@@ -62,7 +55,6 @@ class FakeConfig {
     ],
     providers: [
         { provide: BackendService, useClass: FakeBackend },
-        { provide: ConfigService, useClass: FakeConfig },
     ]
 })
 export class SharedTestingModule { }

@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ConfigService } from './config.service';
-import { from, Observable, map, switchMap, catchError } from 'rxjs';
+import { from, Observable, catchError } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
     providedIn: 'root'
 })
 export class BackendService {
-    private apiUrl: Promise<string> | null = null;
+    private apiUrl = environment.apiUrl || '/api/';
 
-    constructor(private config: ConfigService, private http: HttpClient) { }
+    constructor(private http: HttpClient) { }
 
     /**
     * Collect JSON from an specific url.
@@ -19,27 +19,17 @@ export class BackendService {
     * Note that this method will add a '/' at the end of the url if it does not exist.
     */
     get<T>(objectUrl: string): Observable<T> {
-        return from(this.getApiUrl()).pipe(
-            map(baseUrl => this.joinURL(baseUrl, objectUrl)),
-            switchMap(url => this.http.get<T>(url)),
+        const url = this.joinURL(this.apiUrl, objectUrl);
+        return this.http.get<T>(url).pipe(
             catchError(err => this.handleError(err)),
-        )
+        );
     }
 
     post(objectUrl: string, body: any): Observable<any> {
-        return from(this.getApiUrl()).pipe(
-            map(baseUrl => this.joinURL(baseUrl, objectUrl)),
-            switchMap(url => this.http.post(url, body)),
+        const url = this.joinURL(this.apiUrl, objectUrl);
+        return this.http.post(url, body).pipe(
             catchError(err => this.handleError(err)),
-        )
-    }
-
-    getApiUrl(): Promise<string> {
-        if (!this.apiUrl) {
-            return this.config.get().then(config => config.backendUrl);
-        } else {
-            return Promise.resolve(this.apiUrl);
-        }
+        );
     }
 
     private joinURL(baseUrl: string, objectUrl: string): string {
