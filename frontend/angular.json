@@ -154,7 +154,6 @@
             }
         }
     },
-    "defaultProject": "map-your-heroine",
     "cli": {
         "packageManager": "yarn"
     }

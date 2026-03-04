@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { faQuestion } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { COUNTRIES } from '../models/countries';
@@ -47,17 +47,17 @@ export class WorkComponent implements OnInit, OnDestroy {
 
     showAdaptationOf = false;
 
-    workForm = new FormGroup({
-        title: new FormControl('', [Validators.required]),
-        author: new FormControl('', [Validators.required]),
-        medium: new FormControl('', [Validators.required]),
-        mediumOther: new FormControl({ value: '', disabled: true }),
-        pub_year: new FormControl('', [Validators.required]),
-        pub_country: new FormControl('', [Validators.required]),
-        is_source: new FormControl(true, [Validators.required]),
-        adaptation_of: new FormControl(''),
-        environment: new FormControl('', [Validators.required]),
-        environmentOther: new FormControl({ value: '', disabled: true })
+    workForm = new UntypedFormGroup({
+        title: new UntypedFormControl('', [Validators.required]),
+        author: new UntypedFormControl('', [Validators.required]),
+        medium: new UntypedFormControl('', [Validators.required]),
+        mediumOther: new UntypedFormControl({ value: '', disabled: true }),
+        pub_year: new UntypedFormControl('', [Validators.required]),
+        pub_country: new UntypedFormControl('', [Validators.required]),
+        is_source: new UntypedFormControl(true, [Validators.required]),
+        adaptation_of: new UntypedFormControl(''),
+        environment: new UntypedFormControl('', [Validators.required]),
+        environmentOther: new UntypedFormControl({ value: '', disabled: true })
     });
 
     @Output()

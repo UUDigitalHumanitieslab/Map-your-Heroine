@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup, FormArray, Validators } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, UntypedFormArray, Validators } from '@angular/forms';
 import { HOBBIES_OPTIONS, IHero, PROFESSION_OPTIONS } from '../models/hero';
 import { IWork } from '../models/work';
 import {
@@ -43,34 +43,34 @@ export class HeroComponent implements OnInit {
     filteredCountriesLive = [];
     filteredCountriesGrowup = [];
 
-    heroForm = new FormGroup({
-        name: new FormControl('', [Validators.required]),
-        role: new FormControl('', [Validators.required]),
-        narrator: new FormControl('', [Validators.required]),
-        focaliser: new FormControl('', [Validators.required]),
-        gender: new FormControl('', [Validators.required]),
-        age: new FormControl('', [Validators.required]),
-        country_origin: new FormControl('', [Validators.required]),
-        country_live: new FormControl('', [Validators.required]),
-        country_growup: new FormControl('', [Validators.required]),
-        education: new FormControl('', [Validators.required]),
-        profession: new FormControl('', [Validators.required]),
-        hobbies: new FormArray([]),
-        hobbies_other_enable: new FormControl(false),
-        hobbies_other: new FormControl({ value: [], disabled: true }),
-        pets: new FormArray([]),
-        pets_other_enable: new FormControl(false),
-        pets_other: new FormControl({ value: [], disabled: true }),
-        appearance: new FormControl(''),
-        sex: new FormControl('', [Validators.required]),
-        relatives: new FormArray([], [Validators.required]),
-        wealth: new FormControl('', [Validators.required]),
-        problems: new FormArray([]),
-        problems_other_enable: new FormControl(false),
-        problems_other: new FormControl({ value: [], disabled: true }),
-        solutions: new FormArray([]),
-        solutions_other_enable: new FormControl(false),
-        solutions_other: new FormControl({ value: [], disabled: true }),
+    heroForm = new UntypedFormGroup({
+        name: new UntypedFormControl('', [Validators.required]),
+        role: new UntypedFormControl('', [Validators.required]),
+        narrator: new UntypedFormControl('', [Validators.required]),
+        focaliser: new UntypedFormControl('', [Validators.required]),
+        gender: new UntypedFormControl('', [Validators.required]),
+        age: new UntypedFormControl('', [Validators.required]),
+        country_origin: new UntypedFormControl('', [Validators.required]),
+        country_live: new UntypedFormControl('', [Validators.required]),
+        country_growup: new UntypedFormControl('', [Validators.required]),
+        education: new UntypedFormControl('', [Validators.required]),
+        profession: new UntypedFormControl('', [Validators.required]),
+        hobbies: new UntypedFormArray([]),
+        hobbies_other_enable: new UntypedFormControl(false),
+        hobbies_other: new UntypedFormControl({ value: [], disabled: true }),
+        pets: new UntypedFormArray([]),
+        pets_other_enable: new UntypedFormControl(false),
+        pets_other: new UntypedFormControl({ value: [], disabled: true }),
+        appearance: new UntypedFormControl(''),
+        sex: new UntypedFormControl('', [Validators.required]),
+        relatives: new UntypedFormArray([], [Validators.required]),
+        wealth: new UntypedFormControl('', [Validators.required]),
+        problems: new UntypedFormArray([]),
+        problems_other_enable: new UntypedFormControl(false),
+        problems_other: new UntypedFormControl({ value: [], disabled: true }),
+        solutions: new UntypedFormArray([]),
+        solutions_other_enable: new UntypedFormControl(false),
+        solutions_other: new UntypedFormControl({ value: [], disabled: true }),
     });
 
     @Input()
@@ -103,13 +103,13 @@ export class HeroComponent implements OnInit {
     }
 
     onCheckboxChange(name, value, event) {
-        const checkArray: FormArray = this.heroForm.get(name) as FormArray;
+        const checkArray: UntypedFormArray = this.heroForm.get(name) as UntypedFormArray;
         if (event.target.checked) {
-            checkArray.push(new FormControl(value));
+            checkArray.push(new UntypedFormControl(value));
         }
         else {
             let i: number = 0;
-            checkArray.controls.forEach((item: FormControl) => {
+            checkArray.controls.forEach((item: UntypedFormControl) => {
                 if (item.value == value) {
                     checkArray.removeAt(i);
                     return;
