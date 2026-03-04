@@ -2,24 +2,24 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'mh-vis-hero',
-  templateUrl: './vis-hero.component.html',
-  styleUrls: ['./vis-hero.component.scss']
+    selector: 'mh-vis-hero',
+    templateUrl: './vis-hero.component.html',
+    styleUrls: ['./vis-hero.component.scss']
 })
 export class VisHeroComponent implements OnInit, OnChanges {
-  @Input() plotData: any;
+    @Input() plotData: any;
 
-  plotNames = [
-      'hero_gender', 'hero_age', 'hero_role', 'hero_narrator', 'hero_focaliser',
-      'hero_education', 'hero_wealth', 'hero_profession',
-      'hero_country_origin', 'hero_country_growup', 'hero_country_live',
-      'hero_attractive', 'hero_sex', 'hero_relatives',
-      'hero_hobbies', 'hero_pets', 'hero_problems', 'hero_solutions',
+    plotNames = [
+        'hero_gender', 'hero_age', 'hero_role', 'hero_narrator', 'hero_focaliser',
+        'hero_education', 'hero_wealth', 'hero_profession',
+        'hero_country_origin', 'hero_country_growup', 'hero_country_live',
+        'hero_attractive', 'hero_sex', 'hero_relatives',
+        'hero_hobbies', 'hero_pets', 'hero_problems', 'hero_solutions',
     ];
-  plots = {
+    plots = {
         hero_gender: {
-          title: 'Gender of the hero(ine)',
-          data: undefined
+            title: 'Gender of the hero(ine)',
+            data: undefined
         },
         hero_age: {
             title: 'Age of the hero(ine)',
@@ -89,41 +89,41 @@ export class VisHeroComponent implements OnInit, OnChanges {
             title: 'How does the hero(ine) overcome problems?',
             data: undefined,
         },
-  };
+    };
 
-  numberOfHeroes: number;
+    numberOfHeroes: number;
 
-  agePlotOptions = {
-    legend: {
-      display: false
-    },
-    yAxes: [{
-      ticks: {min: 0}
-      }]
-  };
+    agePlotOptions = {
+        legend: {
+            display: false
+        },
+        yAxes: [{
+            ticks: { min: 0 }
+        }]
+    };
 
-  smallPlotOptions = {
-    aspectRatio: 1.5
-  };
+    smallPlotOptions = {
+        aspectRatio: 1.5
+    };
 
-  countryPlotOptions = {
-    aspectRatio: 1
-  };
+    countryPlotOptions = {
+        aspectRatio: 1
+    };
 
-  widePlotOptions = {
-    aspectRatio: 3
-  };
+    widePlotOptions = {
+        aspectRatio: 3
+    };
 
-  constructor(private http: HttpClient) { }
+    constructor() { }
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {
+    }
 
-  ngOnChanges(): void {
-      this.numberOfHeroes = this.plotData.n_heroes;
-      this.plotNames.forEach( name => {
-          this.plots[name].data = this.plotData[name];
-      });
-  }
+    ngOnChanges(): void {
+        this.numberOfHeroes = this.plotData.n_heroes;
+        this.plotNames.forEach(name => {
+            this.plots[name].data = this.plotData[name];
+        });
+    }
 
 }

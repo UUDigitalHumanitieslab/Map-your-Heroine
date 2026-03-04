@@ -60,7 +60,7 @@ export class ResultComponent implements OnInit {
         }
 
         if (type in this.choicesFormatting) {
-            return this.choicesFormatting[type].find(option => option.value === response).label;
+            return this.choicesFormatting[type].find(option => option.value === response)?.label;
         }
 
         if (type === 'adaptation of') {

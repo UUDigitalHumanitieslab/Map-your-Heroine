@@ -41,7 +41,7 @@ export class VisWorkComponent implements OnInit, OnChanges {
 
   numberOfWorks: number;
 
-  constructor(private http: HttpClient) { }
+  constructor() { }
 
   ngOnInit(): void {
   }
