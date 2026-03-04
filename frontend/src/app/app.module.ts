@@ -12,7 +12,6 @@ import { FooterComponent } from './footer/footer.component';
 import { MenuComponent } from './menu/menu.component';
 import { HomeComponent } from './home/home.component';
 import { WorkComponent } from './survey/work.component';
-import { RestangularModule } from 'ngx-restangular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { DropdownModule } from 'primeng/dropdown';
@@ -35,20 +34,6 @@ import { VisPersonalityComponent } from './visualisations/vis-personality/vis-pe
 import { VisAppearanceComponent } from './visualisations/vis-appearance/vis-appearance.component';
 import { VisProfessionComponent } from './visualisations/vis-profession/vis-profession.component';
 import { ResultComponent } from './survey/result.component';
-
-export function RestangularConfigFactory(RestangularProvider) {
-    RestangularProvider.setBaseUrl('/api');
-    RestangularProvider.addFullRequestInterceptor((element, operation, path, url, headers, params) => {
-        const token = decodeURIComponent(document.cookie);
-        if (token) {
-            const csrf = token.split(';').filter(item => item.trim().startsWith('csrft'))[0].split('=')[1];
-            return {
-                headers: Object.assign(headers, { 'X-CSRFToken': csrf }),
-            };
-        }
-    });
-    RestangularProvider.setRequestSuffix('/');
-}
 
 @NgModule({
     declarations: [
@@ -83,7 +68,6 @@ export function RestangularConfigFactory(RestangularProvider) {
             cookieName: 'csrftoken',
             headerName: 'X-CSRFToken'
         }),
-        RestangularModule.forRoot(RestangularConfigFactory),
         DropdownModule,
         ChipsModule,
         AutoCompleteModule,

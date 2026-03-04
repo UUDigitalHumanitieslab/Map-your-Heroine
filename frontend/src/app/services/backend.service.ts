@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ConfigService } from './config.service';
+import { from, Observable, map, switchMap, catchError } from 'rxjs';
 
 
 @Injectable({
@@ -11,24 +12,26 @@ export class BackendService {
 
     constructor(private config: ConfigService, private http: HttpClient) { }
 
-     /**
-     * Collect JSON from an specific url.
-     * @param objectUrl The part of the URL after the backendUrl from config.json.
-     * (i.e. whatever comes after, for example, '/api/').
-     * Note that this method will add a '/' at the end of the url if it does not exist.
-     */
-    get(objectUrl: string): Promise<any> {
-        return this.getApiUrl().then(baseUrl => {
-            if (!objectUrl.endsWith('/')) { objectUrl = `${objectUrl}/`; }
-            const url: string = encodeURI(baseUrl + objectUrl);
+    /**
+    * Collect JSON from an specific url.
+    * @param objectUrl The part of the URL after the backendUrl from config.json.
+    * (i.e. whatever comes after, for example, '/api/').
+    * Note that this method will add a '/' at the end of the url if it does not exist.
+    */
+    get<T>(objectUrl: string): Observable<T> {
+        return from(this.getApiUrl()).pipe(
+            map(baseUrl => this.joinURL(baseUrl, objectUrl)),
+            switchMap(url => this.http.get<T>(url)),
+            catchError(err => this.handleError(err)),
+        )
+    }
 
-            return this.http.get(url)
-                .toPromise()
-                .then(response => {
-                    return response;
-                })
-                .catch(this.handleError);
-        });
+    post(objectUrl: string, body: any): Observable<any> {
+        return from(this.getApiUrl()).pipe(
+            map(baseUrl => this.joinURL(baseUrl, objectUrl)),
+            switchMap(url => this.http.post(url, body)),
+            catchError(err => this.handleError(err)),
+        )
     }
 
     getApiUrl(): Promise<string> {
@@ -39,8 +42,13 @@ export class BackendService {
         }
     }
 
-    private handleError(error: any): Promise<any> {
+    private joinURL(baseUrl: string, objectUrl: string): string {
+        if (!objectUrl.endsWith('/')) { objectUrl = `${objectUrl}/`; }
+        return encodeURI(baseUrl + objectUrl);
+    }
+
+    private handleError(error: any): Observable<any> {
         console.error('An error occurred', error);
-        return Promise.reject(error.message || error);
+        return from(Promise.reject(error.message || error));
     }
 }

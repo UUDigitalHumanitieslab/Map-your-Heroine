@@ -1,6 +1,4 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output, } from '@angular/core';
-import { Restangular } from 'ngx-restangular';
 import * as Survey from 'survey-angular';
 import { SURVEY } from '../models/response';
 
@@ -19,7 +17,7 @@ export class ResponseComponent implements OnInit  {
   @Output()
   completeResponse = new EventEmitter<any>();
 
-  constructor(private restangular: Restangular) {}
+  constructor() {}
 
   ngOnInit() {
     var survey = new Survey.Model(this.surveyJSON);
