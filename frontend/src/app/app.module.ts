@@ -17,7 +17,7 @@ import { HomeComponent } from './home/home.component';
 import { WorkComponent } from './survey/work.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { DropdownModule } from 'primeng/dropdown';
+import { SelectModule } from 'primeng/select';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { DialogModule } from 'primeng/dialog';
 import { PanelModule } from 'primeng/panel';
@@ -67,7 +67,7 @@ import { SurveyModule } from 'survey-angular-ui';
         BrowserAnimationsModule,
         FontAwesomeModule,
         FormsModule,
-        DropdownModule,
+        SelectModule,
         AutoCompleteModule,
         DialogModule,
         PanelModule,
