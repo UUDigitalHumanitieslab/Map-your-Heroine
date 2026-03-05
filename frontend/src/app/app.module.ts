@@ -1,9 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi, withXsrfConfiguration } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import Aura from '@primeng/themes/aura';
+import { providePrimeNG } from 'primeng/config';
+
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -15,11 +18,10 @@ import { WorkComponent } from './survey/work.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { DropdownModule } from 'primeng/dropdown';
-import {ChipsModule} from 'primeng/chips';
-import {AutoCompleteModule} from 'primeng/autocomplete';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 import { DialogModule } from 'primeng/dialog';
 import { PanelModule } from 'primeng/panel';
-import {ChartModule} from 'primeng/chart';
+import { ChartModule } from 'primeng/chart';
 import { OverviewComponent } from './survey/overview.component';
 import { HeroComponent } from './survey/hero.component';
 import { ResponseComponent } from './survey/response.component';
@@ -58,27 +60,34 @@ import { SurveyModule } from 'survey-angular-ui';
         VisProfessionComponent,
         ResultComponent
     ],
+    bootstrap: [AppComponent],
     imports: [
         AppRoutingModule,
         BrowserModule,
         BrowserAnimationsModule,
         FontAwesomeModule,
         FormsModule,
-        HttpClientModule,
-        HttpClientXsrfModule.withOptions({
-            cookieName: 'csrftoken',
-            headerName: 'X-CSRFToken'
-        }),
         DropdownModule,
-        ChipsModule,
         AutoCompleteModule,
         DialogModule,
         PanelModule,
         ReactiveFormsModule,
         ChartModule,
-        SurveyModule,
+        SurveyModule
     ],
-    providers: [],
-    bootstrap: [AppComponent]
+    providers: [
+        provideHttpClient(withInterceptorsFromDi(), withXsrfConfiguration({
+            cookieName: 'csrftoken',
+            headerName: 'X-CSRFToken'
+        })),
+        providePrimeNG({
+            theme: {
+                preset: Aura,
+                options: {
+                    darkModeSelector: ''
+                }
+            }
+        })
+    ]
 })
 export class AppModule { }
