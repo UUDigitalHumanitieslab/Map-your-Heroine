@@ -5,9 +5,10 @@ import { MEDIUM_OPTIONS } from '../models/work';
 import { GENDER_OPTIONS } from '../models/hero';
 
 @Component({
-  selector: 'mh-vis-overview',
-  templateUrl: './vis-overview.component.html',
-  styleUrls: ['./vis-overview.component.scss']
+    selector: 'mh-vis-overview',
+    templateUrl: './vis-overview.component.html',
+    styleUrls: ['./vis-overview.component.scss'],
+    standalone: false
 })
 export class VisOverviewComponent implements OnInit {
   activeTab = 'work';

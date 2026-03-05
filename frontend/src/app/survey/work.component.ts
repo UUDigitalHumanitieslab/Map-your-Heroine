@@ -10,7 +10,8 @@ import { BackendService } from '../services/backend.service';
 @Component({
     selector: 'mh-work',
     templateUrl: './work.component.html',
-    styleUrls: ['./work.component.scss']
+    styleUrls: ['./work.component.scss'],
+    standalone: false
 })
 export class WorkComponent implements OnInit, OnDestroy {
     subscriptions$: Subscription[] = [];

@@ -8,7 +8,8 @@ import { IWork } from '../models/work';
 @Component({
     selector: 'mh-result',
     templateUrl: './result.component.html',
-    styleUrls: ['./result.component.scss']
+    styleUrls: ['./result.component.scss'],
+    standalone: false
 })
 export class ResultComponent implements OnInit {
     @Input() work: IWork;

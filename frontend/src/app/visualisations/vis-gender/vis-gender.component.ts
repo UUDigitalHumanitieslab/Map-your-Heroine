@@ -5,7 +5,8 @@ import { SURVEY } from 'src/app/models/response';
 @Component({
     selector: 'mh-vis-gender',
     templateUrl: './vis-gender.component.html',
-    styleUrls: ['./vis-gender.component.scss']
+    styleUrls: ['./vis-gender.component.scss'],
+    standalone: false
 })
 export class VisGenderComponent implements OnInit, OnChanges {
     @Input() plotData: any;

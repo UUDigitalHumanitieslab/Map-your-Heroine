@@ -16,7 +16,8 @@ import { BackendService } from '../services/backend.service';
 @Component({
     selector: 'mh-hero',
     templateUrl: './hero.component.html',
-    styleUrls: ['./hero.component.scss']
+    styleUrls: ['./hero.component.scss'],
+    standalone: false
 })
 export class HeroComponent implements OnInit {
     subscriptions$: Subscription[] = [];

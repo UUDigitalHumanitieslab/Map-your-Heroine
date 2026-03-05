@@ -5,7 +5,8 @@ import { SURVEY } from 'src/app/models/response';
 @Component({
     selector: 'mh-vis-identification',
     templateUrl: './vis-identification.component.html',
-    styleUrls: ['./vis-identification.component.scss']
+    styleUrls: ['./vis-identification.component.scss'],
+    standalone: false
 })
 export class VisIdentificationComponent implements OnInit, OnChanges {
     @Input() plotData: any;

@@ -5,7 +5,8 @@ import { ChartOptions } from 'chart.js';
 @Component({
     selector: 'mh-vis-hero',
     templateUrl: './vis-hero.component.html',
-    styleUrls: ['./vis-hero.component.scss']
+    styleUrls: ['./vis-hero.component.scss'],
+    standalone: false
 })
 export class VisHeroComponent implements OnInit, OnChanges {
     @Input() plotData: any;

@@ -6,7 +6,8 @@ import { animations, showState } from '../animations';
     animations,
     selector: 'mh-menu',
     templateUrl: './menu.component.html',
-    styleUrls: ['./menu.component.scss']
+    styleUrls: ['./menu.component.scss'],
+    standalone: false,
 })
 export class MenuComponent {
     burgerShow: showState;

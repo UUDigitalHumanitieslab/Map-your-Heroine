@@ -4,9 +4,10 @@ import { LIKERTPLOTOPTIONS } from 'src/app/models/plotdata';
 import { SURVEY } from 'src/app/models/response';
 
 @Component({
-  selector: 'mh-vis-profession',
-  templateUrl: './vis-profession.component.html',
-  styleUrls: ['./vis-profession.component.scss']
+    selector: 'mh-vis-profession',
+    templateUrl: './vis-profession.component.html',
+    styleUrls: ['./vis-profession.component.scss'],
+    standalone: false
 })
 export class VisProfessionComponent implements OnInit, OnChanges {
   @Input() plotData: any;

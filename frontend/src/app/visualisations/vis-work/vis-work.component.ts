@@ -5,7 +5,8 @@ import { ChartOptions } from 'chart.js';
 @Component({
     selector: 'mh-vis-work',
     templateUrl: './vis-work.component.html',
-    styleUrls: ['./vis-work.component.scss']
+    styleUrls: ['./vis-work.component.scss'],
+    standalone: false
 })
 export class VisWorkComponent implements OnInit, OnChanges {
     @Input() plotData: any;

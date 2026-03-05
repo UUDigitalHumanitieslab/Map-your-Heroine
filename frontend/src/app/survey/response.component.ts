@@ -6,6 +6,7 @@ import { Model } from 'survey-core';
     selector: 'mh-response',
     templateUrl: './response.component.html',
     styleUrls: ['./response.component.scss'],
+    standalone: false
 })
 
 export class ResponseComponent implements OnInit {

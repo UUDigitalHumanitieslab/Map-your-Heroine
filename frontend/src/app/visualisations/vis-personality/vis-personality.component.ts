@@ -4,9 +4,10 @@ import { LIKERTPLOTOPTIONS } from 'src/app/models/plotdata';
 import { SURVEY } from 'src/app/models/response';
 
 @Component({
-  selector: 'mh-vis-personality',
-  templateUrl: './vis-personality.component.html',
-  styleUrls: ['./vis-personality.component.scss']
+    selector: 'mh-vis-personality',
+    templateUrl: './vis-personality.component.html',
+    styleUrls: ['./vis-personality.component.scss'],
+    standalone: false
 })
 export class VisPersonalityComponent implements OnInit, OnChanges {
   @Input() plotData: any;

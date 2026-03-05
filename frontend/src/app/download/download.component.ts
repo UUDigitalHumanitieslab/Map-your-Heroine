@@ -6,7 +6,8 @@ import { saveAs } from 'file-saver';
 @Component({
     selector: 'mh-download',
     templateUrl: './download.component.html',
-    styleUrls: ['./download.component.scss']
+    styleUrls: ['./download.component.scss'],
+    standalone: false
 })
 export class DownloadComponent implements OnInit {
     password: string;

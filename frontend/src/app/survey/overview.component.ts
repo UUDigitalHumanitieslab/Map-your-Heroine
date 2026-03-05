@@ -10,7 +10,8 @@ import { BackendService } from '../services/backend.service';
 @Component({
     selector: 'mh-overview',
     templateUrl: './overview.component.html',
-    styleUrls: ['./overview.component.scss']
+    styleUrls: ['./overview.component.scss'],
+    standalone: false
 })
 export class OverviewComponent implements OnInit {
     httpError: HttpErrorResponse = undefined;

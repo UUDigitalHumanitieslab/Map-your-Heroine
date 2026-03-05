@@ -4,9 +4,10 @@ import { LIKERTPLOTOPTIONS } from 'src/app/models/plotdata';
 import { SURVEY } from 'src/app/models/response';
 
 @Component({
-  selector: 'mh-vis-agency',
-  templateUrl: './vis-agency.component.html',
-  styleUrls: ['./vis-agency.component.scss']
+    selector: 'mh-vis-agency',
+    templateUrl: './vis-agency.component.html',
+    styleUrls: ['./vis-agency.component.scss'],
+    standalone: false
 })
 export class VisAgencyComponent implements OnInit, OnChanges {
   @Input() plotData: any;
