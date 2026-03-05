@@ -12,12 +12,12 @@ The documentation below is intended for developers. For more information about t
 
 You need to install the following software:
 
- - PostgreSQL >= 9.3, client, server and C libraries
- - Python >= 3.4, <= 3.7
- - virtualenv
+ - PostgreSQL >= 12, client, server and C libraries
+ - Python >= 3.12
+ - Python virtualenv
  - WSGI-compatible webserver (deployment only)
  - [Visual C++ for Python][1] (Windows only)
- - Node.js >= 8
+ - Node.js >= 22
  - Yarn
 
 [1]: https://wiki.python.org/moin/WindowsCompilers
