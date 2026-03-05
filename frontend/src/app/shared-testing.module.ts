@@ -25,19 +25,22 @@ class FakeBackend {
     }
 }
 
-@NgModule({ exports: [
+@NgModule({
+    exports: [
         CommonModule,
         NoopAnimationsModule,
         RouterTestingModule,
         FontAwesomeModule,
-        HttpClientTestingModule,
         ChipsModule,
         AutoCompleteModule,
         DialogModule,
         PanelModule,
         ChartModule,
         SurveyModule,
-    ], imports: [CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+    ], imports: [
+        CommonModule,
         NoopAnimationsModule,
         RouterTestingModule,
         FontAwesomeModule,
@@ -48,9 +51,11 @@ class FakeBackend {
         ChartModule,
         FormsModule,
         ReactiveFormsModule,
-        SurveyModule], providers: [
-        { provide: BackendService, useClass: FakeBackend },
-        provideHttpClient(withInterceptorsFromDi()),
-        provideHttpClientTesting(),
-    ] })
+        SurveyModule
+    ], providers: [
+            { provide: BackendService, useClass: FakeBackend },
+            provideHttpClient(withInterceptorsFromDi()),
+            provideHttpClientTesting(),
+        ]
+})
 export class SharedTestingModule { }
