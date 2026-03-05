@@ -1,7 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { NoopAnimationsModule } from "@angular/platform-browser/animations";
-import { RouterTestingModule } from "@angular/router/testing";
 import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { of } from "rxjs";
 import { BackendService } from "./services/backend.service";
@@ -14,6 +13,8 @@ import { ChartModule } from "primeng/chart";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { SurveyModule } from "survey-angular-ui";
 import { provideHttpClient, withInterceptorsFromDi } from "@angular/common/http";
+import { RouterModule } from "@angular/router";
+import { routes } from "./routes";
 
 class FakeBackend {
     get() {
@@ -29,7 +30,6 @@ class FakeBackend {
     exports: [
         CommonModule,
         NoopAnimationsModule,
-        RouterTestingModule,
         FontAwesomeModule,
         ChipsModule,
         AutoCompleteModule,
@@ -39,10 +39,10 @@ class FakeBackend {
         SurveyModule,
         FormsModule,
         ReactiveFormsModule,
+        RouterModule,
     ], imports: [
         CommonModule,
         NoopAnimationsModule,
-        RouterTestingModule,
         FontAwesomeModule,
         ChipsModule,
         AutoCompleteModule,
@@ -51,11 +51,12 @@ class FakeBackend {
         ChartModule,
         FormsModule,
         ReactiveFormsModule,
-        SurveyModule
+        SurveyModule,
+        RouterModule.forRoot(routes),
     ], providers: [
-            { provide: BackendService, useClass: FakeBackend },
-            provideHttpClient(withInterceptorsFromDi()),
-            provideHttpClientTesting(),
-        ]
+        { provide: BackendService, useClass: FakeBackend },
+        provideHttpClient(withInterceptorsFromDi()),
+        provideHttpClientTesting(),
+    ]
 })
 export class SharedTestingModule { }
