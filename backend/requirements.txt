@@ -58,7 +58,7 @@ sqlparse==0.5.4
     # via django
 toml==0.10.2
     # via pytest
-tornado==6.1
+tornado==6.5.5
     # via django-livereload-server
 urllib3==1.26.6
     # via django-revproxy
