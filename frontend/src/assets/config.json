@@ -1,4 +1,3 @@
 {
-    "backendUrl": "/api/",
-    "voyantUrl": "https://voyant-tools.org/"
+    "backendUrl": "/api/"
 }

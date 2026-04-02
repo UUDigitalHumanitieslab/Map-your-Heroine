@@ -1,46 +1,44 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ConfigService } from './config.service';
+import { from, Observable, catchError } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
     providedIn: 'root'
 })
 export class BackendService {
-    private apiUrl: Promise<string> | null = null;
+    private apiUrl = environment.apiUrl || '/api/';
 
-    constructor(private config: ConfigService, private http: HttpClient) { }
+    constructor(private http: HttpClient) { }
 
-     /**
-     * Collect JSON from an specific url.
-     * @param objectUrl The part of the URL after the backendUrl from config.json.
-     * (i.e. whatever comes after, for example, '/api/').
-     * Note that this method will add a '/' at the end of the url if it does not exist.
-     */
-    get(objectUrl: string): Promise<any> {
-        return this.getApiUrl().then(baseUrl => {
-            if (!objectUrl.endsWith('/')) { objectUrl = `${objectUrl}/`; }
-            const url: string = encodeURI(baseUrl + objectUrl);
-
-            return this.http.get(url)
-                .toPromise()
-                .then(response => {
-                    return response;
-                })
-                .catch(this.handleError);
-        });
+    /**
+    * Collect JSON from an specific url.
+    * @param objectUrl The part of the URL after the backendUrl from config.json.
+    * (i.e. whatever comes after, for example, '/api/').
+    * Note that this method will add a '/' at the end of the url if it does not exist.
+    */
+    get<T>(objectUrl: string): Observable<T> {
+        const url = this.joinURL(this.apiUrl, objectUrl);
+        return this.http.get<T>(url).pipe(
+            catchError(err => this.handleError(err)),
+        );
     }
 
-    getApiUrl(): Promise<string> {
-        if (!this.apiUrl) {
-            return this.config.get().then(config => config.backendUrl);
-        } else {
-            return Promise.resolve(this.apiUrl);
-        }
+    post(objectUrl: string, body: any): Observable<any> {
+        const url = this.joinURL(this.apiUrl, objectUrl);
+        return this.http.post(url, body).pipe(
+            catchError(err => this.handleError(err)),
+        );
     }
 
-    private handleError(error: any): Promise<any> {
+    private joinURL(baseUrl: string, objectUrl: string): string {
+        if (!objectUrl.endsWith('/')) { objectUrl = `${objectUrl}/`; }
+        return encodeURI(baseUrl + objectUrl);
+    }
+
+    private handleError(error: any): Observable<any> {
         console.error('An error occurred', error);
-        return Promise.reject(error.message || error);
+        return from(Promise.reject(error.message || error));
     }
 }

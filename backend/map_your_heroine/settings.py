@@ -121,6 +121,7 @@ USE_L10N = True
 
 USE_TZ = True
 
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
@@ -129,7 +130,6 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = []
 PROXY_FRONTEND = None
-VOYANT_URL = 'https://voyant.map-your-hero.hum.uu.nl'
 
 # key for downloads
 

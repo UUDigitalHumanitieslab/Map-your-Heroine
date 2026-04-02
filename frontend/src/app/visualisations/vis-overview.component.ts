@@ -1,13 +1,14 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { UntypedFormArray, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { MEDIUM_OPTIONS } from '../models/work';
 import { GENDER_OPTIONS } from '../models/hero';
 
 @Component({
-  selector: 'mh-vis-overview',
-  templateUrl: './vis-overview.component.html',
-  styleUrls: ['./vis-overview.component.scss']
+    selector: 'mh-vis-overview',
+    templateUrl: './vis-overview.component.html',
+    styleUrls: ['./vis-overview.component.scss'],
+    standalone: false
 })
 export class VisOverviewComponent implements OnInit {
   activeTab = 'work';
@@ -27,23 +28,23 @@ export class VisOverviewComponent implements OnInit {
     n_responses: undefined,
   };
 
-  filterForm = new FormGroup({
-    work_medium: new FormArray([]),
-    work_is_source: new FormArray([]),
-    hero_gender: new FormArray([])
+  filterForm = new UntypedFormGroup({
+    work_medium: new UntypedFormArray([]),
+    work_is_source: new UntypedFormArray([]),
+    hero_gender: new UntypedFormArray([])
   });
 
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
     this.mediumOptions.forEach(response =>
-      (this.filterForm.get('work_medium') as FormArray).push(new FormControl(response))
+      (this.filterForm.get('work_medium') as UntypedFormArray).push(new UntypedFormControl(response))
     );
     this.isSourceOptions.forEach(response =>
-      (this.filterForm.get('work_is_source') as FormArray).push(new FormControl(response.value))
+      (this.filterForm.get('work_is_source') as UntypedFormArray).push(new UntypedFormControl(response.value))
     );
     this.genderOptions.forEach(response =>
-      (this.filterForm.get('hero_gender') as FormArray).push(new FormControl(response.value))
+      (this.filterForm.get('hero_gender') as UntypedFormArray).push(new UntypedFormControl(response.value))
     );
     this.currentFilters = this.filterForm.value;
 
@@ -52,13 +53,13 @@ export class VisOverviewComponent implements OnInit {
   }
 
   onCheckboxChange(name, value, event) {
-    const checkArray: FormArray = this.filterForm.get(name) as FormArray;
+    const checkArray: UntypedFormArray = this.filterForm.get(name) as UntypedFormArray;
     if (event.target.checked) {
-      checkArray.push(new FormControl(value));
+      checkArray.push(new UntypedFormControl(value));
     }
     else {
       let i: number = 0;
-      checkArray.controls.forEach((item: FormControl, i: number) => {
+      checkArray.controls.forEach((item: UntypedFormControl, i: number) => {
         if (item.value === value) {
           checkArray.removeAt(i);
           return;
@@ -68,7 +69,7 @@ export class VisOverviewComponent implements OnInit {
   }
 
   formIsValid() {
-    const genderSelected = (this.filterForm.get('hero_gender') as FormArray).length > 0;
+    const genderSelected = (this.filterForm.get('hero_gender') as UntypedFormArray).length > 0;
     return genderSelected;
   }
 

@@ -483,7 +483,7 @@ class Plots:
     def age_plotdata(works, heroes, responses):
         age_counts = Counter(hero.age for hero in heroes if hero.age != 'UNKNOWN')
         ages = ['0-25', '26-35', '36-45', '46-55', '56-65', '65+']
-        total = sum(age_counts.values())
+        total = sum(age_counts.values()) or 1
 
         data = {
             'labels': ages,

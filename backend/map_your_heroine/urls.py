@@ -39,7 +39,6 @@ else:
 
 urlpatterns = [
     path('api/example/', ExampleView), # this is just an example, please delete and utilize router above.
-    path('api/voyant-url/', factual_views.voyant_url_view),
     path('api/download/<name>', factual_views.DownloadView.as_view()),
     path('admin', RedirectView.as_view(url='/admin/', permanent=True)),
     path('api', RedirectView.as_view(url='/api/', permanent=True)),
