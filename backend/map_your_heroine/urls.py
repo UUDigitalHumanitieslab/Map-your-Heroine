@@ -23,7 +23,6 @@ from rest_framework import routers
 from .index import index
 from .proxy_frontend import proxy_frontend
 
-from example.views import hooray as ExampleView # DELETEME, see below
 from factual import views as factual_views
 from visualisations import views as vis_views
 
@@ -38,7 +37,6 @@ else:
     spa_url = re_path(r'', index)
 
 urlpatterns = [
-    path('api/example/', ExampleView), # this is just an example, please delete and utilize router above.
     path('api/download/<name>', factual_views.DownloadView.as_view()),
     path('admin', RedirectView.as_view(url='/admin/', permanent=True)),
     path('api', RedirectView.as_view(url='/api/', permanent=True)),
