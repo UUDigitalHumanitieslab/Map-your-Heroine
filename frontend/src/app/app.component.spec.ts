@@ -1,10 +1,9 @@
 import { TestBed, waitForAsync } from '@angular/core/testing';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
 
 import { AppComponent } from './app.component';
 import { FooterComponent } from './footer/footer.component';
 import { MenuComponent } from './menu/menu.component';
+import { SharedTestingModule } from './shared-testing.module';
 
 describe('AppComponent', () => {
     beforeEach(waitForAsync(() => {
@@ -14,7 +13,7 @@ describe('AppComponent', () => {
                 MenuComponent,
                 FooterComponent
             ],
-            imports: [NoopAnimationsModule, RouterTestingModule]
+            imports: [SharedTestingModule]
         }).compileComponents();
     }));
 
@@ -34,6 +33,8 @@ describe('AppComponent', () => {
         const fixture = TestBed.createComponent(AppComponent);
         fixture.detectChanges();
         const compiled = fixture.debugElement.nativeElement;
-        expect(compiled.querySelector('.navbar-brand .navbar-item').textContent).toContain('Map your Heroine');
+        expect(
+            compiled.querySelector('.navbar-brand .navbar-item').textContent
+        ).toContain('Map your Hero(ine)');
     });
 });

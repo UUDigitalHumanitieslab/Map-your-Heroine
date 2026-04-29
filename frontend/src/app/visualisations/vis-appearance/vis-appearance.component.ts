@@ -4,9 +4,10 @@ import { LIKERTPLOTOPTIONS } from 'src/app/models/plotdata';
 import { SURVEY } from 'src/app/models/response';
 
 @Component({
-  selector: 'mh-vis-appearance',
-  templateUrl: './vis-appearance.component.html',
-  styleUrls: ['./vis-appearance.component.scss']
+    selector: 'mh-vis-appearance',
+    templateUrl: './vis-appearance.component.html',
+    styleUrls: ['./vis-appearance.component.scss'],
+    standalone: false
 })
 export class VisAppearanceComponent implements OnInit, OnChanges {
   @Input() plotData: any;

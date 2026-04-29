@@ -1,33 +1,30 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output, } from '@angular/core';
-import { Restangular } from 'ngx-restangular';
-import * as Survey from 'survey-angular';
 import { SURVEY } from '../models/response';
-
-Survey.StylesManager.applyTheme("default");
+import { Model } from 'survey-core';
 
 @Component({
-  selector: 'mh-response',
-  templateUrl: './response.component.html',
-  styleUrls: ['./response.component.scss'],
+    selector: 'mh-response',
+    templateUrl: './response.component.html',
+    styleUrls: ['./response.component.scss'],
+    standalone: false
 })
 
-export class ResponseComponent implements OnInit  {
+export class ResponseComponent implements OnInit {
 
-  surveyJSON = SURVEY;
+    surveyJSON = SURVEY;
+    survey: Model;
 
-  @Output()
-  completeResponse = new EventEmitter<any>();
+    @Output()
+    completeResponse = new EventEmitter<any>();
 
-  constructor(private restangular: Restangular) {}
+    constructor() { }
 
-  ngOnInit() {
-    var survey = new Survey.Model(this.surveyJSON);
-    survey.onComplete.add(this.sendDataToServer);
-    Survey.SurveyNG.render("surveyElement", {model: survey});
-  }
+    ngOnInit() {
+        this.survey = new Model(this.surveyJSON);
+        this.survey.onComplete.add(this.sendDataToServer);
+    }
 
-  sendDataToServer = (survey,completed) => {
-    this.completeResponse.emit(survey.data);
-  }
+    sendDataToServer = (survey, completed) => {
+        this.completeResponse.emit(survey.data);
+    }
 }

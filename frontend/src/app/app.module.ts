@@ -1,9 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi, withXsrfConfiguration } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import Aura from '@primeng/themes/aura';
+import { providePrimeNG } from 'primeng/config';
+
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -12,15 +15,13 @@ import { FooterComponent } from './footer/footer.component';
 import { MenuComponent } from './menu/menu.component';
 import { HomeComponent } from './home/home.component';
 import { WorkComponent } from './survey/work.component';
-import { RestangularModule } from 'ngx-restangular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { DropdownModule } from 'primeng/dropdown';
-import {ChipsModule} from 'primeng/chips';
-import {AutoCompleteModule} from 'primeng/autocomplete';
+import { SelectModule } from 'primeng/select';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 import { DialogModule } from 'primeng/dialog';
 import { PanelModule } from 'primeng/panel';
-import {ChartModule} from 'primeng/chart';
+import { ChartModule } from 'primeng/chart';
 import { OverviewComponent } from './survey/overview.component';
 import { HeroComponent } from './survey/hero.component';
 import { ResponseComponent } from './survey/response.component';
@@ -35,20 +36,7 @@ import { VisPersonalityComponent } from './visualisations/vis-personality/vis-pe
 import { VisAppearanceComponent } from './visualisations/vis-appearance/vis-appearance.component';
 import { VisProfessionComponent } from './visualisations/vis-profession/vis-profession.component';
 import { ResultComponent } from './survey/result.component';
-
-export function RestangularConfigFactory(RestangularProvider) {
-    RestangularProvider.setBaseUrl('/api');
-    RestangularProvider.addFullRequestInterceptor((element, operation, path, url, headers, params) => {
-        const token = decodeURIComponent(document.cookie);
-        if (token) {
-            const csrf = token.split(';').filter(item => item.trim().startsWith('csrft'))[0].split('=')[1];
-            return {
-                headers: Object.assign(headers, { 'X-CSRFToken': csrf }),
-            };
-        }
-    });
-    RestangularProvider.setRequestSuffix('/');
-}
+import { SurveyModule } from 'survey-angular-ui';
 
 @NgModule({
     declarations: [
@@ -72,27 +60,34 @@ export function RestangularConfigFactory(RestangularProvider) {
         VisProfessionComponent,
         ResultComponent
     ],
+    bootstrap: [AppComponent],
     imports: [
         AppRoutingModule,
         BrowserModule,
         BrowserAnimationsModule,
         FontAwesomeModule,
         FormsModule,
-        HttpClientModule,
-        HttpClientXsrfModule.withOptions({
-            cookieName: 'csrftoken',
-            headerName: 'X-CSRFToken'
-        }),
-        RestangularModule.forRoot(RestangularConfigFactory),
-        DropdownModule,
-        ChipsModule,
+        SelectModule,
         AutoCompleteModule,
         DialogModule,
         PanelModule,
         ReactiveFormsModule,
         ChartModule,
+        SurveyModule
     ],
-    providers: [],
-    bootstrap: [AppComponent]
+    providers: [
+        provideHttpClient(withInterceptorsFromDi(), withXsrfConfiguration({
+            cookieName: 'csrftoken',
+            headerName: 'X-CSRFToken'
+        })),
+        providePrimeNG({
+            theme: {
+                preset: Aura,
+                options: {
+                    darkModeSelector: ''
+                }
+            }
+        })
+    ]
 })
 export class AppModule { }

@@ -8,7 +8,8 @@ import { IWork } from '../models/work';
 @Component({
     selector: 'mh-result',
     templateUrl: './result.component.html',
-    styleUrls: ['./result.component.scss']
+    styleUrls: ['./result.component.scss'],
+    standalone: false
 })
 export class ResultComponent implements OnInit {
     @Input() work: IWork;
@@ -60,7 +61,7 @@ export class ResultComponent implements OnInit {
         }
 
         if (type in this.choicesFormatting) {
-            return this.choicesFormatting[type].find(option => option.value === response).label;
+            return this.choicesFormatting[type].find(option => option.value === response)?.label;
         }
 
         if (type === 'adaptation of') {
@@ -146,7 +147,7 @@ export class ResultComponent implements OnInit {
                 label: 'Is the hero(ine) considered attractive within the work?',
                 get_value: hero => this.formatResponse(hero.appearance, 'boolean'),
             }, {
-                label: 'Are the hero(ine)\'s sexual relations described?',
+                label: 'Are the hero(ine)\'s sexual relations explicitly described?',
                 get_value: hero => this.formatResponse(hero.sex, 'boolean'),
             }, {
                 label: 'Relatives',

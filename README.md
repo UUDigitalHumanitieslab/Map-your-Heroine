@@ -12,14 +12,13 @@ The documentation below is intended for developers. For more information about t
 
 You need to install the following software:
 
- - PostgreSQL >= 9.3, client, server and C libraries
- - Python >= 3.4, <= 3.7
- - virtualenv
+ - PostgreSQL >= 12, client, server and C libraries
+ - Python >= 3.12
+ - Python virtualenv
  - WSGI-compatible webserver (deployment only)
  - [Visual C++ for Python][1] (Windows only)
- - Node.js >= 8
+ - Node.js >= 22
  - Yarn
- - [WebDriver][2] for at least one browser (only for functional testing)
 
 [1]: https://wiki.python.org/moin/WindowsCompilers
 [2]: https://pypi.org/project/selenium/#drivers
@@ -31,12 +30,10 @@ This project integrates three isolated subprojects, each inside its own subdirec
 
  - **backend**: the server side web application based on [Django][3] and [DRF][4]
  - **frontend**: the client side web application based on [Angular](https://angular.io)
- - **functional-tests**: the functional test suite based on [Selenium][6] and [pytest][7]
 
 [3]: https://www.djangoproject.com
 [4]: https://www.django-rest-framework.org
 [6]: https://www.seleniumhq.org/docs/03_webdriver.jsp
-[7]: https://docs.pytest.org/en/latest/
 
 Each subproject is configurable from the outside. Integration is achieved using "magic configuration" which is contained inside the root directory together with this README. In this way, the subprojects can stay truly isolated from each other.
 
@@ -76,20 +73,15 @@ Steps 1–5 also include updating the unittests. Only functions should be tested
  4. Frontend model changes.
  5. Other frontend unit changes (templates, views, routers, FSMs).
  6. Frontend integration (globals, event bindings).
- 7. Run functional tests, repair broken functionality and broken tests.
- 8. [Add functional tests][9] for the new feature.
- 9. Update technical documentation.
-
-[9]: functional-tests/README.md#writing-tests
+ 7. Update technical documentation.
 
 For release branches, we suggest the following checklist.
 
  1. Bump the version number in the `package.json` next to this README.
- 2. Run the functional tests in production mode, fix bugs if necessary.
- 3. Try using the application in production mode, look for problems that may have escaped the tests.
- 4. Add regression tests (unit or functional) that detect problems from step 3.
- 5. Work on the code until new regression tests from step 4 pass.
- 6. Optionally, repeat steps 2–5 with the application running in a real deployment setup (see [Deployment](#deployment)).
+ 2. Try using the application in production mode, look for problems that may have escaped the tests.
+ 3. Add regression tests that detect problems from step 3.
+ 4. Work on the code until new regression tests from step 4 pass.
+ 5. Optionally, repeat steps 2–5 with the application running in a real deployment setup (see [Deployment](#deployment)).
 
 
 ### Commands for common tasks
@@ -108,29 +100,11 @@ Run backend and frontend in [production mode][8]:
 $ yarn start-p
 ```
 
-Run the functional test suite:
-
-```console
-$ yarn test-func [FUNCTIONAL TEST OPTIONS]
-```
-
-The functional test suite by default assumes that you have the application running locally in production mode (i.e., on port `4200`). See [Configuring the browsers][10] and [Configuring the base address][11] in `functional-tests/README` for options.
-
-[10]: functional-tests/README.md#configuring-the-browsers
-[11]: functional-tests/README.md#configuring-the-base-address
-
-Run *all* tests (mostly useful for continuous integration):
-
-```console
-$ yarn test [FUNCTIONAL TEST OPTIONS]
-```
-
 Run an arbitrary command from within the root of a subproject:
 
 ```console
 $ yarn back  [ARBITRARY BACKEND COMMAND HERE]
 $ yarn front [ARBITRARY FRONTEND COMMAND HERE]
-$ yarn func  [ARBITRARY FUNCTIONAL TESTS COMMAND HERE]
 ```
 
 For example,
@@ -165,19 +139,9 @@ $ yarn fyarn (add|remove|upgrade|...) (PACKAGE ...) [OPTIONS]
 
 ### Notes on Python package dependencies
 
-Both the backend and the functional test suite are Python-based and package versions are pinned using [pip-tools][13] in both subprojects. For ease of development, you most likely want to use the same virtualenv for both and this is also what the `bootstrap.py` assumes.
+The backend is Python-based and package versions are pinned using [pip-tools][13].
 
 [13]: https://pypi.org/project/pip-tools/
-
-This comes with a small catch: the subprojects each have their own separate `requirements.txt`. If you run `pip-sync` in one subproject, the dependencies of the other will be uninstalled. In order to avoid this, you run `pip install -r requirements.txt` instead. The `yarn` command does this correctly by default.
-
-Another thing to be aware of, is that `pip-compile` takes the old contents of your `requirements.txt` into account when building the new version based on your `requirements.in`. You can use the following trick to keep the requirements in both projects aligned so the versions of common packages don't conflict:
-
-```console
-$ yarn back pip-compile
-# append contents of backend/requirements.txt to functional-tests/requirements.txt
-$ yarn func pip-compile
-```
 
 
 ### Development mode vs production mode

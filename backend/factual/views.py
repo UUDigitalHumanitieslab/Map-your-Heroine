@@ -25,14 +25,11 @@ class ResponseViewSet(ModelViewSet):
     queryset = Response.objects.all()
 
 
-def voyant_url_view(request):
-    return JsonResponse({'url': settings.VOYANT_URL})
-
 class DownloadView(APIView):
     def get(self, request, name, format=None):
         if not 'password' in request.GET:
             return HttpResponseForbidden(reason='No password provided')
-        
+
         password = request.GET['password']
         if password != settings.DOWNLOAD_PWD:
             return HttpResponseForbidden(reason='Incorrect password')
@@ -42,7 +39,7 @@ class DownloadView(APIView):
             'heroes': download_heroes,
             'responses': download_responses
         }
-        
+
         if name in data_funcs:
             stream = StringIO()
             data = data_funcs[name]()
@@ -51,5 +48,5 @@ class DownloadView(APIView):
             response = HttpResponse(stream.getvalue(), content_type='text/plain')
             response['Content-Disposition'] = 'attachment; filename="{}"'.format(filename)
             return response
-        
+
         return HttpResponseBadRequest()

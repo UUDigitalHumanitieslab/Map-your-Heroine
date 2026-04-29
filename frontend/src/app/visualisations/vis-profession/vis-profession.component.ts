@@ -4,9 +4,10 @@ import { LIKERTPLOTOPTIONS } from 'src/app/models/plotdata';
 import { SURVEY } from 'src/app/models/response';
 
 @Component({
-  selector: 'mh-vis-profession',
-  templateUrl: './vis-profession.component.html',
-  styleUrls: ['./vis-profession.component.scss']
+    selector: 'mh-vis-profession',
+    templateUrl: './vis-profession.component.html',
+    styleUrls: ['./vis-profession.component.scss'],
+    standalone: false
 })
 export class VisProfessionComponent implements OnInit, OnChanges {
   @Input() plotData: any;
@@ -28,7 +29,7 @@ export class VisProfessionComponent implements OnInit, OnChanges {
       aspectRatio: 3
   };
 
-  constructor(private http: HttpClient) {
+  constructor() {
     this.survey.pages[this.surveyPage].elements.forEach(question => {
         if (question.type === 'rating') {
           this.plotNames = this.plotNames.concat(['response_' + question.name]);

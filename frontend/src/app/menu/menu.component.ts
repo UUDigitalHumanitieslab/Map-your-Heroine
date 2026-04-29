@@ -1,25 +1,20 @@
-import { Component, NgZone, OnInit } from '@angular/core';
+import { Component, NgZone } from '@angular/core';
 import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
 import { animations, showState } from '../animations';
-import { BackendService } from '../services/backend.service';
 
 @Component({
     animations,
     selector: 'mh-menu',
     templateUrl: './menu.component.html',
-    styleUrls: ['./menu.component.scss']
+    styleUrls: ['./menu.component.scss'],
+    standalone: false,
 })
-export class MenuComponent implements OnInit {
+export class MenuComponent {
     burgerShow: showState;
     burgerActive = false;
-    voyantUrl: string;
     faExternalLink = faExternalLinkAlt;
 
-    constructor(private ngZone: NgZone, private backend: BackendService) { }
-
-    ngOnInit() {
-        this.backend.get('voyant-url').then(res => this.voyantUrl = res.url);
-    }
+    constructor(private ngZone: NgZone) { }
 
     toggleBurger() {
         if (!this.burgerActive) {
