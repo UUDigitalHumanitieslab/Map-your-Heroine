@@ -3,7 +3,7 @@
   "scripts": {
     "ng": "ng",
     "start": "yarn serve",
-    "build": "ng build",
+    "build": "ng build --configuration=production --base-href=/static/",
     "test": "ng test",
     "lint": "ng lint",
     "i18n": "ng xi18n --output-path locale",
