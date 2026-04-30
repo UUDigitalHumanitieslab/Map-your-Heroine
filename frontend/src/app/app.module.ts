@@ -37,6 +37,7 @@ import { VisAppearanceComponent } from './visualisations/vis-appearance/vis-appe
 import { VisProfessionComponent } from './visualisations/vis-profession/vis-profession.component';
 import { ResultComponent } from './survey/result.component';
 import { SurveyModule } from 'survey-angular-ui';
+import { APP_BASE_HREF } from "@angular/common";
 
 @NgModule({
     declarations: [
@@ -58,7 +59,7 @@ import { SurveyModule } from 'survey-angular-ui';
         VisPersonalityComponent,
         VisAppearanceComponent,
         VisProfessionComponent,
-        ResultComponent
+        ResultComponent,
     ],
     bootstrap: [AppComponent],
     imports: [
@@ -73,21 +74,25 @@ import { SurveyModule } from 'survey-angular-ui';
         PanelModule,
         ReactiveFormsModule,
         ChartModule,
-        SurveyModule
+        SurveyModule,
     ],
     providers: [
-        provideHttpClient(withInterceptorsFromDi(), withXsrfConfiguration({
-            cookieName: 'csrftoken',
-            headerName: 'X-CSRFToken'
-        })),
+        provideHttpClient(
+            withInterceptorsFromDi(),
+            withXsrfConfiguration({
+                cookieName: "csrftoken",
+                headerName: "X-CSRFToken",
+            }),
+        ),
         providePrimeNG({
             theme: {
                 preset: Aura,
                 options: {
-                    darkModeSelector: ''
-                }
-            }
-        })
-    ]
+                    darkModeSelector: "",
+                },
+            },
+        }),
+        { provide: APP_BASE_HREF, useValue: "/" },
+    ],
 })
-export class AppModule { }
+export class AppModule {}
