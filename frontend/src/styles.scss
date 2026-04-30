@@ -1,6 +1,6 @@
-@import 'variables';
-@import 'bulma/bulma';
-@import "@creativebulma/bulma-divider";
+@use 'variables';
+@use 'bulma/bulma';
+@use "@creativebulma/bulma-divider";
 @import 'https://unpkg.com/survey-angular/survey.min.css';
 
 @media print {
@@ -20,7 +20,7 @@
 
         >tr>th,
         >tr>td {
-            border: solid 1px $dark !important;
+            border: solid 1px bulma.$dark !important;
         }
     }
 }
